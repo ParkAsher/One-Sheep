@@ -9,8 +9,8 @@ const jwt = require('jsonwebtoken')
 const cookieParser = require("cookie-parser")
 router.use(cookieParser())
 
-// const LoginController = require('../controllers/login.controller');
-// const loginController = new LoginController();
+const CustomerController = require('../controllers/login.controller');
+const customerController = new CustomerController();
 
 router.post('/login', async (req, res) => {
   const {id, password, type} = req.body
