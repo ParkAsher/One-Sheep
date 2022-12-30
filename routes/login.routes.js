@@ -9,8 +9,11 @@ const jwt = require('jsonwebtoken')
 const cookieParser = require("cookie-parser")
 router.use(cookieParser())
 
-const CustomerController = require('../controllers/login.controller');
+const CustomerController = require('../controllers/customer.controller');
 const customerController = new CustomerController();
+
+const DriverController = require('../controllers/driver.controller.js')
+const driverController = new DriverController()
 
 router.post('/login', async (req, res) => {
   const {id, password, type} = req.body
