@@ -3,7 +3,7 @@ const { Customer, Driver } = require('../models/index.js');
 
 class DriverService {
     // Repository
-    driverRepository = new DriverRepository(Driver, Customer);
+    driverRepository = new DriverRepository(Customer, Driver);
 
     createUser = async (id, name, password, image) => {
         try {

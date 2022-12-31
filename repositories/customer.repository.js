@@ -1,16 +1,23 @@
 class CustomerRepository {
-    constructor(CustomerModel) {
+    constructor(CustomerModel, DriverModel) {
         // 의존성 주입
         this.customerModel = CustomerModel;
+        this.driverModel = DriverModel;
     }
 
     // 해당 id를 가진 유저가 이미 존재하는지
     isUserExist = async (id) => {
         try {
-            const existUser = await this.customerModel.findAll({
+            // 고객 DB에 존재하는지?
+            const existCustomer = await this.customerModel.findAll({
                 where: { id },
             });
-            return existUser;
+
+            // 사장 DB에 존재하는지?
+            const existDriver = await this.driverModel.findAll({
+                where: { id },
+            });
+            return [existCustomer, existDriver];
         } catch (error) {
             // DB에서 발생한 Error
             error.name = 'Database Error';

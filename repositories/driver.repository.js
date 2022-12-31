@@ -1,8 +1,8 @@
 class DriverRepository {
-    constructor(DriverModel, CustomerModel) {
+    constructor(CustomerModel, DriverModel) {
         // 의존성 주입
-        this.driverModel = DriverModel;
         this.customerModel = CustomerModel;
+        this.driverModel = DriverModel;
     }
 
     // 해당 id를 가진 유저가 이미 존재하는지
