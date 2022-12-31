@@ -1,16 +1,23 @@
-class CustomerRepository {
-    constructor(CustomerModel) {
+class DriverRepository {
+    constructor(DriverModel, CustomerModel) {
         // 의존성 주입
+        this.driverModel = DriverModel;
         this.customerModel = CustomerModel;
     }
 
     // 해당 id를 가진 유저가 이미 존재하는지
     isUserExist = async (id) => {
         try {
-            const existUser = await this.customerModel.findAll({
+            // 고객 DB에 존재하는지?
+            const existCustomer = await this.customerModel.findAll({
                 where: { id },
             });
-            return existUser;
+
+            // 사장 DB에 존재하는지?
+            const existDriver = await this.driverModel.findAll({
+                where: { id },
+            });
+            return [existCustomer, existDriver];
         } catch (error) {
             // DB에서 발생한 Error
             error.name = 'Database Error';
@@ -20,9 +27,9 @@ class CustomerRepository {
         }
     };
 
-    createUser = async (id, name, password) => {
+    createUser = async (id, name, password, image) => {
         try {
-            await this.customerModel.create({ id, name, password });
+            await this.driverModel.create({ id, name, password, image });
             return { status: 200, success: true, message: '회원가입에 성공하였습니다.' };
         } catch (error) {
             error.name = 'Database Error';
@@ -33,4 +40,4 @@ class CustomerRepository {
     };
 }
 
-module.exports = CustomerRepository;
+module.exports = DriverRepository;

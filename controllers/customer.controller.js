@@ -1,7 +1,7 @@
 const CustomerService = require('../services/customer.service.js');
 
 // Joi
-const { registerBodyValidateSchema } = require('../lib/JoiSchema.js');
+const { customerRegisterValidateSchema } = require('../lib/JoiSchema.js');
 
 class CustomerController {
     // Service
@@ -10,11 +10,11 @@ class CustomerController {
     // 고객 회원가입
     signUp = async (req, res, next) => {
         try {
-            const { id, name, password, passwordCheck } = await registerBodyValidateSchema.validateAsync(req.body);
+            const { id, name, password, passwordCheck } = await customerRegisterValidateSchema.validateAsync(req.body);
 
             const signUpResult = await this.customerService.createUser(id, name, password);
 
-            return res.status(200).json({ success: signUpResult.success, message: signUpResult.message });
+            return res.status(signUpResult.status).json({ success: signUpResult.success, message: signUpResult.message });
         } catch (error) {
             // Joi Error
             if (error.name === 'ValidationError') {
@@ -28,7 +28,6 @@ class CustomerController {
                         }
                         error.message = '아이디의 형식이 일치하지 않습니다.';
                         break;
-
                     case 'name':
                         if (error.details[0].type === 'string.empty') {
                             error.message = '이름을 입력해주세요.';

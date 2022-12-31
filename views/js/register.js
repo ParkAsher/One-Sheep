@@ -29,8 +29,8 @@ function upload_image(e) {
         processData: false,
         data: formData,
         success: function (response) {
-            let image_url = response.filePath;
-            $('#register-image').attr('value', image_url);
+            let imageUrl = response.filePath;
+            $('#register-image-value').attr('value', imageUrl);
         },
     });
 }
@@ -45,6 +45,8 @@ function register() {
     let password = $('#password').val();
     // password-check
     let passwordCheck = $('#password-check').val();
+    // image
+    let image = $('#register-image-value').val();
 
     // role value
     let checkedRole = $('input[name=role]:checked').val();
@@ -53,18 +55,17 @@ function register() {
         return;
     }
 
-    let body = {
-        id: id,
-        name: name,
-        password: password,
-        passwordCheck: passwordCheck,
-    };
-
+    // 고객 선택
     if (checkedRole === 'customer') {
         $.ajax({
             type: 'POST',
             url: '/api/users/customers/signup',
-            data: body,
+            data: {
+                id: id,
+                name: name,
+                password: password,
+                passwordCheck: passwordCheck,
+            },
             success: function (response) {
                 console.log(response);
             },
@@ -79,6 +80,29 @@ function register() {
         });
     }
 
+    // 사장 선택
     if (checkedRole === 'driver') {
+        $.ajax({
+            type: 'POST',
+            url: '/api/users/drivers/signup',
+            data: {
+                id: id,
+                name: name,
+                password: password,
+                passwordCheck: passwordCheck,
+                image: image,
+            },
+            success: function (response) {
+                console.log(response);
+            },
+            error: function (response) {
+                console.log(response.responseJSON.message);
+                $('.error-message-wrap').empty();
+                let temp = `
+                    <p>${response.responseJSON.message}</p>
+                `;
+                $('.error-message-wrap').append(temp);
+            },
+        });
     }
 }
