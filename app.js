@@ -5,6 +5,7 @@ const port = 1004;
 const router = require('./routes');
 
 /* router */
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use('/api', router);
 

@@ -1,52 +1,51 @@
-<div class="register-container">
-    <div class="register-wrap">
-        <div class="register-form">
-            <div class="register-title-wrap">
-                <p>회원가입</p>
-            </div>
-            <div class="register-id-wrap">
-                <p>아이디</p>
-                <input class="register-id-input" placeholder="아이디" />
-            </div>
-            <div class="register-name-wrap">
-                <p>이름</p>
-                <input class="register-name-input" placeholder="이름" />
-            </div>
-            <div class="register-password-wrap">
-                <p>비밀번호</p>
-                <input class="register-password-input" placeholder="비밀번호" />
-            </div>
-            <div class="register-password-check-wrap">
-                <p>비밀번호 확인</p>
-                <input class="register-password-check-input" placeholder="비밀번호 확인" />
-            </div>
-            <div class="register-role-wrap">
-                <p>역할</p>
-                <div class="register-role-input-wrap">
-                    <div class="customer-role-wrap">
-                        <label>
-                            <input type="radio" class="radio-role" id="customer-role" name="role" value="customer" />
-                            <span>Customer</span>
-                        </label>
-                    </div>
-                    <div class="driver-role-wrap">
-                        <label>
-                            <input type="radio" class="radio-role" id="driver-role" name="role" value="driver" />
-                            <span for="driver-role">Driver</span>
-                        </label>
-                    </div>
+<div class="register-wrap">
+    <div class="register-form">
+        <div class="register-title-wrap">
+            <p>회원가입</p>
+        </div>
+        <div class="register-id-wrap">
+            <p>아이디</p>
+            <input id="id" class="register-id-input" placeholder="아이디" />
+        </div>
+        <div class="register-name-wrap">
+            <p>이름</p>
+            <input id="name" class="register-name-input" placeholder="이름" />
+        </div>
+        <div class="register-password-wrap">
+            <p>비밀번호</p>
+            <input id="password" class="register-password-input" placeholder="비밀번호" />
+        </div>
+        <div class="register-password-check-wrap">
+            <p>비밀번호 확인</p>
+            <input id="password-check" class="register-password-check-input" placeholder="비밀번호 확인" />
+        </div>
+        <div class="register-role-wrap">
+            <p>역할</p>
+            <div class="register-role-input-wrap">
+                <div class="customer-role-wrap">
+                    <label>
+                        <input type="radio" class="radio-role" id="customer-role" name="role" value="customer" />
+                        <span>Customer</span>
+                    </label>
+                </div>
+                <div class="driver-role-wrap">
+                    <label>
+                        <input type="radio" class="radio-role" id="driver-role" name="role" value="driver" />
+                        <span for="driver-role">Driver</span>
+                    </label>
                 </div>
             </div>
-            <div class="register-image-wrap">
-                <p>이미지 업로드</p>
-                <input type="file" id="register-image" accept="image/*" disabled />
-            </div>
-            <div class="register-btn-wrap">
-                <button type="button">가입하기</button>
-            </div>
-            <div class="register-to-login-wrap">
-                <a href="/">로그인 하러가기</a>
-            </div>
+        </div>
+        <div class="register-image-wrap">
+            <p>이미지 업로드</p>
+            <input type="file" id="register-image" accept="image/*" disabled />
+        </div>
+        <div class="error-message-wrap"></div>
+        <div class="register-btn-wrap">
+            <button type="button" onclick="register()">가입하기</button>
+        </div>
+        <div class="register-to-login-wrap">
+            <a href="/">로그인 하러가기</a>
         </div>
     </div>
 </div>
