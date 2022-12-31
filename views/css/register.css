@@ -1,0 +1,135 @@
+.register-container {
+    width: 100%;
+    height: calc(100vh - 100px);
+}
+
+.register-container .register-wrap {
+    width: 1320px;
+    height: 100%;
+    margin: 0 auto;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-container .register-wrap .register-form {
+    width: 800px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 1px solid #d3d3d3;
+    padding: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
+.register-container .register-wrap .register-form .register-title-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-bottom: 2rem;
+}
+
+.register-container .register-wrap .register-form .register-title-wrap p {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.register-container .register-wrap .register-form .register-id-wrap,
+.register-container .register-wrap .register-form .register-name-wrap,
+.register-container .register-wrap .register-form .register-password-wrap,
+.register-container .register-wrap .register-form .register-password-check-wrap,
+.register-container .register-wrap .register-form .register-role-wrap,
+.register-container .register-wrap .register-form .register-image-wrap {
+    width: 100%;
+}
+
+.register-container .register-wrap .register-form .register-id-wrap p,
+.register-container .register-wrap .register-form .register-name-wrap p,
+.register-container .register-wrap .register-form .register-password-wrap p,
+.register-container .register-wrap .register-form .register-password-check-wrap p,
+.register-container .register-wrap .register-form .register-role-wrap p,
+.register-container .register-wrap .register-form .register-image-wrap p {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.register-container .register-wrap .register-form .register-id-wrap input,
+.register-container .register-wrap .register-form .register-name-wrap input,
+.register-container .register-wrap .register-form .register-password-wrap input,
+.register-container .register-wrap .register-form .register-password-check-wrap input,
+.register-container .register-wrap .register-form .register-image-wrap input {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 5px;
+    border: 1px solid #d3d3d3;
+    box-sizing: border-box;
+    margin-bottom: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
+.register-container .register-wrap .register-form .register-id-wrap input:focus,
+.register-container .register-wrap .register-form .register-name-wrap input:focus,
+.register-container .register-wrap .register-form .register-password-wrap input:focus,
+.register-container .register-wrap .register-form .register-password-check-wrap input:focus {
+    outline: 2px solid skyblue;
+}
+
+.register-container .register-wrap .register-form .register-role-wrap .register-role-input-wrap {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.register-container .register-wrap .register-form .register-role-wrap .register-role-input-wrap span {
+    vertical-align: middle;
+}
+
+input[type='radio'] {
+    vertical-align: middle;
+    appearance: none;
+    border: 1px solid #d3d3d3;
+    border-radius: 50%;
+    width: 1.25em;
+    height: 1.25em;
+}
+
+input[type='radio']:checked {
+    border: 0.4rem solid skyblue;
+}
+
+.register-container .register-wrap .register-form .register-btn-wrap {
+    width: 100%;
+}
+
+.register-container .register-wrap .register-form .register-btn-wrap button {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 5px;
+    background-color: skyblue;
+    border: none;
+    box-sizing: border-box;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.register-container .register-wrap .register-form .register-to-login-wrap {
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-container .register-wrap .register-form .register-to-login-wrap a {
+    font-weight: bold;
+    color: #000000;
+}
+
+.register-container .register-wrap .register-form .register-to-login-wrap a:hover {
+    color: #000000;
+}
