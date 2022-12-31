@@ -43,6 +43,7 @@
 .register-container .register-wrap .register-form .register-role-wrap,
 .register-container .register-wrap .register-form .register-image-wrap {
     width: 100%;
+    margin-bottom: 1.25rem;
 }
 
 .register-container .register-wrap .register-form .register-id-wrap p,
@@ -66,7 +67,6 @@
     border-radius: 5px;
     border: 1px solid #d3d3d3;
     box-sizing: border-box;
-    margin-bottom: 1rem;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 }
 

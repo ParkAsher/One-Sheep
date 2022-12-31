@@ -1,11 +1,15 @@
 const express = require('express');
 const router = express.Router();
 
-// const DriverController = require('../controllers/driver.controller');
-// const driverController = new DriverController();
+// upload
+const setUpload = require('../util/upload.js');
 
-router.post('/driver/signup', (req, res) => {
-    
-})
+// controllers
+const DriverController = require('../controllers/driver.controller');
+const driverController = new DriverController();
+
+// 이미지업로드
+router.post('/drivers/image', setUpload('one-sheep/driverImage'), driverController.imageUpload);
+//router.post('/driver/signup');
 
 module.exports = router;
