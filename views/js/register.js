@@ -68,6 +68,7 @@ function register() {
             },
             success: function (response) {
                 console.log(response);
+                window.location.href('/');
             },
             error: function (response) {
                 console.log(response.responseJSON.message);
@@ -94,6 +95,7 @@ function register() {
             },
             success: function (response) {
                 console.log(response);
+                window.location.href('/');
             },
             error: function (response) {
                 console.log(response.responseJSON.message);

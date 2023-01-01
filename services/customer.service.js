@@ -1,5 +1,6 @@
 const CustomerRepository = require('../repositories/customer.repository.js');
 const { Customer, Driver } = require('../models/index.js');
+const bcrypt = require('bcrypt');
 
 class CustomerService {
     // Repository
@@ -17,8 +18,11 @@ class CustomerService {
                 throw error;
             }
 
+            // 비밀번호 암호화
+            const hashedPassword = await bcrypt.hash(password, 10);
+
             // 회원가입 진행
-            return await this.customerRepository.createUser(id, name, password);
+            return await this.customerRepository.createUser(id, name, hashedPassword);
         } catch (error) {
             throw error;
         }

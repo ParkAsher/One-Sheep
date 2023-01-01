@@ -1,5 +1,6 @@
 const DriverRepository = require('../repositories/driver.repository.js');
 const { Customer, Driver } = require('../models/index.js');
+const bcrypt = require('bcrypt');
 
 class DriverService {
     // Repository
@@ -17,8 +18,11 @@ class DriverService {
                 throw error;
             }
 
+            // 비밀번호 암호화
+            const hashedPassword = await bcrypt.hash(password, 10);
+
             // 회원가입 진행
-            return await this.driverRepository.createUser(id, name, password, image);
+            return await this.driverRepository.createUser(id, name, hashedPassword, image);
         } catch (error) {
             throw error;
         }
