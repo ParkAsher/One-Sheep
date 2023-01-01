@@ -11,6 +11,7 @@ class OrderRepository {
             // Order DB에 해당하는 사장의 내역이 있는지?
             // 고객 이름을 가져오기 위해 Customer DB와 inn
             const findOrder = await this.orderModel.findAll({
+                order: [['createdAt', 'DESC']],
                 where: { driverId },
                 include: [
                     {
