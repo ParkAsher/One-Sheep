@@ -10,7 +10,7 @@ class OrderController {
     // 사장페이지 오더 가져오기
     getDriverOrder = async (req, res, next) => {
         try {
-            const driverId = await driverIdValidateSchema.validateAsync(req.params.driverId);
+            const driverId = await driverIdValidateSchema.validateAsync(req.query.driverId);
 
             const getDriverOrderResult = await this.orderService.findDriverOrder(driverId);
             console.log(getDriverOrderResult);

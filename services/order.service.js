@@ -21,7 +21,7 @@ class OrderService {
                     address: order.address,
                     request: order.request,
                     status: order.status,
-                    usageDateTimeStart: moment(order.usageDateTimeStart, 'YYYY-MM-DD HH:mm:ss'),
+                    usageDateTimeStart: moment(order.usageDateTimeStart).format('YYYY-MM-DD HH:mm:ss'),
                     usageTime: order.usageTime,
                     customerName: order.Customer.name,
                 };
