@@ -17,4 +17,7 @@ router.post(
 // 사장 회원가입
 router.post("/drivers/signup", driverController.signUp);
 
+// 특정 사장님 캠핑카 정보
+router.get('/drivers/:driverId', driverController.getDriverById)
+
 module.exports = router;

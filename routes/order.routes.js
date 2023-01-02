@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-// Controller에 있는것을 가져와서 사용하게 선언
-const CustomerController = require("../controllers/customer.controller");
-// const customerController = new CustomerController();
+// controllers
+Controller에 있는것을 가져와서 사용하게 선언
+const CustomerController = require("../controllers/customer.controller.js");
+const customerController = new CustOmerController();
 
 // Controller가 실제로 API 동작을 하게끔 router와 Controller의 메서드를 연결
 // 회원 이용내역 조회
@@ -20,15 +21,9 @@ router.get("/:customerId", CustomerController.getUserUse);
 /*
 <테스트 코드 작성하기>
 
-1. 단위 테스트(Unit Test)
-    - `Controller`, `Service` Layer 내에서 함수 범위로 
-    단위 테스트(Unit Test) 구현하기
-    - 단위 테스트(Unit Test) 코드 실행 시 데이터베이스에 연결하는 것이 
-    아니라 코드 안에서 데이터를 임시로 정의한 후 테스트하기
-2. 통합 테스트(Integration Test)
-*/
+// 사장페이지 오더 가져오기
+router.get('/driver', orderController.getDriverOrder);
 
-// router.get('/', postsController.getPosts);
-// router.post('/', postsController.createPost);
+router.post('/:driverId', orderController.createOrder);
 
 module.exports = router;

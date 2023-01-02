@@ -1,0 +1,83 @@
+.driver-wrap {
+    width: 1320px;
+    height: 100%;
+    margin: 5rem auto;
+}
+
+.driver-wrap .order-in-progress-title-wrap,
+.driver-wrap .order-complete-title-wrap {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.driver-wrap .order-in-progress-title-wrap p,
+.driver-wrap .order-complete-title-wrap p {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.driver-wrap #order-in-progress-content-container,
+.driver-wrap #data-container {
+    width: 100%;
+    margin-bottom: 5rem;
+}
+
+.driver-wrap .order-in-progress-content-wrap,
+.driver-wrap .order-complete-content-wrap {
+    padding: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    overflow: hidden;
+    word-wrap: break-word;
+    margin-bottom: 2rem;
+
+    display: flex;
+}
+
+.driver-wrap .order-in-progress-content-wrap .content-left,
+.driver-wrap .order-in-progress-content-wrap .content-right {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.driver-wrap .order-in-progress-content-wrap .content-left .content-head,
+.driver-wrap .order-in-progress-content-wrap .content-right .content-head {
+    width: 25%;
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+.driver-wrap .order-in-progress-content-wrap .content-left .content-body,
+.driver-wrap .order-in-progress-content-wrap .content-right .content-body {
+    width: 75%;
+}
+
+.driver-wrap .order-in-progress-content-wrap .content-left .content-left-customer,
+.driver-wrap .order-in-progress-content-wrap .content-left .content-left-phone,
+.driver-wrap .order-in-progress-content-wrap .content-left .content-left-address,
+.driver-wrap .order-in-progress-content-wrap .content-left .content-left-status,
+.driver-wrap .order-in-progress-content-wrap .content-right .content-right-request,
+.driver-wrap .order-in-progress-content-wrap .content-right .content-right-usageDate,
+.driver-wrap .order-in-progress-content-wrap .content-right .content-right-usageTime {
+    display: flex;
+    margin: 1rem 0;
+}
+
+.message {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: red;
+}
+
+.paginationjs {
+    display: flex;
+    justify-content: center;
+}
+
+.paginationjs-pages li.active > a {
+    background-color: skyblue !important;
+}
