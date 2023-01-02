@@ -1,7 +1,7 @@
 const OrderService = require('../services/order.service.js');
 
 // Joi
-const { driverIdValidateSchema } = require('../lib/JoiSchema.js');
+const { driverIdValidateSchema, orderRegisterValidateSchema } = require('../lib/JoiSchema.js');
 
 class OrderController {
     // Service
@@ -37,20 +37,31 @@ class OrderController {
         const driverId = req.params;
         const { phone, address, usageDateTimeStart, usageTime } = req.body;
 
-        // authMiddleware에서 userId 가져와야함
-        const { customer } = res.locals;
-        const customerId = customer.dataValues.customerId;
+        // authMiddleware에서 customerId 불러옴
+        const { customerId } = res.locals.user;
+
+        console.log(customerId,
+            driverId,
+            phone,
+            address,
+            request,
+            usageDateTimeStart,
+            usageTime)
 
         try {
-            const order = await OrderService.createOrder({
-                customerId,
-                driverId,
-                phone,
-                address,
-                request,
-                usageDateTimeStart,
-                usageTime,
-            });
+            // const validateOrder = await orderRegisterValidateSchema.validateAsync(req.body)
+
+            // console.log(validateOrder)
+
+            // const order = await this.orderService.createOrder({
+            //     customerId,
+            //     driverId,
+            //     phone,
+            //     address,
+            //     request,
+            //     usageDateTimeStart,
+            //     usageTime,
+            // });
 
             res.status(201).json(order);
         } catch (error) {
