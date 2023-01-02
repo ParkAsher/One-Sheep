@@ -40,7 +40,7 @@ class CustomerController {
                             error.message = '비밀번호를 입력해주세요.';
                             break;
                         }
-                        error.message = '이름의 형식이 일치하지 않습니다.';
+                        error.message = '비밀번호 형식 일치하지 않습니다.';
                         break;
                     case 'passwordCheck':
                         if (error.details[0].type === 'string.empty') {
