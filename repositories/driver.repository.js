@@ -1,4 +1,4 @@
-class CustomerRepository {
+class DriverRepository {
     constructor(CustomerModel, DriverModel) {
         // 의존성 주입
         this.customerModel = CustomerModel;
@@ -27,9 +27,9 @@ class CustomerRepository {
         }
     };
 
-    createUser = async (id, name, password) => {
+    createUser = async (id, name, password, image) => {
         try {
-            await this.customerModel.create({ id, name, password });
+            await this.driverModel.create({ id, name, password, image });
             return { status: 200, success: true, message: '회원가입에 성공하였습니다.' };
         } catch (error) {
             error.name = 'Database Error';
@@ -40,4 +40,4 @@ class CustomerRepository {
     };
 }
 
-module.exports = CustomerRepository;
+module.exports = DriverRepository;

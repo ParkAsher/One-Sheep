@@ -1,18 +1,24 @@
-const CustomerService = require('../services/customer.service.js');
+const DriverService = require('../services/driver.service.js');
 
 // Joi
-const { customerRegisterValidateSchema } = require('../lib/JoiSchema.js');
+const { driverRegisterValidateSchema } = require('../lib/JoiSchema.js');
 
-class CustomerController {
+class DriverController {
     // Service
-    customerService = new CustomerService();
+    driverService = new DriverService();
 
-    // 고객 회원가입
+    // 이미지 업로드
+    imageUpload = async (req, res, next) => {
+        return res.status(200).json({ success: true, filePath: res.req.file.location });
+    };
+
+    // 사장 회원가입
     signUp = async (req, res, next) => {
         try {
-            const { id, name, password, passwordCheck } = await customerRegisterValidateSchema.validateAsync(req.body);
+            const { id, name, password, passwordCheck, image } = await driverRegisterValidateSchema.validateAsync(req.body);
+            console.log(req.body);
 
-            const signUpResult = await this.customerService.createUser(id, name, password);
+            const signUpResult = await this.driverService.createUser(id, name, password, image);
 
             return res.status(signUpResult.status).json({ success: signUpResult.success, message: signUpResult.message });
         } catch (error) {
@@ -49,6 +55,11 @@ class CustomerController {
                         }
                         error.message = '비밀번호가 일치하지 않습니다.';
                         break;
+                    case 'image':
+                        if (error.details[0].type === 'string.empty') {
+                            error.message = '이미지를 선택해주세요.';
+                            break;
+                        }
                     default:
                         break;
                 }
@@ -59,4 +70,4 @@ class CustomerController {
     };
 }
 
-module.exports = CustomerController;
+module.exports = DriverController;

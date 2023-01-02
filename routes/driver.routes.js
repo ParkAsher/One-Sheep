@@ -1,11 +1,16 @@
 const express = require('express');
 const router = express.Router();
 
-// const DriverController = require('../controllers/driver.controller');
-// const driverController = new DriverController();
+// upload
+const setUpload = require('../util/upload.js');
 
-router.post('/drivers/signup', (req, res) => {
-    
-})
+// controllers
+const DriverController = require('../controllers/driver.controller.js');
+const driverController = new DriverController();
+
+// 이미지업로드
+router.post('/drivers/image', setUpload('one-sheep/driverImage'), driverController.imageUpload);
+// 사장 회원가입
+router.post('/drivers/signup', driverController.signUp);
 
 module.exports = router;
