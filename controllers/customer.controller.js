@@ -66,6 +66,25 @@ class CustomerController {
         .json({ success: error.success, message: error.message });
     }
   };
+
+  // 회원 이용내역 조회
+  getUserUse = async (req, res, next) => {
+    try {
+      const customerId = req.params.customerId;
+      // 서비스 계층에 구현된 getUserUse 로직을 실행합니다.
+      const UserUseResult = await this.customerService.getUserUse(customerId);
+
+      return res.status(200).json({
+        success: true,
+        message: "이용내역을 불러왔습니다.",
+        UserUseResult: UserUseResult,
+      });
+    } catch (error) {
+      return res
+        .status(error.status)
+        .json({ success: error.success, message: error.message });
+    }
+  };
 }
 
 module.exports = CustomerController;

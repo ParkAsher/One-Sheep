@@ -2,23 +2,12 @@ const express = require("express");
 const router = express.Router();
 
 // Controller에 있는것을 가져와서 사용하게 선언
-const CustomerController = require('../controllers/customer.controller');
-const CustomerController = new CustomerController();
+const CustomerController = require("../controllers/customer.controller");
+// const customerController = new CustomerController();
 
 // Controller가 실제로 API 동작을 하게끔 router와 Controller의 메서드를 연결
 // 회원 이용내역 조회
-router.get('/:customerId', CustomerController.getUseruse);
-
-// 리뷰 등록 (모달)
-router.post('/:orderId', CustomerController.createContent);
-
-// 회원 이용내역 조회
-// router.get("/:customerId", (req, res) => {});
-
-// 리뷰 등록 (모달)
-// router.post("/:orderId/review", (req, res) => {});
-
-module.exports = router;
+router.get("/:customerId", CustomerController.getUserUse);
 
 /*
 <프로젝트 구조 개선하기>
@@ -39,11 +28,7 @@ module.exports = router;
 2. 통합 테스트(Integration Test)
 */
 
+// router.get('/', postsController.getPosts);
+// router.post('/', postsController.createPost);
 
-
-
-
-router.get('/', postsController.getPosts);
-router.post('/', postsController.createPost);
-
-module.exports = router;"
+module.exports = router;
