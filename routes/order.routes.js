@@ -8,4 +8,6 @@ const orderController = new OrderController();
 // 사장페이지 오더 가져오기
 router.get('/driver', orderController.getDriverOrder);
 
+router.post('/:driverId', orderController.createOrder);
+
 module.exports = router;

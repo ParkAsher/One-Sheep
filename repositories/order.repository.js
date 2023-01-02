@@ -1,3 +1,5 @@
+const { Order } = require('../models');
+
 class OrderRepository {
     constructor(OrderModel, CustomerModel) {
         // 의존성 주입
@@ -30,6 +32,21 @@ class OrderRepository {
             error.status = 400;
             throw error;
         }
+    };
+
+    // 오더 신청
+    createOrder = async (customerId, driverId, phone, address, request, usageDateTimeStart, usageTime) => {
+        const createOrderData = await Order.create({
+            customerId,
+            driverId,
+            phone,
+            address,
+            request,
+            usageDateTimeStart,
+            usageTime,
+        });
+
+        return createOrderData;
     };
 }
 

@@ -68,6 +68,19 @@ class DriverController {
             return res.status(error.status).json({ success: error.success, message: error.message });
         }
     };
+
+    // 특정 사장님 캠핑카 정보
+    getDriverById = async (req, res) => {
+        const {driverId} = req.params
+
+        try {
+            const driver  = await this.driverService.getDriverById(driverId)
+
+            return res.status(200).send(driver)
+        } catch (error) {
+            return res.status(error.status).json({success: error.success, message: error.message})
+        }
+    }
 }
 
 module.exports = DriverController;

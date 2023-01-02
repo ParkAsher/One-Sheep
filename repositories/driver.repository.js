@@ -38,6 +38,24 @@ class DriverRepository {
             throw error;
         }
     };
+
+    // 특정 사장님 캠핑카 정보 조회
+    getDriverById = async (driverId) => {
+        try {
+            // 사장 DB에 해당 id가 존재하는지 확인
+            const driver = await this.driverModel.findAll({
+                where: {driverId},
+                attributes: ['name', 'image']
+            })
+
+            return driver
+        } catch (error) {
+            error.name = 'Database Error';
+            error.message = '요청을 처리하지 못하였습니다.';
+            error.status = 400;
+            throw error;
+        }
+    }
 }
 
 module.exports = DriverRepository;
