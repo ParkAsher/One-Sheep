@@ -13,7 +13,7 @@ class OrderController {
             const driverId = await driverIdValidateSchema.validateAsync(req.query.driverId);
 
             const getDriverOrderResult = await this.orderService.findDriverOrder(driverId);
-            console.log(getDriverOrderResult);
+            // console.log(getDriverOrderResult);
 
             res.status(200);
             if (getDriverOrderResult.length === 0) {
@@ -42,7 +42,7 @@ class OrderController {
         const customerId = customer.dataValues.customerId;
 
         try {
-            const order = await OrderService.createOrder({
+            const order = await this.orderService.createOrder({
                 customerId,
                 driverId,
                 phone,
@@ -55,6 +55,20 @@ class OrderController {
             res.status(201).json(order);
         } catch (error) {
             res.status(400).send(error);
+        }
+    };
+
+    // 사장페이지 오더 상태변경
+    changeStatus = async (req, res, next) => {
+        try {
+            const orderId = req.params.orderId;
+            const status = req.body.status;
+
+            const changeStatusResult = await this.orderService.changeStatus(orderId, status);
+            return res.status(changeStatusResult.status).json({ success: changeStatusResult.success, message: changeStatusResult.message });
+        } catch (error) {
+            console.log(error);
+            return res.status(error.status).json({ success: error.success, message: error.message });
         }
     };
 }

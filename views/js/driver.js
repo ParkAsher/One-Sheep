@@ -36,8 +36,8 @@ $(document).ready(function () {
         },
     });
 
-    console.log(orderInProgress);
-    console.log(dataSource);
+    //console.log(orderInProgress);
+    //console.log(dataSource);
 
     if (orderInProgress.length !== 0 && dataSource.length === 0) {
         // 진행 중인 신청 내용이 있고, 완료된 내역이 없을때
@@ -86,6 +86,10 @@ $(document).ready(function () {
                 </div>
             `;
             $('#order-in-progress-content-container').append(orderHtml);
+
+            if (orderInProgress[i].status === '이동중' || orderInProgress[i].status === '서비스이용중' || orderInProgress[i].status === '접수완료') {
+                $('.order-btn-wrap').css('display', 'none');
+            }
         }
 
         let messageHtml = `
@@ -211,6 +215,10 @@ $(document).ready(function () {
                 </div>
             `;
             $('#order-in-progress-content-container').append(orderHtml);
+
+            if (orderInProgress[i].status === '이동중' || orderInProgress[i].status === '서비스이용중' || orderInProgress[i].status === '접수완료') {
+                $('.order-btn-wrap').css('display', 'none');
+            }
         }
 
         let container = $('#pagination');
@@ -273,7 +281,7 @@ $(document).ready(function () {
 function statusChange(status) {
     // 해당 신청 번호
     let orderId = $('.order-in-progress-content-wrap').attr('orderId');
-    // 상태
+    // 변경 할 상태
     let statusValue = status;
 
     let result = confirm('정말 상태를 변경하시겠습니까?');
@@ -285,7 +293,11 @@ function statusChange(status) {
         type: 'PUT',
         url: '/api/orders/' + orderId + '/status',
         data: { status: statusValue },
-        success: function (response) {},
-        error: function (response) {},
+        success: function (response) {
+            window.location.reload();
+        },
+        error: function (response) {
+            console.log(response.responseJSON.message);
+        },
     });
 }
