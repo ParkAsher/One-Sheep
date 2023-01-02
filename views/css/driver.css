@@ -18,6 +18,12 @@
     font-weight: bold;
 }
 
+.driver-wrap #order-in-progress-content-container,
+.driver-wrap #data-container {
+    width: 100%;
+    margin-bottom: 5rem;
+}
+
 .driver-wrap .order-in-progress-content-wrap,
 .driver-wrap .order-complete-content-wrap {
     padding: 1rem;
@@ -27,7 +33,7 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     overflow: hidden;
     word-wrap: break-word;
-    margin-bottom: 5rem;
+    margin-bottom: 2rem;
 
     display: flex;
 }
