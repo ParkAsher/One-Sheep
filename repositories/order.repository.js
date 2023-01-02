@@ -1,6 +1,7 @@
 const {Order} = require('../models')
 
 class OrderRepository {
+    // 오더 신청
     createOrder = async (customerId,
                         driverId,
                         phone,

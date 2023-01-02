@@ -13,4 +13,21 @@ router.post('/drivers/image', setUpload('one-sheep/driverImage'), driverControll
 // 사장 회원가입
 router.post('/drivers/signup', driverController.signUp);
 
+
+const { Driver } = require('../models/index.js');
+router.get('/drivers/:driverId', driverController.getDriverById)
+
+// async (req,res) => {
+//     const {driverId} = req.params
+
+//     const driver = await Driver.findAll({
+//         where: {driverId},
+//         attributes: ['name', 'image']
+//     })
+
+//     res.status(200).send(driver[0])
+
+
+// }
+
 module.exports = router;

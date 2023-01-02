@@ -1,6 +1,7 @@
-const OrderService = require('../services/orders.service.js')
+const OrderService = require('../services/order.service.js')
 
 class OrderController {
+    // 오더 신청
     createOrder = async (req,res) => {
         const driverId = req.params
         const {phone, address, usageDateTimeStart, usageTime} = req.body

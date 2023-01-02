@@ -1,4 +1,4 @@
-const OrderRepositoryDepInj = require('../../repositories/orders.repository.depInj')
+const OrderRepositoryDepInj = require('../../repositories/order.repository.depInj')
 
 
 let mockOrderModel = {

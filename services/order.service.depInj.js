@@ -1,4 +1,4 @@
-const OrderRepository = require('../repositories/orders.repository.depInj.js')
+const OrderRepository = require('../repositories/order.repository.depInj.js')
 const {Orders} = require('../models')
 
 class OrderService {
