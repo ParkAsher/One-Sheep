@@ -21,6 +21,7 @@
         <link rel="stylesheet" href="./css/common.css" />
         <link rel="stylesheet" href="./css/header.css" />
         <link rel="stylesheet" href="./css/register.css" />
+        <link rel="stylesheet" href="./css/driver.css" />
         <title>양한마리</title>
     </head>
     <body>
@@ -28,6 +29,6 @@
         <%- include('header.ejs') %>
 
         <!-- body -->
-        <% if (components === "register") { %> <%- include('register.ejs') %> <% } %>
+        <% if (components === "register") { %> <%- include('register.ejs') %> <% } %> <% if (components === "driver") { %> <%- include('driver.ejs') %> <% } %>
     </body>
 </html>

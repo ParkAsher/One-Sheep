@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
-// const OrderController = require('../controllers/order.controller');
-// const orderController = new orderController();
+// controllers
+const OrderController = require('../controllers/order.controller.js');
+const orderController = new OrderController();
 
-router.post('/order', (req, res) => {
+// 사장페이지 오더 가져오기
+router.get('/driver', orderController.getDriverOrder);
 
-})
+router.post('/:driverId', orderController.createOrder);
 
 module.exports = router;
