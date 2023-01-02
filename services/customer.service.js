@@ -3,7 +3,7 @@ const { Customer } = require('../models/index.js');
 
 class CustomerService {
     // Repository
-    customerRepository = CustomerRepository(Customer);
+    customerRepository = new CustomerRepository(Customer);
 }
 
 module.exports = CustomerService;
