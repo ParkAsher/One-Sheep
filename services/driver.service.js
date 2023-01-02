@@ -39,7 +39,7 @@ class DriverService {
                 error.name = 'ID does not exist'
                 error.status = 404
                 error.success = false
-                
+
                 throw error
             }
 
