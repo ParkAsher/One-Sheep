@@ -1,8 +1,8 @@
 const LoginRepository = require('../repositories/login.repository.js')
-const {Login} = require('../models/index.js')
+const {Customer, Driver} = require('../models/index.js')
 
 class LoginService {
-  loginRepository = new LoginRepository(Login)
+  loginRepository = new LoginRepository(Customer, Driver)
 
   findOneCustomer = async (id) => {
     const customer = await this.loginRepository.findOneCustomer(id)

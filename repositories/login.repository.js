@@ -1,19 +1,17 @@
-const {Customer} = require('../models')
-const {Driver} = require('../models')
-
 class LoginRepository {
-  constructor(loginModel) {
-    this.loginModel = loginModel
+  constructor(CustomerModel, DriverModel) {
+    this.customerModel = CustomerModel
+    this.driverModel = DriverModel
   }
 
   findOneCustomer = async (id) => {
-    const customer = await this.loginModel.findOne({where : {id}})
+    const customer = await this.customerModel.findOne({where : {id}})
 
     return customer
   }
 
   findOneDriver = async (id) => {
-    const diver = await this.loginModel.findOne({where : {id}})
+    const diver = await this.driverModel.findOne({where : {id}})
 
     return diver
   }
