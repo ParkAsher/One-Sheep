@@ -1,7 +1,10 @@
 const {Driver} = require('../models')
-const {Customer} = require('../models')
+
 
 class DriverRepository {
+  constructor(driverModel) {
+    this.driverModel = driverModel
+  }
 
 }
 

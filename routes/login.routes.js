@@ -1,19 +1,15 @@
 const express = require('express');
 const router = express.Router();
+const authMiddleware = require('../middlewares/auth-middlewares.js')
 
-const {Driver} = require('../models')
-const {Customer} = require('../models')
+router.post('/login', LoginController.Login)
 
-const jwt = require('jsonwebtoken')
+router.get('/login/check', authMiddleware, async (req, res) => {
 
-const cookieParser = require("cookie-parser")
-router.use(cookieParser())
+})
 
-const CustomerController = require('../controllers/customer.controller');
-const customerController = new CustomerController();
+module.exports = router;
 
-const DriverController = require('../controllers/driver.controller.js')
-const driverController = new DriverController()
 
 router.post('/login', async (req, res) => {
   const {id, password, type} = req.body
@@ -24,7 +20,7 @@ router.post('/login', async (req, res) => {
     if(type === 'customer') {
       const customer = await Customer.findOne({where : {id}})
 
-      if(password !== customer.password) return res.status(412).json({errorMessage : '패스워드가 일치하지 않습니다.'})
+      if(!customer || password !== customer.password) return res.status(412).json({errorMessage : '아디이 또는 패스워드가 일치하지 않습니다.'})
 
       const accessToken = jwt.sign({customerId : customer.customerId}, 'my-secrect-key', {expiresIn : '1d'})
       res.cookie('accessToken', accessToken)
@@ -33,7 +29,7 @@ router.post('/login', async (req, res) => {
     } else {
       const driver = await Driver.findOne({where : {id}})
 
-      if(password !== driver.password) return res.status(412).json({errorMessage : '패스워드가 일치하지 않습니다.'})
+      if(!driver || password !== driver.password) return res.status(412).json({errorMessage : '아이디 또는 패스워드가 일치하지 않습니다.'})
 
       const accessToken = jwt.sign({driverId : driver.driverId}, 'my-secrect-key', {expiresIn : '1d'})
       res.cookie('accessToken', accessToken)
@@ -41,10 +37,6 @@ router.post('/login', async (req, res) => {
       return res.status(200).json({accessToken : accessToken})
     }
   } catch (err) {
-    res.status(500).json({error : err})
+    return res.status(500).json({errorMessage : err})
   }
 })
-
-router.get('')
-
-module.exports = router;
