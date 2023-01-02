@@ -31,6 +31,7 @@ module.exports = {
             status: {
                 allowNull: false,
                 type: Sequelize.STRING,
+                default: "접수 대기"
             },
             usageDateTimeStart: {
                 allowNull: false,

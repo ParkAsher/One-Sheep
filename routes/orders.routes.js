@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const OrderController = require('../controllers/order.controller');
+const OrderController = require('../controllers/orders.controller');
 const orderController = new OrderController();
 
 const {Order} = require('../models')
 
-router.post('/order/:driverId', orderController.createOrder)
+router.post('/:driverId', orderController.createOrder)
 
 
 // router.post('/order/:driverId', async (req, res) => {
@@ -37,8 +37,9 @@ router.post('/order/:driverId', orderController.createOrder)
 
 // })
 
-router.get('/order/:customerId', async (req,res) => {
-    
+
+router.get('/orders/:customerId', async (req,res) => {
+
 })
 
 module.exports = router;

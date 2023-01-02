@@ -4,10 +4,10 @@ const router = express.Router();
 const driverRouter = require('./driver.routes');
 const customerRouter = require('./customer.routes');
 const loginRouter = require('./login.routes')
-router.use('/user', [driverRouter, customerRouter, loginRouter]);
+router.use('/users', [driverRouter, customerRouter, loginRouter]);
 
 
 const orderRouter = require('./order.routes')
-router.use('/order', orderRouter)
+router.use('/orders', orderRouter)
 
 module.exports = router;
