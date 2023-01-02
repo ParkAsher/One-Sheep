@@ -18,6 +18,45 @@
     font-weight: bold;
 }
 
+.driver-wrap .order-in-progress-btn-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.driver-wrap .order-in-progress-btn-wrap button {
+    border: none;
+    padding: 0.75rem 1.25rem;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+.driver-wrap .order-in-progress-btn-wrap button.btn-order-pending {
+    background-color: #c0c0c0;
+}
+.driver-wrap .order-in-progress-btn-wrap button.btn-order-complete {
+    background-color: #6cce9d;
+}
+.driver-wrap .order-in-progress-btn-wrap button.btn-move {
+    background-color: #72a6ff;
+}
+.driver-wrap .order-in-progress-btn-wrap button.btn-in-use {
+    background-color: #fdfd96;
+}
+.driver-wrap .order-in-progress-btn-wrap button.btn-use-complete {
+    background-color: #ffddff;
+}
+.driver-wrap .order-in-progress-btn-wrap button.btn-cancel {
+    background-color: red;
+    color: #ffffff;
+}
+.driver-wrap .order-in-progress-btn-wrap button.btn-order {
+    background-color: lightblue;
+    color: #ffffff;
+}
+
 .driver-wrap #order-in-progress-content-container,
 .driver-wrap #data-container {
     width: 100%;
