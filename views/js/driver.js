@@ -269,3 +269,23 @@ $(document).ready(function () {
         });
     }
 });
+
+function statusChange(status) {
+    // 해당 신청 번호
+    let orderId = $('.order-in-progress-content-wrap').attr('orderId');
+    // 상태
+    let statusValue = status;
+
+    let result = confirm('정말 상태를 변경하시겠습니까?');
+    if (result === false) {
+        return;
+    }
+
+    $.ajax({
+        type: 'PUT',
+        url: '/api/orders/' + orderId + '/status',
+        data: { status: statusValue },
+        success: function (response) {},
+        error: function (response) {},
+    });
+}
