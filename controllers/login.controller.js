@@ -23,6 +23,7 @@ class LoginController {
         res.cookie('accessToken', accessToken)
 
         return res.status(200).json({accessToken : accessToken})
+
       } else {
         const driver = await this.loginService.findOneDriver(id)
 
