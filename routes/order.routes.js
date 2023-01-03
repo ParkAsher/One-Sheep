@@ -15,6 +15,9 @@ const customerController = new CustomerController();
 // 회원 이용내역 조회
 router.get('/customer/:customerId', customerController.getUserUse);
 
+// 오더 신청하기
+router.post("/:driverId", [authMiddleware, orderController.createOrder]);
+
 // 사장페이지 오더 가져오기
 router.get('/driver/:driverId', orderController.getDriverOrder);
 
