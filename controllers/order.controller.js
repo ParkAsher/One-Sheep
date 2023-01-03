@@ -1,7 +1,7 @@
 const OrderService = require('../services/order.service.js');
 
 // Joi
-const { driverIdValidateSchema, orderIdValidateSchema, orderStatusValidateSchema } = require('../lib/JoiSchema.js');
+const { driverIdValidateSchema, orderIdValidateSchema, orderStatusValidateSchema, orderRegisterValidateSchema } = require('../lib/JoiSchema.js');
 
 class OrderController {
     // Service
@@ -48,6 +48,15 @@ class OrderController {
         const customerId = userId
         const status = '대기 중'
 
+        console.log(customerId,
+            driverId,
+            phone,
+            address,
+            request,
+            status,
+            usageDateTimeStart,
+            usageTime,)
+
         try {
             await orderRegisterValidateSchema.validateAsync(req.body)
 
@@ -75,24 +84,62 @@ class OrderController {
                 // 전화번호 검증
                 if (error.path === 'phone') {
                     switch(error.type) {
-                        case 'number.base':
+                        case 'string.pattern.base':
                             error.message = '전화번호는 숫자로만 이루어질 수 있습니다.'
                             break
-                        case 'number.max':
-                        case 'number.min':
+                        case 'string.max':
+                        case 'string.min':
                             error.message = '전화번호는 숫자 10자 이상과 16자 이하로 이루어질 수 있습니다.'
                             break
                         case 'any.required':
-                        case 'number.empty':
+                        case 'string.empty':
                             error.message = '전화번호는 필수 항목입니다.'
                             break
                     }
                 }
 
-                if (error.path === '') {}
+                // 주소 검증
+                if (error.path === 'address') {
+                    switch(error.type) {
+                        case 'any.required':
+                        case 'string.empty':
+                            error.message = '주소는 필수 항목입니다.'
+                            break
+                    }
+                }
+
+                // 서비스 시작 일시 검증
+                if (error.path === 'usageDateTimeStart') {
+                    switch(error.type) {
+                        case 'any.required':
+                        case 'string.empty':
+                            error.message = '서비스 시작 일시는 필수 항목입니다.'
+                            break
+                        case 'date.greater':
+                            error.message = '현재 일시 이후만 신청 가능합니다.'
+                            break
+                    }
+                }
+
+                // 서비스 사용 시간 검증
+                if (error.path === 'usageTime') {
+                    switch(error.type) {
+                        case 'any.required':
+                        case 'string.empty':
+                            error.message = '서비스 사용 시간은 필수 항목입니다.'
+                            break
+                        case 'number.min':
+                        case 'number.max':
+                            error.message = '서비스 시간은 1시간 이상과 12이하로 요청 가능합니다.'
+                            break
+                        case 'number.base':
+                            error.message = '서비스 시간은 숫자 입력만 가능합니다.'
+                            break
+                    }
+                }
 
             }
-
+            console.log(error)
             return res.status(error.status).json({success: error.success, message: error.message});
         }
     };
