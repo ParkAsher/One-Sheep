@@ -29,11 +29,12 @@ class ReviewsController {
       if (type === "driver") {
         const error = new Error("고객 회원만 서비스 신청이 가능합니다.");
         error.status = 401;
+        throw error;
       }
 
       const customerId = userId;
 
-      const reviews = await reviewsService.postReviews({
+      const reviews = await this.reviewsService.postReviews({
         customerId,
         driverId,
         name,
@@ -47,9 +48,10 @@ class ReviewsController {
         reviews: reviews,
       });
     } catch (error) {
-      return res
-        .status(error.status)
-        .json({ success: error.success, message: error.message });
+      console.log(error);
+      // return res
+      //   .status(error.status)
+      //   .json({ success: error.success, message: error.message });
     }
   };
 }
