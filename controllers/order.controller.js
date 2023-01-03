@@ -34,38 +34,67 @@ class OrderController {
 
     // 오더 신청
     createOrder = async (req, res) => {
-        const driverId = req.params;
-        const { phone, address, usageDateTimeStart, usageTime } = req.body;
+        const {driverId} = req.params;
+        const { phone, address, request, usageDateTimeStart, usageTime } = req.body;
 
         // authMiddleware에서 customerId 불러옴
-        const { customerId } = res.locals.user;
+        const { userId, type } = res.locals.user;
 
-        console.log(customerId,
-            driverId,
-            phone,
-            address,
-            request,
-            usageDateTimeStart,
-            usageTime)
+        // 고객 회원만 오더 신청 가능
+        if (type === 'driver') {
+            const error = new Error ('고객 회원만 서비스 신청이 가능합니다.')
+            error.status = 401
+        }
+
+        const customerId = userId
+        const status = '대기 중'
 
         try {
-            // const validateOrder = await orderRegisterValidateSchema.validateAsync(req.body)
+            await orderRegisterValidateSchema.validateAsync(req.body)
 
-            // console.log(validateOrder)
-
-            // const order = await this.orderService.createOrder({
-            //     customerId,
-            //     driverId,
-            //     phone,
-            //     address,
-            //     request,
-            //     usageDateTimeStart,
-            //     usageTime,
-            // });
+            const order = await this.orderService.createOrder(
+                customerId,
+                driverId,
+                phone,
+                address,
+                request,
+                status,
+                usageDateTimeStart,
+                usageTime,
+            );
 
             res.status(201).json(order);
         } catch (error) {
-            res.status(400).send(error);
+            if (error.name === 'ValidationError') {
+                console.log(error.details)
+                error.status = 412
+                error.message = error.details[0].message
+                error.type = error.details[0].type
+                error.path = error.details[0].path[0]
+                error.success = false
+
+                // 전화번호 검증
+                if (error.path === 'phone') {
+                    switch(error.type) {
+                        case 'number.base':
+                            error.message = '전화번호는 숫자로만 이루어질 수 있습니다.'
+                            break
+                        case 'number.max':
+                        case 'number.min':
+                            error.message = '전화번호는 숫자 10자 이상과 16자 이하로 이루어질 수 있습니다.'
+                            break
+                        case 'any.required':
+                        case 'number.empty':
+                            error.message = '전화번호는 필수 항목입니다.'
+                            break
+                    }
+                }
+
+                if (error.path === '') {}
+
+            }
+
+            return res.status(error.status).json({success: error.success, message: error.message});
         }
     };
 }

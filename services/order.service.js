@@ -31,9 +31,11 @@ class OrderService {
         }
     };
 
+    orderRep = new OrderRepository()
     // 오더 신청
-    createOrder = async (customerId, driverId, phone, address, request, usageDateTimeStart, usageTime) => {
-        const createOrderData = await this.orderRepository.createOrder(customerId, driverId, phone, address, request, usageDateTimeStart, usageTime);
+    createOrder = async (customerId, driverId, phone, address, request, status, usageDateTimeStart, usageTime) => {
+        try {
+            const createOrderData = await this.orderRep.createOrder(customerId, driverId, phone, address, request, status, usageDateTimeStart, usageTime);
 
         return {
             customerId: createOrderData.customerId,
@@ -41,9 +43,13 @@ class OrderService {
             phone: createOrderData.phone,
             address: createOrderData.address,
             request: createOrderData.request,
+            status: createOrderData.status,
             usageDateTimeStart: createOrderData.usageDateTimeStart,
             usageTime: createOrderData.usageTime,
         };
+        } catch (error) {
+            throw error
+        }
     };
 }
 

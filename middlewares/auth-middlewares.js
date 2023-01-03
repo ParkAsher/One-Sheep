@@ -15,7 +15,9 @@ module.exports = async (req, res, next) => {
     if(type === 'customer') {
     //   const {customerId} = jwt.verify(authToken, 'my-secrect-key')
       const customer = await Customer.findByPk(userId)
-      res.locals.user = {userId, type}
+      const point = customer.point
+
+      res.locals.user = {userId, type, point}
       next()
     } else {
     //   const {driverId} = jwt.verify(authToken, 'my-secrect-key')

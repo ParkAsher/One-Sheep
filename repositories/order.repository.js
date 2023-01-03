@@ -35,18 +35,27 @@ class OrderRepository {
     };
 
     // 오더 신청
-    createOrder = async (customerId, driverId, phone, address, request, usageDateTimeStart, usageTime) => {
-        const createOrderData = await Order.create({
-            customerId,
-            driverId,
-            phone,
-            address,
-            request,
-            usageDateTimeStart,
-            usageTime,
-        });
-
-        return createOrderData;
+    createOrder = async (customerId, driverId, phone, address, request, status, usageDateTimeStart, usageTime) => {
+        try {
+            const createOrderData = await Order.create({
+                customerId,
+                driverId,
+                phone,
+                address,
+                request,
+                status,
+                usageDateTimeStart,
+                usageTime,
+            });
+    
+            return createOrderData;
+        } catch (error) {
+            // DB에서 발생한 Error
+            error.name = 'Database Error';
+            error.message = '요청을 처리하지 못하였습니다.';
+            error.status = 400;
+            throw error;
+        }
     };
 }
 
