@@ -27,6 +27,9 @@ class DriverService {
             throw error;
         }
     };
+    // 레포에서 불러온 사장정보 중 어떤 것을 가져올지? 데이터 가공
+    // 대기중 사장/ 현재 일하고 있는 사장 정보를 나눠주기
+    //
 }
 
 module.exports = DriverService;

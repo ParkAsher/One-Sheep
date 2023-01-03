@@ -73,9 +73,14 @@ class DriverController {
     };
 
     getDrivers = async (req, res, next) => {
+        // 로그인 정보가 손님일때?
+        try {
+        } catch (error) {
+            res.status(400).json({success: false, errorMessage: "로그인 정보가 맞지 않습니다"});
+        }
+
         // 서비스 계층에 구현된 findAllPost 로직을 실행합니다.
         const drivers = await this.driverService.findAllPost();
-
         res.status(200).json({data: posts});
     };
 }

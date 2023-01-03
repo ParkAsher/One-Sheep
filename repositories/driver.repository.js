@@ -1,3 +1,6 @@
+const {name} = require("ejs");
+const order = require("../models/order");
+const {Orders} = require("../models");
 class DriverRepository {
     constructor(CustomerModel, DriverModel) {
         // 의존성 주입
@@ -38,6 +41,9 @@ class DriverRepository {
             throw error;
         }
     };
-}
+    // 사장정보 디비에서 불러오기
+    //
+
+    
 
 module.exports = DriverRepository;
