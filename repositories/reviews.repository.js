@@ -44,5 +44,3 @@ class ReviewsRepository {
 }
 
 module.exports = ReviewsRepository;
-
-module.exports = ReviewsRepository;

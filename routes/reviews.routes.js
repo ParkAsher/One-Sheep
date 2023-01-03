@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const authMiddleware = require("../middlewares/auth-middlewares.js");
 
 // controllers
 const ReviewsController = require("../controllers/reviews.controller.js");
@@ -9,6 +10,6 @@ const reviewsController = new ReviewsController();
 router.get("/:driverId", reviewsController.getDriverReviews);
 
 // 리뷰 등록
-router.post("/:driverId", reviewsController.postReviews);
+router.post("/:driverId", [authMiddleware, reviewsController.postReviews]);
 
 module.exports = router;

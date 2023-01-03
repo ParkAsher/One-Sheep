@@ -22,6 +22,17 @@ class ReviewsController {
       const { driverId } = req.params;
       const { name, stars, content } = req.body;
 
+      // authMiddleware에서 customerId 불러옴
+      const { userId, type } = res.locals.user;
+
+      // 고객 회원만 오더 신청 가능
+      if (type === "driver") {
+        const error = new Error("고객 회원만 서비스 신청이 가능합니다.");
+        error.status = 401;
+      }
+
+      const customerId = userId;
+
       const reviews = await reviewsService.postReviews({
         customerId,
         driverId,
