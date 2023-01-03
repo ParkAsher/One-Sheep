@@ -7,6 +7,20 @@ class OrderRepository {
         this.customerModel = CustomerModel;
     }
 
+    // 해당 오더가 존재하는지 찾기
+    findOneOrder = async (orderId) => {
+        try {
+            const findOneOrder = await this.orderModel.findByPk(orderId);
+            return findOneOrder;
+        } catch (error) {
+            // DB에서 발생한 Error
+            error.name = 'Database Error';
+            error.message = '요청을 처리하지 못하였습니다.';
+            error.status = 400;
+            throw error;
+        }
+    };
+
     // 사장페이지 오더 가져오기
     findDriverOrder = async (driverId) => {
         try {
@@ -49,6 +63,20 @@ class OrderRepository {
             });
     
             return createOrderData;
+        } catch (error) {
+            // DB에서 발생한 Error
+            error.name = 'Database Error';
+            error.message = '요청을 처리하지 못하였습니다.';
+            error.status = 400;
+            throw error;
+        }
+    };
+
+    // 사장페이지 오더 상태변경
+    changeStatus = async (orderId, status) => {
+        try {
+            await this.orderModel.update({ status }, { where: { orderId } });
+            return { status: 200, success: true, message: '수정에 성공했습니다.' };
         } catch (error) {
             // DB에서 발생한 Error
             error.name = 'Database Error';
