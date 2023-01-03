@@ -115,25 +115,6 @@ class OrderController {
             return res.status(error.status).json({ success: error.success, message: error.message });
         }
     };
-
-    // 사장페이지 오더 상태변경
-    changeStatus = async (req, res, next) => {
-        try {
-            const orderId = await orderIdValidateSchema.validateAsync(req.params.orderId);
-            const status = await orderStatusValidateSchema.validateAsync(req.body.status);
-
-            const changeStatusResult = await this.orderService.changeStatus(orderId, status);
-            return res.status(changeStatusResult.status).json({ success: changeStatusResult.success, message: changeStatusResult.message });
-        } catch (error) {
-            // Joi Error
-            if (error.name === 'ValidationError') {
-                error.status = 412;
-                error.success = false;
-                error.message = '데이터 형식이 올바르지 않습니다.';
-            }
-            return res.status(error.status).json({ success: error.success, message: error.message });
-        }
-    };
 }
 
 module.exports = OrderController;
