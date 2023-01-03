@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const authMiddleware = require('../middlewares/auth-middlewares.js')
 
 // controllers
 Controller에 있는것을 가져와서 사용하게 선언
@@ -24,6 +25,9 @@ router.get("/:customerId", CustomerController.getUserUse);
 // 사장페이지 오더 가져오기
 router.get('/driver', orderController.getDriverOrder);
 
-router.post('/:driverId', orderController.createOrder);
+router.post('/:driverId', [authMiddleware, orderController.createOrder]);
+
+// 사장페이지 오더 상태변경
+router.put('/:orderId/status', orderController.changeStatus);
 
 module.exports = router;
