@@ -26,6 +26,7 @@ class OrderRepository {
         try {
             // Order DB에 해당하는 사장의 내역이 있는지?
             // 고객 이름을 가져오기 위해 Customer DB와 inn
+            console.log('find');
             const findOrder = await this.orderModel.findAll({
                 order: [['createdAt', 'DESC']],
                 where: { driverId },
@@ -37,13 +38,14 @@ class OrderRepository {
                     },
                 ],
             });
-
+            console.log(findOrder);
             return findOrder;
         } catch (error) {
             // DB에서 발생한 Error
             error.name = 'Database Error';
             error.message = '요청을 처리하지 못하였습니다.';
             error.status = 400;
+            console.log(error);
             throw error;
         }
     };
@@ -61,7 +63,7 @@ class OrderRepository {
                 usageDateTimeStart,
                 usageTime,
             });
-    
+
             return createOrderData;
         } catch (error) {
             // DB에서 발생한 Error
