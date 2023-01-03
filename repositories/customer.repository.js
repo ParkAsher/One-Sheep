@@ -1,8 +1,10 @@
 class CustomerRepository {
-  constructor(CustomerModel, DriverModel) {
+  constructor(CustomerModel, DriverModel, OrderModel) {
     // 의존성 주입
+    // 서비스에서 정보를 미리 불러오고 넘겨주는것.
     this.customerModel = CustomerModel;
     this.driverModel = DriverModel;
+    this.orderModel = OrderModel;
   }
 
   // 해당 id를 가진 유저가 이미 존재하는지
@@ -74,6 +76,5 @@ class CustomerRepository {
     }
   };
 }
-
 
 module.exports = CustomerRepository;
