@@ -31,9 +31,11 @@ class OrderService {
         }
     };
 
+    orderRep = new OrderRepository()
     // 오더 신청
-    createOrder = async (customerId, driverId, phone, address, request, usageDateTimeStart, usageTime) => {
-        const createOrderData = await OrderRepository.createOrder(customerId, driverId, phone, address, request, usageDateTimeStart, usageTime);
+    createOrder = async (customerId, driverId, phone, address, request, status, usageDateTimeStart, usageTime) => {
+        try {
+            const createOrderData = await this.orderRep.createOrder(customerId, driverId, phone, address, request, status, usageDateTimeStart, usageTime);
 
         return {
             customerId: createOrderData.customerId,
@@ -41,10 +43,35 @@ class OrderService {
             phone: createOrderData.phone,
             address: createOrderData.address,
             request: createOrderData.request,
+            status: createOrderData.status,
             usageDateTimeStart: createOrderData.usageDateTimeStart,
             usageTime: createOrderData.usageTime,
         };
+        } catch (error) {
+            throw error
+        }
     };
+
+    // 사장페이지 오더 상태변경
+    changeStatus = async (orderId, status) => {
+        try {
+            // 해당 id를 가진 오더가 존재하는지 찾기
+            const findOneOrder = await this.orderRepository.findOneOrder(orderId);
+            // 존재하지 않는다면?
+            if (!findOneOrder) {
+                const error = new Error('해당 신청이 존재하지 않습니다.');
+                error.name = 'Order Not Found';
+                error.status = 400;
+                throw error;
+            }
+
+            // 오더 상태변경 진행
+            return await this.orderRepository.changeStatus(orderId, status);
+        } catch (error) {
+            throw error;
+        }
+    };
+
 }
 
 module.exports = OrderService;

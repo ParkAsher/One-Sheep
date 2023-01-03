@@ -19,9 +19,9 @@ class LoginController {
   
         if(!customer || !passwordTest) return res.status(412).json({success : false, message : '아이디 또는 비밀번호가 일치하지 않습니다.'})
   
-        const accessToken = jwt.sign({customerId : customer.customerId}, 'my-secrect-key', {expiresIn : '1d'})
+        const accessToken = jwt.sign({userId : customer.customerId, type: 'customer'}, 'my-secrect-key', {expiresIn : '1d'})
         res.cookie('accessToken', accessToken)
-  
+
         return res.status(200).json({accessToken : accessToken})
 
       } else {
@@ -31,7 +31,7 @@ class LoginController {
   
         if(!driver || !passwordTest) return res.status(412).json({success : false, message : '아이디 또는 패스워드가 일치하지 않습니다.'})
   
-        const accessToken = jwt.sign({driverId : driver.driverId}, 'my-secrect-key', {expiresIn : '1d'})
+        const accessToken = jwt.sign({userId : driver.driverId, type: 'driver'}, 'my-secrect-key', {expiresIn : '1d'})
         res.cookie('accessToken', accessToken)
         
         return res.status(200).json({success : true, accessToken : accessToken})
