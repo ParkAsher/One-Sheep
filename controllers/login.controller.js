@@ -12,7 +12,6 @@ class LoginController {
     if(!id || !password) return res.status(400).json({success: false, message : '값을 입력하세요.'})
 
     try {
-      console.log(req.body)
       if(type === 'customer') {
         const customer = await this.loginService.findOneCustomer(id)
 

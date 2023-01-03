@@ -1,10 +1,13 @@
-const jwt = require('jsonwebtoken')
 const {Driver} = require('../models')
 const {Customer} = require('../models')
 
+const jwt = require('jsonwebtoken')
+
 module.exports = async (req, res, next) => {
   const { cookie } = req.headers;
+  console.log(req.headers)
   const {type} = req.body
+  console.log(req.body)
   const [authType, authToken] = (cookie || "").split("=");
 
   if(authType !== 'accessToken' || !authToken) return res.status(400).json({success : false, message : '로그인 후 사용이 가능한 API입니다.'})

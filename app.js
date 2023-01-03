@@ -5,6 +5,11 @@ const port = 1004;
 const router = require('./routes');
 
 /* router */
+const cookieParser = require("cookie-parser")
+router.use(cookieParser())
+const bodyParser= require('body-parser')
+app.use(bodyParser.urlencoded({extended: true})) 
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use('/api', router);
