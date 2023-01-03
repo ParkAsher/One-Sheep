@@ -24,6 +24,23 @@ class ReviewsRepository {
       throw error;
     }
   };
+
+  //리뷰 등록
+  createReview = async (reviewFields) => {
+    try {
+      await this.reviewModel.create({ stars, content });
+      return {
+        status: 200,
+        success: true,
+        message: "리뷰를 작성하였습니다.",
+      };
+    } catch (error) {
+      error.name = "Database Error";
+      error.message = "리뷰를 작성하지 못하였습니다.";
+      error.status = 400;
+      throw error;
+    }
+  };
 }
 
 module.exports = ReviewsRepository;
