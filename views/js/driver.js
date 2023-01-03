@@ -4,10 +4,20 @@ $(document).ready(function () {
     // 완료된 신청내용 담을 배열
     let dataSource = [];
 
+    // 로그인한 사람 정보 담는 변수
+    let userdata;
+    // 로그인한 사람 정보 들고오기
+    getSelf(function (user) {
+        userdata = user;
+    });
+
+    console.log(userdata);
+
     // 비동기적으로 만들기 async: false
+    //let driverId = new URLSearchParams('driverId=5');
     $.ajax({
         type: 'GET',
-        url: '/api/orders/driver?driverId=5',
+        url: '/api/orders/driver/' + userdata.userId,
         async: false,
         success: function (response) {
             if (response.data) {
@@ -31,13 +41,11 @@ $(document).ready(function () {
             }
         },
         error: function (response) {
+            console.log(response);
             console.log(response.responseJSON.message);
             return;
         },
     });
-
-    //console.log(orderInProgress);
-    //console.log(dataSource);
 
     if (orderInProgress.length !== 0 && dataSource.length === 0) {
         // 진행 중인 신청 내용이 있고, 완료된 내역이 없을때
