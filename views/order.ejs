@@ -1,28 +1,80 @@
-<div class="driver-wrap">
-    <div class="order-in-progress-title-wrap">
-        <p>진행 중인 신청내용</p>
-    </div>
-    <div class="order-in-progress-btn-wrap">
-        <div class="order-status-btn-wrap">
-            <button type="button" class="btn-order-complete" onclick="statusChange('접수완료')">접수완료</button>
-            <button type="button" class="btn-move" onclick="statusChange('이동중')">이동중</button>
-            <button type="button" class="btn-in-use" onclick="statusChange('서비스이용중')">서비스이용중</button>
-            <button type="button" class="btn-use-complete" onclick="statusChange('완료')">완료</button>
+<div class="order-wrap container">
+    <div class="row">
+        <div class="col driver-info-and-reviews">
+            <div class="driver-info"></div>
+            <div class="driver-reviews"></div>
         </div>
-        <div class="order-btn-wrap">
-            <button type="button" class="btn-cancel" onclick="statusChange('취소')">거절</button>
-            <button type="button" class="btn-order" onclick="statusChange('접수완료')">접수</button>
-        </div>
-    </div>
-    <div id="order-in-progress-content-container"></div>
 
-    <div class="order-complete-title-wrap">
-        <p>완료된 신청내용</p>
+        <div class="col order-register">
+            <h1>서비스 신청하기</h1>
+            <!-- <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+            </div> -->
+
+            <div class="row">
+                <div class="col mb-3">
+                    <label>예약 일시 (필수)</label>
+                    <div class='input-group' id='datetimepicker1' data-td-target-input='nearest'
+                        data-td-target-toggle='nearest'>
+                        <input id='datetimepicker1Input' type='text' class='form-control' data-td-target='#datetimepicker1' />
+                        <span class='input-group-text' data-td-target='#datetimepicker1' data-td-toggle='datetimepicker'>
+                            <span class='fa-solid fa-calendar'></span>
+                        </span>
+                    </div>
+                    <script>
+                        const datetimepicker = new tempusDominus.TempusDominus(document.getElementById('datetimepicker1'), {
+                            display: {
+                                components: {
+                                    seconds: false,
+                                    useTwentyfourHour: false,
+                                    minutes: false
+                                },
+                                icons: {
+                                    type: 'icons',
+                                    time: 'fa fa-solid fa-clock',
+                                    date: 'fa fa-solid fa-calendar',
+                                    up: 'fa fa-solid fa-arrow-up',
+                                    down: 'fa fa-solid fa-arrow-down',
+                                    previous: 'fa fa-solid fa-chevron-left',
+                                    next: 'fa fa-solid fa-chevron-right',
+                                    today: 'fa fa-solid fa-calendar-check',
+                                    clear: 'fa fa-solid fa-trash',
+                                    close: 'fas fa-solid fa-xmark'
+                                },
+                            },
+                        });
+
+                        $(function () {
+                            $('#datetimepicker1').datetimepicker({
+                                locale: 'ko'
+                            });
+                        });
+                    </script>
+                </div>
+                
+                <div class="col mb-3">
+                    <label for="order-time">이용 기간 (필수)</label>
+                    <input type="number" class="form-control" id="order-time" min="1" max="12" onkeyup="pointsDeducted()" onmouseup="pointsDeducted()">
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="order-request">요구 사항 (선택)</label>
+                <textarea class="form-control" id="order-request" rows="3"></textarea>
+            </div>
+            
+            <div id="order-points" style="float:right">
+                <p id="points-current">보유한 포인트:</p>
+                <p id="points-deducted">차감 포인트:</p>
+                <p id="points-remaining">잔여 포인트:</p>
+            </div>
+
+            <button type="button" class="btn btn-primary" style="float:right; position:relative">신청하기</button>
+
+        </div>
     </div>
-    <div id="data-container"></div>
-    <div id="pagination"></div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.css" />
-<script defer src="./js/driver.js"></script>
+<script defer src="./js/order.js"></script>
+<script src="js/order-datepicker.kr.js"></script>

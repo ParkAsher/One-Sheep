@@ -33,7 +33,7 @@ app.get('/login', (req, res) => {
     res.render('index.ejs', { components: 'login' });
 });
 app.get('/order', (req, res) => {
-    res.render('order.ejs', { components: 'order' });
+    res.render('index.ejs', { components: 'order' });
 });
 
 app.listen(port, () => {
