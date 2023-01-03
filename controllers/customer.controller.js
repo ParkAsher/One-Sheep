@@ -43,7 +43,7 @@ class CustomerController {
                             error.message = "비밀번호를 입력해주세요.";
                             break;
                         }
-                        error.message = "이름의 형식이 일치하지 않습니다.";
+                        error.message = "비밀번호 형식 일치하지 않습니다.";
                         break;
                     case "passwordCheck":
                         if (error.details[0].type === "string.empty") {
@@ -57,6 +57,22 @@ class CustomerController {
                 }
             }
             console.log(error);
+            return res.status(error.status).json({success: error.success, message: error.message});
+        }
+    };
+
+    // 회원 이용내역 조회
+    getUserUse = async (req, res, next) => {
+        try {
+            const customerId = req.params.customerId;
+            // 서비스 계층에 구현된 getUserUse 로직을 실행합니다.
+            const UserUseResult = await this.customerService.getUserUse(customerId);
+            return res.status(200).json({
+                success: true,
+                message: "이용내역을 불러왔습니다.",
+                UserUseResult: UserUseResult,
+            });
+        } catch (error) {
             return res.status(error.status).json({success: error.success, message: error.message});
         }
     };

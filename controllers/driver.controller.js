@@ -50,6 +50,7 @@ class DriverController {
                             break;
                         }
                         error.message = "이름의 형식이 일치하지 않습니다.";
+                        error.message = "비밀번호 형식이 일치하지 않습니다.";
                         break;
                     case "passwordCheck":
                         if (error.details[0].type === "string.empty") {
@@ -82,6 +83,19 @@ class DriverController {
         // 서비스 계층에 구현된 findAllPost 로직을 실행합니다.
         const drivers = await this.driverService.findAllPost();
         res.status(200).json({data: posts});
+    };
+
+    // 특정 사장님 캠핑카 정보 조회
+    getDriverById = async (req, res) => {
+        const {driverId} = req.params;
+
+        try {
+            const driver = await this.driverService.getDriverById(driverId);
+
+            return res.status(200).send(driver);
+        } catch (error) {
+            return res.status(error.status).json({success: error.success, message: error.message});
+        }
     };
 }
 
