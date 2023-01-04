@@ -11,7 +11,6 @@
     align-items: center;
     float:left; */
     background-color: green;
-
 }
 
 .driver-info-and-reviews .driver-info {
@@ -24,11 +23,76 @@
     background-color: aqua;
 }
 
+/* 사장님 정보 부분 */
+.driver-info h1 {
+    text-align: center;
+    padding-bottom: 5px;
+}
+
+.driver-info img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-height: 400px
+}
+
+/* 리뷰 부분 */
+.driver-reviews h1 {
+    text-align: center;
+    font-size: 40px;
+    padding-bottom: 5px;
+}
+
+.card {
+    margin-bottom: 3px;
+}
+
+.card h5 {
+    color:rgb(91, 130, 202);
+    font-size: 20px;
+    margin-bottom: 3px;
+}
+
+.card .review-date {
+    color: rgb(153, 152, 152);
+    font-size: 12px;
+    padding-bottom: 8px;
+}
+
+.card .card-text {
+    font-size: 18px;
+}
+
+.card .review-stars {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 18px;
+}
+
+
+/* 신청 폼 부분 */
 .order-register {
     /* width: 660px;
     height: 800px;
     float: left; */
     background-color:bisque;
+}
+
+.order-register h1 {
+    text-align: center;
+    padding-bottom: 5px;
+}
+
+.order-register button {
+    float:right;
+    position:relative;
+    font-size:25px;
+}
+
+#order-points {
+    text-align: right;
+    padding-bottom: 8px;
 }
 
 #order-points p {
