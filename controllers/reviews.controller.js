@@ -19,8 +19,8 @@ class ReviewsController {
   // 리뷰 등록
   postReviews = async (req, res) => {
     try {
-      const { orderId } = req.params;
-      const { stars, content } = req.body;
+      const { driverId } = req.params;
+      const { name, stars, content } = req.body;
 
       // authMiddleware에서 customerId 불러옴
       const { userId, type } = res.locals.user;
@@ -32,21 +32,26 @@ class ReviewsController {
         throw error;
       }
 
+      const customerId = userId;
+
       const reviews = await this.reviewsService.postReviews({
-        orderId,
+        customerId,
+        driverId,
+        name,
         stars,
         content,
       });
 
       return res.status(201).json({
         success: true,
-        message: "리뷰를 등록했습니다."
+        message: "리뷰를 등록했습니다.",
+        reviews: reviews,
       });
     } catch (error) {
       console.log(error);
-      return res
-        .status(error.status)
-        .json({ success: error.success, message: error.message });
+      // return res
+      //   .status(error.status)
+      //   .json({ success: error.success, message: error.message });
     }
   };
 }

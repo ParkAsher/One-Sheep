@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
         static associate(models) {
             // define association here
             models.Driver.hasMany(models.Order, { foreignKey: 'driverId' });
+            models.Driver.hasMany(models.Review, { foreignKey: 'driverId' });
         }
     }
     Driver.init(

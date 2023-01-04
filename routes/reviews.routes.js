@@ -10,6 +10,6 @@ const reviewsController = new ReviewsController();
 router.get("/:driverId", reviewsController.getDriverReviews);
 
 // 리뷰 등록
-router.post("/:orderId", [authMiddleware, reviewsController.postReviews]);
+router.post("/:driverId", [authMiddleware, reviewsController.postReviews]);
 
 module.exports = router;

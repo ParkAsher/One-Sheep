@@ -33,9 +33,8 @@ class OrderService {
 
     orderRep = new OrderRepository();
     // 오더 신청
-    createOrder = async (customerId, driverId, phone, address, request, usageDateTimeStart, usageTime) => {
+    createOrder = async (customerId, driverId, phone, address, request, status, usageDateTimeStart, usageTime) => {
         try {
-            const status = '접수 대기'
             const createOrderData = await this.orderRep.createOrder(customerId, driverId, phone, address, request, status, usageDateTimeStart, usageTime);
 
             return {
