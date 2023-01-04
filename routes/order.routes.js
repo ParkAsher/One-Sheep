@@ -13,7 +13,7 @@ const customerController = new CustomerController();
 
 // Controller가 실제로 API 동작을 하게끔 router와 Controller의 메서드를 연결
 // 회원 이용내역 조회
-router.get("/:customerId", customerController.getUserUse);
+router.get("/customer/:customerId", customerController.getUserUse);
 
 // 사장페이지 오더 가져오기
 router.get("/driver", orderController.getDriverOrder);

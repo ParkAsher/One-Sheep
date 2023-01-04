@@ -9,7 +9,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use("/api", router);
 
-/* views */
+/* reviewws */
 app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/views")); // 정적파일 적용 css,js,image
@@ -21,8 +21,11 @@ app.get("/", (req, res) => {
 app.get("/register", (req, res) => {
   res.render("index.ejs", { components: "register" });
 });
-app.get('/driver', (req, res) => {
-    res.render('index.ejs', { components: 'driver' });
+app.get("/driver", (req, res) => {
+  res.render("index.ejs", { components: "driver" });
+});
+app.get("/review", (req, res) => {
+  res.render("index.ejs", { components: "review" });
 });
 
 app.listen(port, () => {
