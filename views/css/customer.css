@@ -1,0 +1,45 @@
+.main-background-wrap {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #ccd4ff;
+    background-position: center;
+    background-size: cover;
+}
+
+.main-wrap {
+    width: 1320px;
+    min-height: 100%;
+    margin: 0 auto;
+    padding: 12rem 0 2rem 0;
+}
+
+.main-wrap .available-car-title-wrap {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.main-wrap .available-car-title-wrap p {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #6068ff;
+}
+
+.swiper {
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 300px;
+    height: 300px;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+}
