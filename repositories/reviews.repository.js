@@ -14,6 +14,7 @@ class ReviewsRepository {
                         attributes: ['name'],
                     },
                 ],
+                order: [['createdAt', 'DESC']]
             });
             return reviews;
         } catch (error) {
