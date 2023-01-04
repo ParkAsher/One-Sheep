@@ -4,10 +4,19 @@ $(document).ready(function () {
     // 완료된 신청내용 담을 배열
     let dataSource = [];
 
+    // ejs 문법으로 넘어온 isLogined
+    console.log(isLogined);
+    if (isLogined === 'false') {
+        location.href = '/login';
+    }
+
+    // ejs 문법으로 넘어온 유저정보
+    console.log(userName, userId, userType);
+
     // 비동기적으로 만들기 async: false
     $.ajax({
         type: 'GET',
-        url: '/api/orders/driver?driverId=5',
+        url: '/api/orders/driver/' + userId,
         async: false,
         success: function (response) {
             if (response.data) {
@@ -31,13 +40,11 @@ $(document).ready(function () {
             }
         },
         error: function (response) {
+            console.log(response);
             console.log(response.responseJSON.message);
             return;
         },
     });
-
-    //console.log(orderInProgress);
-    //console.log(dataSource);
 
     if (orderInProgress.length !== 0 && dataSource.length === 0) {
         // 진행 중인 신청 내용이 있고, 완료된 내역이 없을때

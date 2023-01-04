@@ -3,6 +3,10 @@ body {
     min-height: 100vh;
 }
 
+body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
+
 a {
     text-decoration: none !important;
 }

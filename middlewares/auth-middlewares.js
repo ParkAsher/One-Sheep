@@ -1,38 +1,37 @@
-const jwt = require("jsonwebtoken");
-const { Driver } = require("../models");
-const { Customer } = require("../models");
+const jwt = require('jsonwebtoken');
+const { Driver } = require('../models');
+const { Customer } = require('../models');
 
 module.exports = async (req, res, next) => {
-  const { cookie } = req.headers;
-  //   const {type} = req.body
-  const [authType, authToken] = (cookie || "").split("=");
+    // 쿠키 들고오기
+    try {
+        const accessToken = req.cookies.accessToken;
+        if (!accessToken) return next();
+        const { userId, type } = jwt.verify(accessToken, 'my-secrect-key');
+        // console.log(userId, type);
 
-  if (authType !== "accessToken" || !authToken)
-    return res
-      .status(400)
-      .json({ success: false, message: "로그인 후 사용이 가능한 API입니다." });
+        if (type === 'customer') {
+            const customer = await Customer.findOne({
+                where: { customerId: userId },
+            });
+            const point = customer.point;
+            const name = customer.name;
 
-  try {
-    const { userId, type } = jwt.verify(authToken, "my-secrect-key");
+            res.locals.user = { userId, type, point, name };
+            next();
+        } else {
+            const driver = await Driver.findOne({
+                where: { driverId: userId },
+            });
+            const name = driver.name;
 
-    if (type === "customer") {
-      //   const {customerId} = jwt.verify(authToken, 'my-secrect-key')
-      const customer = await Customer.findOne({
-        where: { customerId: userId },
-      });
-      const point = customer.point;
-
-      console.log(customer);
-      res.locals.user = { userId, type, point };
-      next();
-    } else {
-      //   const {driverId} = jwt.verify(authToken, 'my-secrect-key')
-      const driver = await Driver.findByPk(userId);
-      res.locals.user = { userId, type };
-      next();
+            res.locals.user = { userId, type, name };
+            next();
+        }
+    } catch (error) {
+        console.log(error);
+        // 쿠키를 지워야 할 것 같다.
+        res.clearCookie('accessToken');
+        return res.status(500).json({ message: error });
     }
-  } catch (err) {
-    console.log(err);
-    return res.status(500).json({ errorMessage: err });
-  }
 };

@@ -1,10 +1,10 @@
 const CustomerRepository = require("../repositories/customer.repository.js");
-const { Customer, Driver } = require("../models/index.js");
+const { Customer, Driver, Order } = require("../models/index.js");
 const bcrypt = require("bcrypt");
 
 class CustomerService {
   // Repository
-  customerRepository = new CustomerRepository(Customer, Driver);
+  customerRepository = new CustomerRepository(Customer, Driver, Order);
 
   createUser = async (id, name, password) => {
     try {
