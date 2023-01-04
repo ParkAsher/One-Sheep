@@ -1,6 +1,10 @@
+/* html, body {
+  height: 100%;
+} */
+
 .main-background {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 900px;
 
   background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url('./하늘.jpg');
   filter: contrast(130%);
@@ -8,6 +12,7 @@
   background-size: cover;
 
   position: relative;
+  
 }
 
 .config-background {
@@ -17,7 +22,7 @@
 
   position: absolute;
 
-  top: 30%;
+  top: 25%;
   left: 50%;
   transform: translate(-50%,-50%);
 }
@@ -32,21 +37,21 @@
 
 .sub-background {
   width: 100%;
-  height: 400px;
+  height: 500px;
   background-color: white;
 
   position: absolute;
 
-  top: 80%;
+  top: 70%;
   left: 50%;
   transform: translate(-50%,-50%);
 
   border-radius: 30px;
   border: 6px solid skyblue;
 
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  align-items: center; 
+  align-items: center;  */
   /* justify-content: center; */
 }
 
@@ -61,6 +66,14 @@
 .card .btn {
   margin-bottom: 10px;
   margin-left: 10px;
+}
+
+.list-group {
+  border: 1px solid #6495ED;
+}
+
+.list-group .list-group-item {
+  border: 1px solid #6495ED;
 }
 
 

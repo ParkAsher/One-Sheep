@@ -81,7 +81,7 @@ app.get('/customer', authMiddlewares, (req, res) => {
     res.render('index.ejs', { components: 'customer', user: res.locals.user, isLogined: true });
 });
 app.get('/mypage', (req, res) => {
-    res.render('index.ejs', { components : 'mypage' })
+    res.render('index.ejs', { components : 'mypage', isLogined: false  })
 })
 
 app.listen(port, () => {
