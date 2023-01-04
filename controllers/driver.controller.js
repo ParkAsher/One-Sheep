@@ -73,16 +73,12 @@ class DriverController {
         }
     };
 
-    getDrivers = async (req, res, next) => {
-        // 로그인 정보가 손님일때?
-        try {
-        } catch (error) {
-            res.status(400).json({success: false, errorMessage: "로그인 정보가 맞지 않습니다"});
-        }
-
-        // 서비스 계층에 구현된 findAllPost 로직을 실행합니다.
-        const drivers = await this.driverService.findAllPost();
-        res.status(200).json({data: posts});
+    getDriver = async (req, res, next) => {
+        const drivers = await this.driverService.getDriver();
+        const {availableCar, unavailableCar} = drivers;
+        // 제이슨형태로 정보 펼치기
+        res.status(200).json({availableCar, unavailableCar});
+        // 테이블 1 = availableCar, 테이블2 = unavailableCar
     };
 
     // 특정 사장님 캠핑카 정보 조회

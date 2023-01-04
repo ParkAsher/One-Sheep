@@ -34,6 +34,7 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
             },
             address: {
+            
                 allowNull: false,
                 type: DataTypes.STRING,
                 default: "접수 대기"
