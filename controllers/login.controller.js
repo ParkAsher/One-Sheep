@@ -21,7 +21,7 @@ class LoginController {
                 const accessToken = jwt.sign({ userId: customer.customerId, type: 'customer' }, 'my-secrect-key', { expiresIn: '1d' });
                 res.cookie('accessToken', accessToken);
 
-                return res.redirect('/main');
+                return res.redirect('/customer');
             } else {
                 const driver = await this.loginService.findOneDriver(id);
 

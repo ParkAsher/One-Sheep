@@ -1,13 +1,13 @@
-let userdata
+let userdata;
 $(document).ready(function () {
     // getCustomerPoints();
-    
+
     getSelf(function (user) {
-        userdata = user
-    })
+        userdata = user;
+    });
 
     // 로그인된 회원이 보유한 포인트 가져오기
-    document.getElementById("points-current").innerHTML = '보유한 포인트: ' + userdata.point + 'p'
+    document.getElementById('points-current').innerHTML = '보유한 포인트: ' + userdata.point + 'p';
 
     // ------------- 메인페이지 완료되면 완료하기
     // 사장 정보 불러오기
@@ -18,7 +18,6 @@ $(document).ready(function () {
     //     success: function(response) {
     //         let name = response.data.name
     //         let image = response.data.image
-
 
     //     }
     // })
@@ -54,45 +53,31 @@ $(document).ready(function () {
     //                                 <p class="card-text">${content}</p>
     //                             </div>
     //                         </div>`
-                
+
     //             $('#review-cards').append(temp_html)
     //         }
 
     //     }
     // })
-})
-
-// 이용 기간을 클릭 또는 입력시 차감 포인트 업데이트하기
-function pointsDeducted() {
-    let orderTime = document.getElementById("order-time").value
-    orderTime = Number(orderTime)
-
-    let userPoints = document.getElementById("points-current").innerHTML.split('보유한 포인트: ')[1].split('p')[0]
-    userPoints = Number(userPoints)
-
-    let remainingPoints = userPoints - (orderTime * 10000)
-
-    document.getElementById("points-deducted").innerHTML = '차감 포인트: ' + orderTime * 10000 + 'p'
-    document.getElementById("points-remaining").innerHTML = '잔여 포인트: ' + remainingPoints +'p'
-}
+});
 
 function postOrder() {
-    let rawDate = $('#datetimepicker1Input').val()
-    const year = Number(rawDate.split(' ')[0])
-    const month = Number(rawDate.split(' ')[1])
-    const date = Number(rawDate.split(' ')[2])
-    let hour = Number(rawDate.split(' ')[4].split('시')[0])
+    let rawDate = $('#datetimepicker1Input').val();
+    const year = Number(rawDate.split(' ')[0]);
+    const month = Number(rawDate.split(' ')[1]);
+    const date = Number(rawDate.split(' ')[2]);
+    let hour = Number(rawDate.split(' ')[4].split('시')[0]);
 
     if (rawDate.split(' ')[3] === '오후') {
-        hour = hour + 12
+        hour = hour + 12;
     }
 
-    const usageDateTimeStart = new Date(year, month-1, date, hour)
-    const usageTime = Number($('#order-time').val())
-    const request = $('#order-request').val()
+    const usageDateTimeStart = new Date(year, month - 1, date, hour);
+    const usageTime = Number($('#order-time').val());
+    const request = $('#order-request').val();
 
-    let userId
-    let driverId
+    let userId;
+    let driverId;
 
     // $.ajax({
     //     type: 'POST',

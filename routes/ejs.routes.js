@@ -66,8 +66,12 @@ router.get('/customer', authMiddlewares, (req, res) => {
     res.render('index.ejs', { components: 'customer', user: res.locals.user });
 });
 
-router.get('/order', (req, res) => {
-    res.render('index.ejs', { components: 'order' });
+router.get('/order', authMiddlewares, (req, res) => {
+    // 로그인이 되어있지 않다면?
+    if (!res.locals.user) {
+        return res.render('index.ejs', { components: 'order', user: res.locals.user });
+    }
+    res.render('index.ejs', { components: 'order', user: res.locals.user });
 });
 
 module.exports = router;
