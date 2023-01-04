@@ -16,7 +16,6 @@ class DriverController {
     signUp = async (req, res, next) => {
         try {
             const { id, name, password, passwordCheck, image } = await driverRegisterValidateSchema.validateAsync(req.body);
-            console.log(req.body);
 
             const signUpResult = await this.driverService.createUser(id, name, password, image);
 
@@ -64,7 +63,6 @@ class DriverController {
                         break;
                 }
             }
-            console.log(error);
             return res.status(error.status).json({ success: error.success, message: error.message });
         }
     };
