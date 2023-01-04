@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const authMiddlewares = require('../middlewares/auth-middlewares.js');
+const { route } = require('./driver.routes.js');
 
 /* views mapping */
 /* 
@@ -73,5 +74,13 @@ router.get('/order', authMiddlewares, (req, res) => {
     }
     res.render('index.ejs', { components: 'order', user: res.locals.user });
 });
+
+router.get('/mypage', authMiddlewares, (req, res) => {
+    // 로그인이 되어있지 않다면?
+    if (!res.locals.user) {
+        return res.render('index.ejs', { components: 'mypage', user: res.locals.user });
+    }
+    res.render('index.ejs', { components: 'mypage', user: res.locals.user });
+})
 
 module.exports = router;
