@@ -66,4 +66,8 @@ router.get('/customer', authMiddlewares, (req, res) => {
     res.render('index.ejs', { components: 'customer', user: res.locals.user });
 });
 
+router.get('/order', (req, res) => {
+    res.render('index.ejs', { components: 'order' });
+});
+
 module.exports = router;
