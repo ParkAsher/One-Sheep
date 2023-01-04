@@ -1,18 +1,26 @@
-const { Review, Customer } = require('../models/index.js');
+const { Review, Order, Customer } = require('../models/index.js');
+const { Op } = require("sequelize");
 
 class ReviewsRepository {
     // 특정 캠핑카 정보 조회
     getDriverReviews = async (driverId) => {
         try {
-            const reviews = await Review.findAll({
+            const reviews = await Order.findAll({
                 where: { driverId },
-                attributes: ['stars', 'content', 'createdAt'],
+                attributes: [],
                 raw: true,
                 include: [
                     {
-                        model: Customer,
-                        attributes: ['name'],
+                        model: Review,
+                        attributes: ['stars', 'content', 'createdAt'],
+                        where: {
+                            content: {[Op.ne]: null}
+                        }
                     },
+                    {
+                        model: Customer,
+                        attributes: ['name']
+                    }
                 ],
                 order: [['createdAt', 'DESC']]
             });
@@ -26,15 +34,11 @@ class ReviewsRepository {
         }
     };
 
-    //리뷰 등록
+    // 리뷰 등록
     createReview = async (reviewFields) => {
         try {
-            await Review.create(reviewFields);
-            return {
-                status: 200,
-                success: true,
-                message: '리뷰를 작성하였습니다.',
-            };
+            const review = await Review.create(reviewFields);
+            return review;
         } catch (error) {
             error.name = 'Database Error';
             error.message = '리뷰를 작성하지 못하였습니다.';
