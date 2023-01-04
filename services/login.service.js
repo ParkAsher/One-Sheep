@@ -20,7 +20,7 @@ class LoginService {
     const driver = await this.loginRepository.findOneDriver(id)
 
     return {
-      driverId : driver.diverId,
+      driverId : driver.driverId,
       id : driver.id,
       password : driver.password,
       createdAt : driver.createdAt,
