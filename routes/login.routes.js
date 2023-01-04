@@ -11,4 +11,6 @@ router.get('/login/check', authMiddleware, async (req, res) => {
     res.json({ user: res.locals.user });
 });
 
+router.get('/logout', loginController.logOut);
+
 module.exports = router;

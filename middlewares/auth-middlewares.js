@@ -6,9 +6,13 @@ module.exports = async (req, res, next) => {
     // 쿠키 들고오기
     try {
         const accessToken = req.cookies.accessToken;
-        if (!accessToken) return next();
+
+        // 토큰이 없을때
+        if (!accessToken) {
+            res.locals.user = {};
+            return next();
+        }
         const { userId, type } = jwt.verify(accessToken, 'my-secrect-key');
-        // console.log(userId, type);
 
         if (type === 'customer') {
             const customer = await Customer.findOne({
