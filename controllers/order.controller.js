@@ -45,14 +45,11 @@ class OrderController {
         }
 
         const customerId = userId;
-        const status = '대기 중';
-
-        console.log(customerId, driverId, phone, address, request, status, usageDateTimeStart, usageTime);
 
         try {
             await orderRegisterValidateSchema.validateAsync(req.body);
 
-            const order = await this.orderService.createOrder(customerId, driverId, phone, address, request, status, usageDateTimeStart, usageTime);
+            const order = await this.orderService.createOrder(customerId, driverId, phone, address, request, usageDateTimeStart, usageTime);
 
             res.status(201).json(order);
         } catch (error) {

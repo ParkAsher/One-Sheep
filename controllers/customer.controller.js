@@ -72,6 +72,20 @@ class CustomerController {
             return res.status(error.status).json({ success: error.success, message: error.message });
         }
     };
+
+    // 포인트 차감
+    pointDeduct = async (req, res, next) => {
+        try {
+            const customerId = req.params.customerId;
+            const { deductionPoint } = req.body;
+
+            const pointDeductResult = await this.customerService.pointDeduct(customerId, deductionPoint);
+
+            return res.status(pointDeductResult.status).json({ success: pointDeductResult.success, message: pointDeductResult.message });
+        } catch (error) {
+            return res.status(error.status).json({ success: error.success, message: error.message });
+        }
+    };
 }
 
 module.exports = CustomerController;

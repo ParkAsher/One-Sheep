@@ -9,11 +9,7 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER,
             },
-            driverId: {
-                allowNull: false,
-                type: Sequelize.INTEGER,
-            },
-            customerId: {
+            orderId: {
                 allowNull: false,
                 type: Sequelize.INTEGER,
             },
