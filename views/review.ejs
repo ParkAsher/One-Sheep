@@ -1,0 +1,75 @@
+<link rel="stylesheet" href="./css/revieW.css" />
+
+<!-- Button trigger modal -->
+<button
+  type="button"
+  class="btn btn-primary"
+  data-bs-toggle="modal"
+  data-bs-target="#exampleModal"
+  style="margin-top: 200px"
+>
+  리뷰쓰기
+</button>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">후기 작성</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <!-- 모달 body -->
+      <div class="modal-body">
+        <!-- 이미지 입력란 -->
+
+        <!-- 별점 선택란 -->
+        <div class="input-group mb-3">
+          <label class="input-group-text" for="inputGroupSelect01">
+            별점
+          </label>
+          <select class="form-select" id="inputGroupSelect01">
+            <option selected>--선택하기--</option>
+            <option value="1">⭐</option>
+            <option value="2">⭐⭐</option>
+            <option value="3">⭐⭐⭐</option>
+            <option value="3">⭐⭐⭐⭐</option>
+            <option value="3">⭐⭐⭐⭐⭐</option>
+          </select>
+        </div>
+
+        <!-- 내용 입력란 -->
+        <div class="form-floating">
+          <textarea
+            class="form-control"
+            placeholder="Leave a comment here"
+            id="floatingTextarea2"
+            style="height: 100px"
+          ></textarea>
+          <label for="floatingTextarea2">
+            고객님의 소중한 후기를 남겨주세요.
+          </label>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          취소
+        </button>
+        <button type="button" class="btn btn-primary">리뷰 등록</button>
+      </div>
+    </div>
+  </div>
+</div>
