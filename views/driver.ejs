@@ -1,28 +1,37 @@
-<div class="driver-wrap">
-    <div class="order-in-progress-title-wrap">
-        <p>진행 중인 신청내용</p>
-    </div>
-    <div class="order-in-progress-btn-wrap">
-        <div class="order-status-btn-wrap">
-            <button type="button" class="btn-order-complete" onclick="statusChange('접수완료')">접수완료</button>
-            <button type="button" class="btn-move" onclick="statusChange('이동중')">이동중</button>
-            <button type="button" class="btn-in-use" onclick="statusChange('서비스이용중')">서비스이용중</button>
-            <button type="button" class="btn-use-complete" onclick="statusChange('완료')">완료</button>
+<div class="background-wrap">
+    <div class="driver-wrap">
+        <div class="order-in-progress-title-wrap">
+            <p>진행 중인 신청내용</p>
         </div>
-        <div class="order-btn-wrap">
-            <button type="button" class="btn-cancel" onclick="statusChange('취소')">거절</button>
-            <button type="button" class="btn-order" onclick="statusChange('접수완료')">접수</button>
+        <div class="order-in-progress-btn-wrap">
+            <div class="order-status-btn-wrap">
+                <button type="button" class="btn-order-complete" onclick="statusChange('접수완료')">접수완료</button>
+                <button type="button" class="btn-move" onclick="statusChange('이동중')">이동중</button>
+                <button type="button" class="btn-in-use" onclick="statusChange('서비스이용중')">서비스이용중</button>
+                <button type="button" class="btn-use-complete" onclick="statusChange('완료')">완료</button>
+            </div>
+            <div class="order-btn-wrap">
+                <button type="button" class="btn-cancel" onclick="statusChange('취소')">거절</button>
+                <button type="button" class="btn-order" onclick="statusChange('접수완료')">접수</button>
+            </div>
         </div>
-    </div>
-    <div id="order-in-progress-content-container"></div>
+        <div id="order-in-progress-content-container"></div>
 
-    <div class="order-complete-title-wrap">
-        <p>완료된 신청내용</p>
+        <div class="order-complete-title-wrap">
+            <p>완료된 신청내용</p>
+        </div>
+        <div id="data-container"></div>
+        <div id="pagination"></div>
     </div>
-    <div id="data-container"></div>
-    <div id="pagination"></div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.css" />
 <script defer src="./js/driver.js"></script>
+<script>
+    const isLogined = '<%= isLogined %>';
+
+    let userName = '<%= user.name %>';
+    let userId = '<%= user.userId %>';
+    let userType = '<%= user.type %>';
+</script>

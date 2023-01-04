@@ -23,6 +23,7 @@
         <link rel="stylesheet" href="./css/register.css" />
         <link rel="stylesheet" href="./css/driver.css" />
         <link rel="stylesheet" href="./css/login.css" />
+
         <title>양한마리</title>
     </head>
     <body>
@@ -30,7 +31,7 @@
         <%- include('header.ejs') %>
 
         <!-- body -->
-        <% if (components === "register") { %> <%- include('register.ejs') %> <% } %> <% if (components === "driver") { %> <%- include('driver.ejs') %> <% } %> <% if (components === "login") { %> <%- include('login.ejs') %> <% } %>
+        <% if (components === "register") { %> <%- include('register.ejs') %> <% } %> <% if (components === "driver") { %> <%- include('driver.ejs') %> <% } %> <% if (components === "login") { %> <%- include('login.ejs') %> <% } %> <% if (components === 'customer') { %> <%- include('customer.ejs')
+        %> <% } %>
     </body>
-    <script defer src="./js/common.js"></script>
 </html>
