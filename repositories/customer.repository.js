@@ -59,13 +59,13 @@ class CustomerRepository {
                 // 2. 받아온 값 중에서 내가 필요한 값을 뽑아낸다.
                 attributes: ['phone', 'address', 'status', 'usageDateTimeStart', 'usageTime'],
                 where: { customerId },
-                include: [
-                    {
-                        model: Review,
-                        attributes: ['stars', 'content']
-                    }
-                ],
-                order: [['usageDateTimeStart', 'DESC']]
+                // include: [
+                //     {
+                //         model: Review,
+                //         attributes: ['stars', 'content']
+                //     }
+                // ],
+                // order: [['usageDateTimeStart', 'DESC']]
             });
 
             // 3. return 해준다.

@@ -83,9 +83,20 @@ app.get('/customer', authMiddlewares, (req, res) => {
 app.get('/order', (req, res) => {
     res.render('index.ejs', { components: 'order' });
 });
-app.get('/mypage', (req, res) => {
-    res.render('index.ejs', { components : 'mypage', isLogined: false  })
+
+app.get('/mypage', authMiddlewares, (req, res) => {
+    res.render('index.ejs', { components : 'mypage', user : res.locals.user, isLogined: false, })
 })
+
+// app.get('/mypage', async (req, res) => {
+//     const userAll = await Order.findAll({
+//         attributes: ['phone', 'address', 'status', 'usageDateTimeStart', 'usageTime'], 
+//         where: { customerId }
+//     });
+//     res.render('index.ejs', { components : 'mypage', isLogined: false, users : userAll  })
+// })
+
+
 
 app.listen(port, () => {
     console.log(port, '포트로 서버가 열렸어요!');
