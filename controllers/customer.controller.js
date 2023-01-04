@@ -56,7 +56,6 @@ class CustomerController {
                         break;
                 }
             }
-            console.log(error);
             return res.status(error.status).json({success: error.success, message: error.message});
         }
     };

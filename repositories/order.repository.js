@@ -37,13 +37,13 @@ class OrderRepository {
                     },
                 ],
             });
-
             return findOrder;
         } catch (error) {
             // DB에서 발생한 Error
             error.name = 'Database Error';
             error.message = '요청을 처리하지 못하였습니다.';
             error.status = 400;
+            console.log(error);
             throw error;
         }
     };
@@ -61,7 +61,7 @@ class OrderRepository {
                 usageDateTimeStart,
                 usageTime,
             });
-    
+
             return createOrderData;
         } catch (error) {
             // DB에서 발생한 Error

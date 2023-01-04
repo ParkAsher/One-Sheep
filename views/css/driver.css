@@ -1,7 +1,16 @@
+.background-wrap {
+    width: 100%;
+    min-height: 100vh;
+    background-image: url('../image/4.jpg');
+    background-position: center;
+    background-size: cover;
+}
+
 .driver-wrap {
     width: 1320px;
-    height: 100%;
-    margin: 5rem auto;
+    min-height: 100%;
+    margin: 0 auto;
+    padding: 12rem 0 2rem 0;
 }
 
 .driver-wrap .order-in-progress-title-wrap,
@@ -16,6 +25,7 @@
 .driver-wrap .order-complete-title-wrap p {
     font-size: 2.5rem;
     font-weight: bold;
+    color: #ffffff;
 }
 
 .driver-wrap .order-in-progress-btn-wrap {
@@ -27,13 +37,15 @@
 }
 
 .driver-wrap .order-in-progress-btn-wrap button {
-    border: none;
+    border: 1px solid #ffffff;
     padding: 0.75rem 1.25rem;
     box-sizing: border-box;
     border-radius: 10px;
+    color: #ffffff;
+    background: transparent;
 }
 
-.driver-wrap .order-in-progress-btn-wrap button.btn-order-pending {
+/* .driver-wrap .order-in-progress-btn-wrap button.btn-order-pending {
     background-color: #c0c0c0;
 }
 .driver-wrap .order-in-progress-btn-wrap button.btn-order-complete {
@@ -55,7 +67,7 @@
 .driver-wrap .order-in-progress-btn-wrap button.btn-order {
     background-color: lightblue;
     color: #ffffff;
-}
+} */
 
 .driver-wrap #order-in-progress-content-container,
 .driver-wrap #data-container {
@@ -68,11 +80,14 @@
     padding: 1rem;
     width: 100%;
     box-sizing: border-box;
+    background-color: transparent;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     overflow: hidden;
     word-wrap: break-word;
     margin-bottom: 2rem;
+    backdrop-filter: blur(15px);
+    color: #ffffff;
 
     display: flex;
 }
@@ -115,6 +130,11 @@
 .paginationjs {
     display: flex;
     justify-content: center;
+}
+
+.paginationjs-pages li > a {
+    color: #ffffff !important;
+    background: transparent !important;
 }
 
 .paginationjs-pages li.active > a {
