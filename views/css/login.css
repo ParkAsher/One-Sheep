@@ -1,0 +1,57 @@
+div {
+    /* display: flex;
+  flex-direction: column;
+  justify-content: center; */
+    /* align-items: center; */
+}
+
+.main-background {
+    width: 100%;
+    height: 100vh;
+
+    position: relative;
+
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('http://www.ridemag.co.kr/news/photo/202008/15144_93134_3521.jpg');
+    background-position: center;
+    background-size: cover;
+}
+
+.sub-background {
+    position: absolute;
+
+    top: 40%;
+    left: 35%;
+    transform: translate(-50%, -50%);
+
+    text-align: left;
+}
+
+.login-box {
+    position: absolute;
+
+    top: 40%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+
+    width: 350px;
+    height: 300px;
+    background-color: white;
+    border-radius: 25px;
+
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+h1 {
+    color: #bedae5;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+h2 {
+    color: white;
+    font-weight: bold;
+}

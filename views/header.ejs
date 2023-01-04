@@ -3,5 +3,25 @@
         <div class="logo">
             <a href="/">양한마리</a>
         </div>
+        <% if (Object.keys(user).length > 0) { %>
+        <div class="logout-btn-wrap">
+            <button type="button" onclick="logout()">로그아웃</button>
+        </div>
+        <% } %>
     </div>
 </div>
+<script>
+    function logout() {
+        $.ajax({
+            type: 'GET',
+            url: '/api/users/logout',
+            success: function (response) {
+                alert('로그아웃이 정상적으로 처리되었습니다.');
+                window.location.href = '/login';
+            },
+            error: function (response) {
+                console.log(response.responseJSON.message);
+            },
+        });
+    }
+</script>
