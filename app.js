@@ -80,6 +80,9 @@ app.get('/customer', authMiddlewares, (req, res) => {
     }
     res.render('index.ejs', { components: 'customer', user: res.locals.user, isLogined: true });
 });
+app.get('/order', (req, res) => {
+    res.render('index.ejs', { components: 'order' });
+});
 app.get('/mypage', (req, res) => {
     res.render('index.ejs', { components : 'mypage', isLogined: false  })
 })
