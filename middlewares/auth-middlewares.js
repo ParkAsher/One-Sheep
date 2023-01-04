@@ -3,14 +3,10 @@ const { Driver } = require('../models');
 const { Customer } = require('../models');
 
 module.exports = async (req, res, next) => {
-    // const { cookie } = req.headers;
-    // const [authType, authToken] = (cookie || '').split('=');
-
     // 쿠키 들고오기
-    const accessToken = req.cookies.accessToken;
-    if (!accessToken) return res.status(400).json({ success: false, message: '로그인 후 사용이 가능한 API입니다.' });
-
     try {
+        const accessToken = req.cookies.accessToken;
+        if (!accessToken) return next();
         const { userId, type } = jwt.verify(accessToken, 'my-secrect-key');
         // console.log(userId, type);
 

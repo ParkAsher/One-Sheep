@@ -4,20 +4,19 @@ $(document).ready(function () {
     // 완료된 신청내용 담을 배열
     let dataSource = [];
 
-    // 로그인한 사람 정보 담는 변수
-    let userdata;
-    // 로그인한 사람 정보 들고오기
-    getSelf(function (user) {
-        userdata = user;
-    });
+    // ejs 문법으로 넘어온 isLogined
+    console.log(isLogined);
+    if (isLogined === 'false') {
+        location.href = '/login';
+    }
 
-    console.log(userdata);
+    // ejs 문법으로 넘어온 유저정보
+    console.log(userName, userId, userType);
 
     // 비동기적으로 만들기 async: false
-    //let driverId = new URLSearchParams('driverId=5');
     $.ajax({
         type: 'GET',
-        url: '/api/orders/driver/' + userdata.userId,
+        url: '/api/orders/driver/' + userId,
         async: false,
         success: function (response) {
             if (response.data) {
