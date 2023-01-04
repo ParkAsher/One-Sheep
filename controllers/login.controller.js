@@ -21,7 +21,7 @@ class LoginController {
                 const accessToken = jwt.sign({ userId: customer.customerId, type: 'customer' }, 'my-secrect-key', { expiresIn: '1d' });
                 res.cookie('accessToken', accessToken);
 
-                return res.redirect('/main');
+                return res.redirect('/customer');
             } else {
                 const driver = await this.loginService.findOneDriver(id);
 
@@ -37,6 +37,16 @@ class LoginController {
         } catch (err) {
             console.log(err);
             return res.status(500).json({ errorMessage: err });
+        }
+    };
+
+    // 로그아웃
+    logOut = async (req, res, next) => {
+        try {
+            res.clearCookie('accessToken');
+            return res.status(200).json({ success: true, message: '정상적으로 로그아웃 되었습니다.' });
+        } catch (error) {
+            return res.status(400).json({ success: false, message: '로그아웃에 실패하였습니다. 관리자에게 문의하여주십시오.' });
         }
     };
 }
