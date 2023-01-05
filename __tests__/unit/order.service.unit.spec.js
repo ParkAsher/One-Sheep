@@ -12,6 +12,7 @@ describe('3계층 아키텍처 Order service 유닛 테스트', () => {
         jest.resetAllMocks()
     })
 
+    // 오더 신청 유닛 테스트
     test('Order service createOrder method', async () => {
         mockOrderRepository.createOrder = jest.fn(() => {
             return "create result"
@@ -23,6 +24,7 @@ describe('3계층 아키텍처 Order service 유닛 테스트', () => {
             phone: 1234,
             address: "newAddress",
             request: "newRequest",
+            status: "접수 대기",
             usageDateTimeStart: new Date("1 January 2023 00:00"),
             usageTime: 1
         }
@@ -33,6 +35,7 @@ describe('3계층 아키텍처 Order service 유닛 테스트', () => {
             createOrderParams.phone,
             createOrderParams.address,
             createOrderParams.request,
+            createOrderParams.status,
             createOrderParams.usageDateTimeStart,
             createOrderParams.usageTime,
         )
@@ -50,6 +53,7 @@ describe('3계층 아키텍처 Order service 유닛 테스트', () => {
             phone: createOrderParams.phone,
             address: createOrderParams.address,
             request: createOrderParams.request,
+            status: createOrderParams.status,
             usageDateTimeStart: createOrderParams.usageDateTimeStart,
             usageTime: createOrderParams.usageTime,
         })

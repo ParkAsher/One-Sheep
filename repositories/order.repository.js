@@ -51,7 +51,7 @@ class OrderRepository {
     // 오더 신청
     createOrder = async (customerId, driverId, phone, address, request, status, usageDateTimeStart, usageTime) => {
         try {
-            const createOrderData = await Order.create({
+            const createOrderData = await this.orderModel.create({
                 customerId,
                 driverId,
                 phone,

@@ -1,2 +1,0 @@
-INSERT INTO orders (customerid, driverid, phone, address, request, status, usageDateTimeStart, usageTime, createdAt, updatedAt) 
-VALUES('1', '1', '010-111-1111', '어디어디어디', '123', '1호', '2023-01-02', '1', '2023-01-02', '2023-01-02')

@@ -1,4 +1,4 @@
-const OrderRepositoryDepInj = require('../../repositories/order.repository.depInj')
+const OrderRepositoryDepInj = require('../../repositories/order.repository.js')
 
 
 let mockOrderModel = {
@@ -12,6 +12,7 @@ describe('3계층 아키텍처 Order repository 유닛 테스트', () => {
         jest.resetAllMocks()
     })
 
+    // 오더 신청 유닛 테스트
     test('Order repository createOrder method', async () => {
         mockOrderModel.create = jest.fn(() => {
             return "create result"

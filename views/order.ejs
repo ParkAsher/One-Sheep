@@ -3,8 +3,8 @@
         <div class="col driver-info-and-reviews">
             <!-- 사장님 정보 -->
             <div class="driver-info">
-                <h1>사장 이름</h1>
-                <image src="http://t1.daumcdn.net/news/201206/21/ned/20120621145427381.jpg"></image>
+                <h1 id="driver-name">사장 이름</h1>
+                <image id="driver-image" src="http://t1.daumcdn.net/news/201206/21/ned/20120621145427381.jpg"></image>
             </div>
 
             <!-- 사장님 캠핑카 리뷰 -->
@@ -29,6 +29,8 @@
                         </div>
                     </div>
                 </div>
+                <div id="data-container"></div>
+                <div id="review-pagination"></div>
             </div>
         </div>
 
@@ -45,6 +47,10 @@
                         </span>
                     </div>
                     <script>
+                        let minDate = new Date(Date.now())
+                        minDate.setHours(minDate.getHours()+1)
+                        console.log(minDate)
+
                         new tempusDominus.TempusDominus(document.getElementById('datetimepicker1'), {
                             display: {
                                 components: {
@@ -84,6 +90,14 @@
             </div>
 
             <div class="mb-3">
+                <label for="order-request">전화번호 (필수)</label>
+                <input type="number" class="form-control hide-spinners" id="order-phone">
+            </div>
+            <div class="mb-3">
+                <label for="order-request">주소 (필수)</label>
+                <input class="form-control" id="order-address">
+            </div>
+            <div class="mb-3">
                 <label for="order-request">요구 사항 (선택)</label>
                 <textarea class="form-control" id="order-request" rows="3"></textarea>
             </div>
@@ -94,10 +108,17 @@
                 <p id="points-remaining">잔여 포인트:</p>
             </div>
 
-            <button type="button px-5 submit" class="btn btn-primary">신청</button>
+            <button type="button" class="btn btn-primary px-4" onclick="postOrder()">신청</button>
         </form>
     </div>
 </div>
+<!-- <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div> -->
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.css" />
 
 <script>
     // // ejs 문법으로 넘어온 isLogined
@@ -107,6 +128,64 @@
         location.href = '/login';
     }
 
+    $(document).ready(function () {
+    // ------------- 메인페이지 완료되면 완료하기
+    // 사장 정보 불러오기
+    $.ajax({
+        type: 'GET',
+        url: `/api/users/drivers/5`, //
+        async: false,
+        success: function(response) {
+            let name = response.name
+            let image = response.image
+
+            document.getElementById('driver-name').innerHTML = name
+            document.getElementById('driver-image').src = image
+        }
+    })
+
+    // 사장 리뷰 불러오기
+    $.ajax({
+        type: 'GET',
+        url: `/api/reviews/5`,
+        success: function(response) {
+            let stars
+            let content
+            let createdAt
+            let customerName
+            let temp_html
+            let starsEmoji = ''
+
+            for(let i=0; i<response.length; i++) {
+                stars = response[i]['Review.stars']
+                content = response[i]['Review.content']
+                createdAt = response[i]['Review.createdAt']
+                createdAt = new Date(createdAt)
+                createdAt = createdAt.toLocaleString('ko-KR', {timezone: 'UTC'})
+                customerName = response[i]['Customer.name']
+
+                for (let i=0; i<Number(stars); i++) {
+                    starsEmoji += '😴'
+                }
+                
+                temp_html = `<div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">${customerName}</h5>
+                                    <p class="review-stars">${starsEmoji}</p>
+                                    <p class="review-date">${createdAt}</p>
+                                    <p class="card-text">${content}</p>
+                                </div>
+                            </div>`
+
+                $('#review-cards').append(temp_html)
+
+                starsEmoji = ''
+            }
+
+        }
+    })
+    });
+
     // 이용 기간을 클릭 또는 입력시 차감 포인트 업데이트하기
     function pointsDeducted() {
         let orderTime = document.getElementById('order-time').value;
@@ -114,7 +193,6 @@
 
         let userPoints = '<%= user.point %>';
         userPoints = Number(userPoints);
-        console.log(userPoints);
 
         let remainingPoints = userPoints - orderTime * 10000;
 
@@ -136,18 +214,34 @@
         const usageDateTimeStart = new Date(year, month - 1, date, hour);
         const usageTime = Number($('#order-time').val());
         const request = $('#order-request').val();
+        const address = $('#order-address').val()
+        let phone = $('#order-phone').val()
 
-        let userId;
+        let customerId = '<%= user.userId %>'
+        customerId = Number(customerId)
         let driverId;
 
-        // $.ajax({
-        //     type: 'POST',
-        //     url: `/api/orders/${driverId}`,
-        //     async: false,
-        //     success: function(response) {
-        //         // 성공 메시지
-        //     }
-        // })
+        $.ajax({
+            type: 'POST',
+            url: `/api/orders/5`,
+            data: {
+                phone: phone,
+                address: address,
+                usageDateTimeStart: usageDateTimeStart,
+                usageTime: usageTime
+            },
+            success: function(response) {
+                console.log('Success in Ajax:',response)
+                alert('성공적으로 신청 완료됐습니다!')
+                // location.href = '/'
+            },
+            error: function (xhr, status, error) {
+                alert(`에러 ${xhr.status}: ${xhr.responseJSON.message}`)
+                
+                console.log('Error in Ajax:', xhr, status, error)
+                console.log('xhr:', xhr.responseJSON.message)
+                
+            }
+        })
     }
 </script>
-<!-- <script src="js/order-datepicker.kr.js"></script> -->
