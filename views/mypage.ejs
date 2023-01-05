@@ -1,183 +1,146 @@
-<link rel="stylesheet" href="./css/mypage.css"/>
-
-<div class="main-background">
-  <div class="config-background container">
-    <h1 style="color: black;">잔여 포인트 : <%= user.point %></h1>
-    <button type="button" class="btn btn-warning mt-3" style="font-size: 30px;">이용현황</button>
-    <div class="btn-end">
-      <button type="button" class="btn btn-success me-3" style="font-size: 30px;">할인등록 쿠폰</button>
-      <button type="button" class="btn btn-danger" style="font-size: 30px;">리뷰 조회</button>
+<div class="mypage-background">
+    <div class="mypage-wrap">
+        <div class="mypage-customer-point-wrap">
+            <p style="color: black">잔여 포인트 : <%= user.point %></p>
+        </div>
+        <!-- 데이터 출력 -->
+        <div id="data-container"></div>
+        <!-- 페이지네이션 버튼 -->
+        <div id="pagination"></div>
     </div>
-  </div>
-  
-  <div class="sub-background container">
-    <ul class="list-group mt-2" id="user-list">
-        <!-- <li class="list-group-item mb-3">
-          <h5>번호 : </h5>
-          <h5>지역 : </h5>
-          <h5>상태 : </h5>
-          <h5>서비스 시작 : </h5>
-          <h5>이용 시간 : </h5>
-          <button type="button" class="btn btn-primary mt-3 ms-5" id="btn-review">리뷰 쓰기</button>
-        </li> -->
-    </ul>
-
-    <nav aria-label="Page navigation example">
-      <ul class="pagination">
-        <li class="page-item">
-          <a class="page-link" href="#" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-          <a class="page-link" href="#" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
-  </div>
 </div>
 
 <!------------------------------------------------------------>
 
-<!-- <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal">리뷰쓰기</button> -->
-
 <!-- Modal -->
-<!-- Modal -->
-<div
-  class="modal fade"
-  id="exampleModal"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">후기 작성</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">후기 작성</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
 
-      <!-- 모달 body -->
-      <div class="modal-body">
-        <!-- 이미지 입력란 -->
+            <!-- 모달 body -->
+            <div class="modal-body">
+                <div class="order-id-wrap">
+                    <p>신청번호 :</p>
+                    <p id="order-id"></p>
+                </div>
 
-        <!-- 별점 선택란 -->
-        <div class="input-group mb-3">
-          <label class="input-group-text" for="inputGroupSelect01">
-            별점
-          </label>
-          <select class="form-select" id="reviewstars">
-            <option selected>--선택하기--</option>
-            <option value="1">⭐</option>
-            <option value="2">⭐⭐</option>
-            <option value="3">⭐⭐⭐</option>
-            <option value="4">⭐⭐⭐⭐</option>
-            <option value="5">⭐⭐⭐⭐⭐</option>
-          </select>
+                <!-- 별점 선택란 -->
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="inputGroupSelect01"> 별점 </label>
+                    <select class="form-select" id="reviewstars">
+                        <option selected>--선택하기--</option>
+                        <option value="1">⭐</option>
+                        <option value="2">⭐⭐</option>
+                        <option value="3">⭐⭐⭐</option>
+                        <option value="4">⭐⭐⭐⭐</option>
+                        <option value="5">⭐⭐⭐⭐⭐</option>
+                    </select>
+                </div>
+
+                <!-- 내용 입력란 -->
+                <div class="form-floating">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="reviewcontent" style="height: 100px"></textarea>
+                    <label for="floatingTextarea2"> 고객님의 소중한 후기를 남겨주세요. </label>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                <button type="button" class="btn btn-primary" onclick="postReview()">리뷰 등록</button>
+            </div>
         </div>
-
-        <!-- 내용 입력란 -->
-        <div class="form-floating">
-          <textarea
-            class="form-control"
-            placeholder="Leave a comment here"
-            id="reviewcontent"
-            style="height: 100px"
-          ></textarea>
-          <label for="floatingTextarea2">
-            고객님의 소중한 후기를 남겨주세요.
-          </label>
-        </div>
-      </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          취소
-        </button>
-        <button type="button" class="btn btn-primary" onclick="postReview()">
-          리뷰 등록
-        </button>
-      </div>
     </div>
-  </div>
 </div>
 
 <!------------------------------------------------------------>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.css" />
 <script>
-  $(document).ready( () => { 
-    reload_comment()
-  })
-  const user = '<%= user %>>'
-  const userId = '<%= user.userId %>'  // 서버에서 넘어온 userId, ejs문법, 스크립트 안에만 문자열
-  
-  // GET - 게시글 불러오기
-  function reload_comment() {
-    $.ajax({
-      type: "GET",
-      url: `/api/orders/customer/${userId}`,
-      data: {},
-      success: function (response) {
-        doc = response['UserUseResult']
+    const user = '<%= user %>>';
+    const userId = '<%= user.userId %>'; // 서버에서 넘어온 userId, ejs문법, 스크립트 안에만 문자열
 
-        $('#user-list').empty()
-
-        for(let i = 0; i < doc.length; i++) {
-          let phone = doc[i]['phone']
-          let address = doc[i]['address']
-          let status = doc[i]['status']
-          let usageDateTimeStart = doc[i]['usageDateTimeStart']
-          let usageTime = doc[i]['usageTime']
-
-          const template = `<li class="list-group-item mb-3">
-                              <h5>번호 : ${phone}</h5>
-                              <h5>지역 : ${address}</h5>
-                              <h5>상태 : ${status}</h5>
-                              <h5>서비스 시작 : ${usageDateTimeStart}</h5>
-                              <h5>이용 시간 : ${usageTime}</h5>
-                              <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal">리뷰쓰기</button>
-                            </li>`
-
-          $('#user-list').append(template)
-
-          // $('#btn-review').on('click', () => location.href="/review" )
-        }
-      }
-    });
-  }
-
-  // 리뷰 등록
-  function postReview() {
-    const stars = $("#reviewstars").val();
-    const content = $("#reviewcontent").val();
+    // 리뷰 들고올 배열
+    let reviewList = [];
 
     $.ajax({
-      type: "POST",
-      url: `/api/reviews/20`, //    <- :orderId 를 가져와야 됨. 페이지 합친 뒤에 81번줄 함수 ()안에 orderId를 넣어서 값이 가는지 확인해야됨.
-      data: {
-        stars: stars,
-        content: content,
-      },
-      success: function (response) {
-        alert("성공적으로 신청 완료됐습니다!");
+        type: 'GET',
+        url: `/api/orders/customer/${userId}`,
+        async: false,
+        success: function (response) {
+            console.log(response.UserUseResult);
 
-        window.location.reload()
-      },
-      error: function (xhr, status, error) {
-        alert(`에러 ${xhr.status}: ${xhr.responseJSON.message}`);
-      },
+            for (let i = 0; i < response.UserUseResult.length; i++) {
+                reviewList.push(response.UserUseResult[i]);
+            }
+        },
     });
-  }
 
+    // 리뷰 페이지네이션
+    if (reviewList.length !== 0) {
+        //페이지네이션
+        let container = $('#pagination');
+        container.pagination({
+            dataSource: reviewList,
+            pageSize: 4,
+            callback: function (data, pagination) {
+                let dataHtml = ``;
+                $.each(data, function (index, item) {
+                    dataHtml += `
+                        <div class="history-content-wrap" orderId=${item.orderId}>
+                            <div class="history-address">
+                                <p>주소 : ${item.address}</p>
+                            </div>
+                            <div class="history-status">
+                                <p>상태 : ${item.status}</p>
+                            </div>
+                            <div class="history-usageDate">
+                                <p>사용날짜 : ${item.usageDateTimeStart}</p>
+                            </div>
+                            <div class="history-usageTime">
+                                <p>사용시간 : ${item.usageTime}</p>
+                            </div>
+                            <button id="btn-modal" type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="openModal(${item.orderId})">리뷰쓰기</button>
+                        </div>
+                    `;
+                    $('#data-container').html(dataHtml);
+                });
+            },
+        });
+    }
+
+    // 모달 열기
+    function openModal(orderId) {
+        $('.btn-modal').modal('show');
+        $('#order-id').html(orderId);
+    }
+
+    // 리뷰 등록
+    function postReview() {
+        const orderId = document.getElementById('order-id').innerText;
+        const stars = $('#reviewstars').val();
+        const content = $('#reviewcontent').val();
+
+        console.log(orderId);
+
+        $.ajax({
+            type: 'POST',
+            url: `/api/reviews/` + orderId, //    <- :orderId 를 가져와야 됨. 페이지 합친 뒤에 81번줄 함수 ()안에 orderId를 넣어서 값이 가는지 확인해야됨.
+            data: {
+                stars: stars,
+                content: content,
+            },
+            success: function (response) {
+                alert('성공적으로 신청 완료됐습니다!');
+
+                window.location.reload();
+            },
+            error: function (xhr, status, error) {
+                alert(`에러 ${xhr.status}: ${xhr.responseJSON.message}`);
+            },
+        });
+    }
 </script>
-
