@@ -9,8 +9,7 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
-            models.Review.belongsTo(models.Customer, { foreignKey: 'customerId' });
-            models.Review.belongsTo(models.Driver, { foreignKey: 'driverId' });
+            models.Review.belongsTo(models.Order, { foreignKey: 'orderId' });
         }
     }
     Review.init(
@@ -21,11 +20,7 @@ module.exports = (sequelize, DataTypes) => {
                 primaryKey: true,
                 type: DataTypes.INTEGER,
             },
-            driverId: {
-                allowNull: false,
-                type: DataTypes.INTEGER,
-            },
-            customerId: {
+            orderId: {
                 allowNull: false,
                 type: DataTypes.INTEGER,
             },

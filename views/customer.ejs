@@ -6,36 +6,14 @@
             <p>신청 가능한 차량 목록</p>
         </div>
         <div class="swiper mySwiper">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <!-- 정보 가져오기 - 이름 / 이미지 + 버튼 -->
-                    <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
-                </div>
-                <div class="swiper-slide">
-                    <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-                </div>
-                <div class="swiper-slide">
-                    <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-                </div>
-                <div class="swiper-slide">
-                    <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-                </div>
-                <div class="swiper-slide">
-                    <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
-                </div>
-                <div class="swiper-slide">
-                    <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
-                </div>
-                <div class="swiper-slide">
-                    <img src="https://swiperjs.com/demos/images/nature-7.jpg" />
-                </div>
-                <div class="swiper-slide">
-                    <img src="https://swiperjs.com/demos/images/nature-8.jpg" />
-                </div>
-                <div class="swiper-slide">
-                    <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
-                </div>
-            </div>
+            <div id="available-car" class="swiper-wrapper"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+        <div class="unavailable-car-title-wrap">
+            <p>현재 이용중인 차량 목록</p>
+        </div>
+        <div class="swiper mySwiper">
+            <div id="unavailable-car" class="swiper-wrapper"></div>
             <div class="swiper-pagination"></div>
         </div>
     </div>
@@ -43,11 +21,20 @@
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 <script>
-    let swiper = new Swiper(".mySwiper", {
-        effect: "coverflow",
+    // // ejs 문법으로 넘어온 isLogined
+    const isLogined = '<%= Object.keys(user).length > 0 %>';
+    if (isLogined === 'false') {
+        alert('로그인 후 이용가능합니다.');
+        location.href = '/login';
+    }
+
+    // swiper library config
+    let swiper = new Swiper('.mySwiper', {
+        effect: 'coverflow',
         grabCursor: true,
         centeredSlides: true,
-        slidesPerView: "auto",
+        slidesPerView: 'auto',
+        slideToClickedSlide: true,
         coverflowEffect: {
             rotate: 50,
             stretch: 0,
@@ -55,31 +42,89 @@
             modifier: 1,
             slideShadows: true,
         },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
         pagination: {
-            el: ".swiper-pagination",
+            el: '.swiper-pagination',
+            clickable: true,
         },
     });
-    $(document).ready(function () {
-        // customer.html이 로딩 되었으면 피드 불러오기
-        //  getDriver();
-    });
+
+    let availableCarList = [];
+    let unavailableCarList = [];
+
     $.ajax({
-        type: "GET",
-        url: "/api/users/drivers",
+        type: 'GET',
+        url: '/api/users/drivers',
+        async: false,
         success: function (response) {
-
-            <!-- 정보 가져오기 - 이름 / 이미지 + 버튼 -->
-            for (let i = 0;)
-            console.log(response.availableCar);
-            console.log(response.unavailableCar);
-        if ()
-
-
+            for (let i = 0; i < response.availableCar.length; i++) {
+                availableCarList.push(response.availableCar[i]);
+            }
+            for (let i = 0; i < response.unavailableCar.length; i++) {
+                unavailableCarList.push(response.unavailableCar[i]);
+            }
         },
-
-
-        // error: function (response){
-        //     console.
-        // }
+        error: function (response) {
+            console.log(response.responseJSON.message);
+        },
     });
+
+    console.log(availableCarList);
+    console.log(unavailableCarList);
+
+    // 1. 신청 가능한 사장 리스트가 있을때
+    if (availableCarList.length !== 0) {
+        for (let i = 0; i < availableCarList.length; i++) {
+            let driverHtml = `
+            <div class="swiper-slide" driverId=${availableCarList[i].driverId}>
+                <div class="swiper-img-wrap">
+                    <img src="${availableCarList[i].image}" />
+                </div>
+                <div class="swiper-btn-wrap">
+                    <button type="button" onclick="window.location.href='/order?driverId=${availableCarList[i].driverId}'">신청하기</button>
+                </div>
+            </div>
+        `;
+            $('#available-car').append(driverHtml);
+        }
+    }
+
+    // 2. 신청 가능한 사장 리스트가 없을때
+    if (availableCarList.length === 0) {
+        let messageHtml = `
+            <div class="message">
+                신청 가능한 차량 목록이 없습니다.
+            </div>
+        `;
+        $('#available-car').append(messageHtml);
+    }
+
+    // 3. 신청 불가능한 사장 리스트가 있을때
+    if (unavailableCarList.length !== 0) {
+        for (let i = 0; i < unavailableCarList.length; i++) {
+            let driverHtml = `
+            <div class="swiper-slide" driverId=${unavailableCarList[i].driverId}>
+                <div class="swiper-img-wrap">
+                    <img src="${unavailableCarList[i].image}" />
+                </div>
+                <div class="swiper-name-wrap">
+                    <p>${unavailableCarList[i].name}</p>    
+                </div>
+            </div>
+        `;
+            $('#unavailable-car').append(driverHtml);
+        }
+    }
+    // 4. 신청 불가능한 사장 리스트가 없을때
+    if (unavailableCarList.length === 0) {
+        let messageHtml = `
+            <div class="message">
+                신청 가능한 차량 목록이 없습니다.
+            </div>
+        `;
+        $('#unavailable-car').append(messageHtml);
+    }
 </script>
