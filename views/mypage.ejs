@@ -138,8 +138,9 @@
 
                 window.location.reload();
             },
-            error: function (xhr, status, error) {
-                alert(`에러 ${xhr.status}: ${xhr.responseJSON.message}`);
+            error: function (response) {
+                //alert(`에러 ${xhr.status}: ${xhr.responseJSON.message}`);
+                alert(response.responseJSON.message);
             },
         });
     }
