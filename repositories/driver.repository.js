@@ -1,9 +1,9 @@
-const { name } = require('ejs');
-const order = require('../models/order');
-const { Order, Driver } = require('../models');
-const sequelize = require('sequelize');
-const { Association } = require('sequelize');
-const { Op } = require('sequelize');
+const {name} = require("ejs");
+const order = require("../models/order");
+const {Order, Driver} = require("../models");
+const sequelize = require("sequelize");
+const {Association} = require("sequelize");
+const {Op} = require("sequelize");
 class DriverRepository {
     constructor(CustomerModel, DriverModel) {
         // 의존성 주입
@@ -16,18 +16,18 @@ class DriverRepository {
         try {
             // 고객 DB에 존재하는지?
             const existCustomer = await this.customerModel.findAll({
-                where: { id },
+                where: {id},
             });
 
             // 사장 DB에 존재하는지?
             const existDriver = await this.driverModel.findAll({
-                where: { id },
+                where: {id},
             });
             return [existCustomer, existDriver];
         } catch (error) {
             // DB에서 발생한 Error
-            error.name = 'Database Error';
-            error.message = '요청을 처리하지 못하였습니다.';
+            error.name = "Database Error";
+            error.message = "요청을 처리하지 못하였습니다.";
             error.status = 400;
             throw error;
         }
@@ -35,11 +35,11 @@ class DriverRepository {
 
     createUser = async (id, name, password, image) => {
         try {
-            await this.driverModel.create({ id, name, password, image });
-            return { status: 200, success: true, message: '회원가입에 성공하였습니다.' };
+            await this.driverModel.create({id, name, password, image});
+            return {status: 200, success: true, message: "회원가입에 성공하였습니다."};
         } catch (error) {
-            error.name = 'Database Error';
-            error.message = '요청을 처리하지 못하였습니다.';
+            error.name = "Database Error";
+            error.message = "요청을 처리하지 못하였습니다.";
             error.status = 400;
             throw error;
         }
@@ -51,14 +51,14 @@ class DriverRepository {
         try {
             // Order table에서 '완료'를 제외한 상태를 가진 사장들을 Driver table에서 뽑아줌
             const unavailableDrivers = await Order.findAll({
-                include: [{ model: Driver }],
+                include: [{model: Driver}],
                 where: {
                     // [Op.and]: [{ a: 5 }, { b: 6 }],
                     // [Op.notLike]: [{status: "완료"}],
-                    status: { [Op.ne]: '완료' },
+                    status: {[Op.notIn]: ["완료", "취소"]},
                 },
             });
-
+            console.log(unavailableDrivers);
             // 위에서 뽑은 사장들의 ID만 따로뽑아서 배열을 만듬.
             const unavailableDriverIds = unavailableDrivers.map((obj) => obj.driverId); // [1, 2, 2, 3]
             // 중복제거
@@ -78,14 +78,14 @@ class DriverRepository {
             // Driver table에서 ['완료'를 제외한 상태를 가진 사장들의 id를 가지고] 그 사장들이 아닌 사장들을 뽑아냄
             const availableDrivers = await Driver.findAll({
                 where: {
-                    driverId: { [Op.notIn]: uniqueUnavailableDriverIds },
+                    driverId: {[Op.notIn]: uniqueUnavailableDriverIds},
                 },
             });
 
-            return { availableDrivers, uniqueUnavailableDrivers };
+            return {availableDrivers, uniqueUnavailableDrivers};
         } catch (error) {
-            error.name = 'Database Error';
-            error.message = '요청을 처리하지 못하였습니다.';
+            error.name = "Database Error";
+            error.message = "요청을 처리하지 못하였습니다.";
             error.status = 400;
             throw error;
         }
@@ -96,14 +96,14 @@ class DriverRepository {
         try {
             // 사장 DB에 해당 id가 존재하는지 확인
             const driver = await this.driverModel.findAll({
-                where: { driverId },
-                attributes: ['name', 'image'],
+                where: {driverId},
+                attributes: ["name", "image"],
             });
 
             return driver;
         } catch (error) {
-            error.name = 'Database Error';
-            error.message = '요청을 처리하지 못하였습니다.';
+            error.name = "Database Error";
+            error.message = "요청을 처리하지 못하였습니다.";
             error.status = 400;
             throw error;
         }

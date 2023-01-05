@@ -1,7 +1,7 @@
 .background-wrap {
     width: 100%;
     min-height: 100vh;
-    background-image: url('../image/onesheep.png');
+    background-image: url("../image/onesheep.png");
     background-position: center;
     background-size: cover;
 }
