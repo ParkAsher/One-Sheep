@@ -125,108 +125,114 @@
                 </form>
             </div>
         </div>
-    </div>
-</div>
 
-<!-- Alert modal -->
-<div class="modal" tabindex="-1" role="dialog" id="alert-modal">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="alert-title"></h5>
-                <button
-                    type="button"
-                    class="close"
-                    data-dismiss="modal"
-                    aria-label="Close"
-                    onclick="$('#alert-modal').modal('hide')"
-                >
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" id="alert-body"></div>
-            <div class="modal-footer">
-                <button
-                    type="button"
-                    class="btn btn-primary btn-confirm"
-                    data-dismiss="modal"
-                    onclick="$('#alert-modal').modal('hide')"
-                >
-                    확인
-                </button>
+        <!-- Alert modal -->
+        <div class="modal" tabindex="-1" role="dialog" id="alert-modal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="alert-title"></h5>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                            onclick="$('#alert-modal').modal('hide')"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="alert-body"></div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-primary btn-confirm"
+                            data-dismiss="modal"
+                            onclick="$('#alert-modal').modal('hide')"
+                        >
+                            확인
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
-<!-- JS Script -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.min.js"></script>
-<link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.css"
-/>
+        <!-- JS Script -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.min.js"></script>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.css"
+        />
 
-<script>
-    // // ejs 문법으로 넘어온 isLogined
-    const isLogined = "<%= Object.keys(user).length > 0 %>";
-    if (isLogined === "false") {
-        alert("로그인 후 이용가능합니다.");
-        location.href = "/login";
-    }
+        <script>
+            // // ejs 문법으로 넘어온 isLogined
+            const isLogined = "<%= Object.keys(user).length > 0 %>";
+            if (isLogined === "false") {
+                alert("로그인 후 이용가능합니다.");
+                location.href = "/login";
+            }
 
-    const driverId = new URL(location.href).searchParams.get("driverId");
+            const driverId = new URL(location.href).searchParams.get("driverId");
 
-    $(document).ready(function () {
-        // 사장 정보 불러오기
-        $.ajax({
-            type: "GET",
-            url: `/api/users/drivers/${driverId}`,
-            async: false,
-            success: function (response) {
-                let name = response.name;
-                let image = response.image;
+            $(document).ready(function () {
+                // 사장 정보 불러오기
+                $.ajax({
+                    type: "GET",
+                    url: `/api/users/drivers/${driverId}`,
+                    async: false,
+                    success: function (response) {
+                        let name = response.name;
+                        let image = response.image;
 
-                document.getElementById("driver-name").innerHTML = name;
-                document.getElementById("driver-image").src = image;
-            },
-        });
+                        document.getElementById("driver-name").innerHTML = name;
+                        document.getElementById("driver-image").src = image;
+                    },
+                });
 
-        // 사장 리뷰 불러오기
+                // 사장 리뷰 불러오기
 
-        $.ajax({
-            type: "GET",
-            url: `/api/reviews/${driverId}`,
-            success: function (response) {
-                // 사장의 리뷰 페이지네이션
-                if (response.length !== 0) {
-                    let container = $("#review-pagination");
-                    let stars;
-                    let content;
-                    let createdAt;
-                    let customerName;
-                    let temp_html;
-                    let starsEmoji = "";
+                $.ajax({
+                    type: "GET",
+                    url: `/api/reviews/${driverId}`,
+                    success: function (response) {
+                        // 사장의 리뷰 페이지네이션
+                        if (response.length !== 0) {
+                            let container = $("#review-pagination");
+                            let stars;
+                            let content;
+                            let createdAt;
+                            let customerName;
+                            let temp_html;
+                            let starsEmoji = "";
 
-                    container.pagination({
-                        dataSource: response,
-                        pageSize: 4,
-                        callback: function (data, pagination) {
-                            let dataHtml = ``;
-                            $.each(data, function (index, item) {
-                                stars = item["Review.stars"];
-                                content = item["Review.content"];
-                                createdAt = item["Review.createdAt"];
-                                createdAt = new Date(createdAt);
-                                createdAt = createdAt.toLocaleString("ko-KR", {timezone: "UTC"});
-                                customerName = item["Customer.name"];
+                            container.pagination({
+                                dataSource: response,
+                                pageSize: 4,
+                                callback: function (data, pagination) {
+                                    let dataHtml = ``;
+                                    $.each(data, function (index, item) {
+                                        stars = item["Review.stars"];
+                                        content = item["Review.content"];
+                                        createdAt = item["Review.createdAt"];
+                                        createdAt = new Date(createdAt);
+                                        createdAt = createdAt.toLocaleString("ko-KR", {
+                                            timezone: "UTC",
+                                        });
+                                        customerName = item["Customer.name"];
 
-                                for (let i = 0; i < Number(stars); i++) {
-                                    starsEmoji += "😴";
-                                }
+                                        for (let i = 0; i < Number(stars); i++) {
+                                            starsEmoji += "😴";
+                                        }
 
-                                console.log(stars, content, createdAt, customerName, starsEmoji);
+                                        console.log(
+                                            stars,
+                                            content,
+                                            createdAt,
+                                            customerName,
+                                            starsEmoji
+                                        );
 
-                                dataHtml += `<div class="card">
+                                        dataHtml += `<div class="card">
                                                 <div class="card-body">
                                                     <h5 class="card-title">${customerName}</h5>
                                                     <p class="review-stars">${starsEmoji}</p>
@@ -234,86 +240,89 @@
                                                     <p class="card-text">${content}</p>
                                                 </div>
                                             </div>`;
-                                $("#review-cards").html(dataHtml);
+                                        $("#review-cards").html(dataHtml);
 
-                                starsEmoji = "";
+                                        starsEmoji = "";
+                                    });
+                                },
                             });
-                        },
-                    });
-                }
-            },
-            error: function (xhr, status, error) {
-                alertModal(`에러 ${xhr.status}`, xhr.responseJSON.message, () => {
-                    window.location.reload();
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        alertModal(`에러 ${xhr.status}`, xhr.responseJSON.message, () => {
+                            window.location.reload();
+                        });
+                    },
                 });
-            },
-        });
-    });
+            });
 
-    // 이용 기간을 클릭 또는 입력시 차감 포인트 업데이트하기
-    function pointsDeducted() {
-        let orderTime = document.getElementById("order-time").value;
-        orderTime = Number(orderTime);
+            // 이용 기간을 클릭 또는 입력시 차감 포인트 업데이트하기
+            function pointsDeducted() {
+                let orderTime = document.getElementById("order-time").value;
+                orderTime = Number(orderTime);
 
-        let userPoints = "<%= user.point %>";
-        userPoints = Number(userPoints);
+                let userPoints = "<%= user.point %>";
+                userPoints = Number(userPoints);
 
-        let remainingPoints = userPoints - orderTime * 10000;
+                let remainingPoints = userPoints - orderTime * 10000;
 
-        document.getElementById("points-deducted").innerHTML =
-            "차감 포인트: " + orderTime * 10000 + "p";
-        document.getElementById("points-remaining").innerHTML =
-            "잔여 포인트: " + remainingPoints + "p";
-    }
+                document.getElementById("points-deducted").innerHTML =
+                    "차감 포인트: " + orderTime * 10000 + "p";
+                document.getElementById("points-remaining").innerHTML =
+                    "잔여 포인트: " + remainingPoints + "p";
+            }
 
-    function postOrder() {
-        let rawDate = $("#datetimepicker1Input").val();
-        const year = Number(rawDate.split(" ")[0]);
-        const month = Number(rawDate.split(" ")[1]);
-        const date = Number(rawDate.split(" ")[2]);
-        let hour = Number(rawDate.split(" ")[4].split("시")[0]);
+            function postOrder() {
+                let rawDate = $("#datetimepicker1Input").val();
+                const year = Number(rawDate.split(" ")[0]);
+                const month = Number(rawDate.split(" ")[1]);
+                const date = Number(rawDate.split(" ")[2]);
+                let hour = Number(rawDate.split(" ")[4].split("시")[0]);
 
-        if (rawDate.split(" ")[3] === "오후") {
-            hour = hour + 12;
-        }
+                if (rawDate.split(" ")[3] === "오후") {
+                    hour = hour + 12;
+                }
 
-        const usageDateTimeStart = new Date(year, month - 1, date, hour);
-        const usageTime = Number($("#order-time").val());
-        const request = $("#order-request").val();
-        const address = $("#order-address").val();
-        let phone = $("#order-phone").val();
+                const usageDateTimeStart = new Date(year, month - 1, date, hour);
+                const usageTime = Number($("#order-time").val());
+                const request = $("#order-request").val();
+                const address = $("#order-address").val();
+                let phone = $("#order-phone").val();
 
-        let customerId = "<%= user.userId %>";
-        customerId = Number(customerId);
+                let customerId = "<%= user.userId %>";
+                customerId = Number(customerId);
 
-        $.ajax({
-            type: "POST",
-            url: `/api/orders/${driverId}`,
-            data: {
-                phone: phone,
-                address: address,
-                usageDateTimeStart: usageDateTimeStart,
-                usageTime: usageTime,
-            },
-            success: function (response) {
-                console.log("Success in Ajax:", response);
-                alert("성공적으로 신청 완료됐습니다!");
-                location.href = "/customer";
-            },
-            error: function (xhr, status, error) {
-                alertModal(`에러 ${xhr.status}`, xhr.responseJSON.message);
-            },
-        });
-    }
+                $.ajax({
+                    type: "POST",
+                    url: `/api/orders/${driverId}`,
+                    data: {
+                        phone: phone,
+                        address: address,
+                        request: request,
+                        usageDateTimeStart: usageDateTimeStart,
+                        usageTime: usageTime,
+                    },
+                    success: function (response) {
+                        console.log("Success in Ajax:", response);
+                        alert("성공적으로 신청 완료됐습니다!");
+                        location.href = "/customer";
+                    },
+                    error: function (xhr, status, error) {
+                        alertModal(`에러 ${xhr.status}`, xhr.responseJSON.message);
+                    },
+                });
+            }
 
-    // Alert modal
-    function alertModal(title, body, confirmCallback) {
-        $("#alert-title").text(title);
-        $("#alert-body").text(body);
-        $("#alert-modal").modal("show");
+            // Alert modal
+            function alertModal(title, body, confirmCallback) {
+                $("#alert-title").text(title);
+                $("#alert-body").text(body);
+                $("#alert-modal").modal("show");
 
-        if (confirmCallback) {
-            $("#alert-modal .btn-confirm").click(confirmCallback);
-        }
-    }
-</script>
+                if (confirmCallback) {
+                    $("#alert-modal .btn-confirm").click(confirmCallback);
+                }
+            }
+        </script>
+    </div>
+</div>

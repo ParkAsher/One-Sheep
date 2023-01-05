@@ -58,8 +58,13 @@
                 for (let i = 0; i < response.data.length; i++) {
                     // data 배열을 돌면서
                     if (response.data[i].request === null) response.data[i].request = ''; // 요청사항이 null일때 빈 문자열로 만들어 줌
-                    if (response.data[i].status !== '완료') orderInProgress.push(response.data[i]);
-                    if (response.data[i].status === '완료') dataSource.push(response.data[i]);
+                    // if (response.data[i].status !== '완료') orderInProgress.push(response.data[i]);
+                    // if (response.data[i].status === '완료') dataSource.push(response.data[i]);
+                    if (response.data[i].status === '완료' || response.data[i].status === '취소') {
+                        dataSource.push(response.data[i]);
+                    } else {
+                        orderInProgress.push(response.data[i]);
+                    }
                 }
             } else {
                 // 신청 내역이 없다면?
