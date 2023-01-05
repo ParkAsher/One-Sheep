@@ -1,0 +1,68 @@
+.main-background-wrap {
+    width: 100%;
+    min-height: 100vh;
+    background-image: url('../image/onesheep.png');
+    /* background-position: center; */
+    background-size: cover;
+}
+
+.main-wrap {
+    width: 1320px;
+    min-height: 100%;
+    margin: 0 auto;
+    padding: 12rem 0 2rem 0;
+}
+
+.main-wrap .available-car-title-wrap,
+.main-wrap .unavailable-car-title-wrap {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.main-wrap .available-car-title-wrap p,
+.main-wrap .unavailable-car-title-wrap p {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.swiper {
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    margin-bottom: 2rem;
+}
+
+.swiper-slide {
+    background: transparent;
+    backdrop-filter: blur(3px);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    width: 30rem;
+    height: 28rem;
+    border-radius: 10px;
+    padding: 2rem;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.swiper-slide .swiper-btn-wrap {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.swiper-slide .swiper-btn-wrap button {
+    border-radius: 10px;
+    background: transparent;
+    border: 1px solid #ffffff;
+    box-sizing: border-box;
+    padding: 0.75rem 1.25rem;
+    font-weight: bold;
+    color: #ffffff;
+}

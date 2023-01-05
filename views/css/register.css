@@ -84,7 +84,7 @@
     vertical-align: middle;
 }
 
-input[type='radio'] {
+input[type="radio"] {
     vertical-align: middle;
     appearance: none;
     border: 1px solid #d3d3d3;
@@ -93,7 +93,7 @@ input[type='radio'] {
     height: 1.25em;
 }
 
-input[type='radio']:checked {
+input[type="radio"]:checked {
     border: 0.4rem solid skyblue;
 }
 
