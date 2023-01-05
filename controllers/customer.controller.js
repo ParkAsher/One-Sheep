@@ -1,7 +1,7 @@
 const CustomerService = require('../services/customer.service.js');
 
 // Joi
-const { customerRegisterValidateSchema } = require('../lib/JoiSchema.js');
+const { customerRegisterValidateSchema, customerIdValidateSchema, deductionPointValidateSchema } = require('../lib/JoiSchema.js');
 
 class CustomerController {
     // Service
@@ -60,7 +60,7 @@ class CustomerController {
     // 회원 이용내역 조회
     getUserUse = async (req, res, next) => {
         try {
-            const customerId = req.params.customerId;
+            const customerId = await customerIdValidateSchema.validateAsync(req.params.customerId);
             // 서비스 계층에 구현된 getUserUse 로직을 실행합니다.
             const UserUseResult = await this.customerService.getUserUse(customerId);
             return res.status(200).json({
@@ -69,6 +69,14 @@ class CustomerController {
                 UserUseResult: UserUseResult,
             });
         } catch (error) {
+            // Joi Error
+            if (error.name === 'ValidationError') {
+                error.status = 412;
+                error.success = false;
+                if (error.details[0].type === 'number.base') {
+                    error.message = '고객 번호 형식이 일치하지 않습니다.';
+                }
+            }
             return res.status(error.status).json({ success: error.success, message: error.message });
         }
     };
@@ -76,13 +84,27 @@ class CustomerController {
     // 포인트 차감
     pointDeduct = async (req, res, next) => {
         try {
-            const customerId = req.params.customerId;
-            const { deductionPoint } = req.body;
+            const requestData = {
+                customerId: req.params.customerId,
+                deductionPoint: req.body.deductionPoint,
+            };
+            const { customerId, deductionPoint } = await deductionPointValidateSchema.validateAsync(requestData);
 
             const pointDeductResult = await this.customerService.pointDeduct(customerId, deductionPoint);
 
             return res.status(pointDeductResult.status).json({ success: pointDeductResult.success, message: pointDeductResult.message });
         } catch (error) {
+            // Joi Error
+            if (error.name === 'ValidationError') {
+                error.status = 412;
+                error.success = false;
+                if (error.details[0].path[0] === 'customerId') {
+                    error.message = '고객 번호 형식이 일치하지 않습니다.';
+                }
+                if (error.details[0].path[0] === 'deductionPoint') {
+                    error.message = '포인트 형식이 일치하지 않습니다.';
+                }
+            }
             return res.status(error.status).json({ success: error.success, message: error.message });
         }
     };

@@ -61,6 +61,13 @@
     margin-bottom: 0.5rem;
 }
 
+.register-wrap .register-form .register-id-wrap span,
+.register-wrap .register-form .register-name-wrap span,
+.register-wrap .register-form .register-password-wrap span {
+    font-size: 0.825rem;
+    color: red;
+}
+
 .register-wrap .register-form .register-id-wrap input,
 .register-wrap .register-form .register-name-wrap input,
 .register-wrap .register-form .register-password-wrap input,
