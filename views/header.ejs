@@ -1,12 +1,17 @@
 <div class="header">
     <div class="header-wrap">
         <div class="logo">
-            <img src="./css/—Pngtree—kneeling sleep sheep sheep hand_3932623.png" style="width: 100px; margin-right: 10px;">
+            <img src="./css/—Pngtree—kneeling sleep sheep sheep hand_3932623.png" style="width: 100px; margin-right: 10px" />
             <a href="/">양한마리</a>
         </div>
         <% if (Object.keys(user).length > 0) { %>
-        <div class="logout-btn-wrap">
-            <button type="button" onclick="logout()">로그아웃</button>
+        <div class="header-btn-wrap">
+            <div class="mypage-btn-wrap">
+                <button type="button" onclick="location.href='/mypage'">마이페이지</button>
+            </div>
+            <div class="logout-btn-wrap">
+                <button type="button" onclick="logout()">로그아웃</button>
+            </div>
         </div>
         <% } %>
     </div>
