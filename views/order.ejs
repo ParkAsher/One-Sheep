@@ -1,182 +1,327 @@
-<div class="order-wrap container">
-    <div class="row">
-        <div class="col driver-info-and-reviews">
-            <!-- 사장님 정보 -->
-            <div class="driver-info">
-                <h1>사장 이름</h1>
-                <image src="http://t1.daumcdn.net/news/201206/21/ned/20120621145427381.jpg"></image>
+<div class="order-background-wrap">
+    <div class = "order-container">
+    <div class="order-wrap container">
+        <div class="row">
+            <div class="col driver-info-and-reviews">
+                <!-- 사장님 정보 -->
+                <div class="driver-info">
+                    <h1 id="driver-name">사장 이름</h1>
+                    <image id="driver-image"></image>
+                </div>
+
+                <!-- 사장님 캠핑카 리뷰 -->
+                <div class="driver-reviews">
+                    <h1>리뷰💭</h1>
+                    <div class="mx-3" id="review-cards"></div>
+                    <div id="data-container"></div>
+                    <div id="review-pagination"></div>
+                </div>
             </div>
 
-            <!-- 사장님 캠핑카 리뷰 -->
-            <div class="driver-reviews">
-                <h1>리뷰💭</h1>
-                <div class="mx-3" id="review-cards">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">작성자 이름</h5>
-                            <p class="review-stars">😴😴😴😴😴</p>
-                            <p class="review-date">2023-01-11</p>
-                            <p class="card-text">꿀잠 잤어요!</p>
+            <!-- 서비스 신청 폼 -->
+            <form class="col order-register needs-validation" novalidate>
+                <h1 style = "padding-bottom:10px">서비스 신청하기</h1>
+                <div class="row">
+                    <div class="col mb-3">
+                        <label style = "padding-bottom:5px">예약 일시 (필수)</label>
+                        <div
+                            class="input-group"
+                            id="datetimepicker1"
+                            data-td-target-input="nearest"
+                            data-td-target-toggle="nearest"
+                        >
+                            <input
+                                id="datetimepicker1Input"
+                                type="text"
+                                class="form-control"
+                                data-td-target="#datetimepicker1"
+                                required
+                            />
+                            <span
+                                class="input-group-text"
+                                data-td-target="#datetimepicker1"
+                                data-td-toggle="datetimepicker"
+                            >
+                                <span class="fa-solid fa-calendar"></span>
+                            </span>
                         </div>
+                        <script>
+                            let minDate = new Date(Date.now());
+                            minDate.setHours(minDate.getHours() + 1);
+                            console.log(minDate);
+
+                            new tempusDominus.TempusDominus(
+                                document.getElementById("datetimepicker1"),
+                                {
+                                    display: {
+                                        components: {
+                                            seconds: false,
+                                            minutes: false,
+                                        },
+                                        icons: {
+                                            type: "icons",
+                                            time: "fa fa-solid fa-clock",
+                                            date: "fa fa-solid fa-calendar",
+                                            up: "fa fa-solid fa-arrow-up",
+                                            down: "fa fa-solid fa-arrow-down",
+                                            previous: "fa fa-solid fa-chevron-left",
+                                            next: "fa fa-solid fa-chevron-right",
+                                            today: "fa fa-solid fa-calendar-check",
+                                            clear: "fa fa-solid fa-trash",
+                                            close: "fas fa-solid fa-xmark",
+                                        },
+                                    },
+                                    localization: {
+                                        hourCycle: "h12",
+                                        locale: "ko-KR",
+                                    },
+                                    restrictions: {
+                                        // 현재 날짜 이후만 선택 가능
+                                        minDate: new Date(Date.now()),
+                                    },
+                                }
+                            );
+                        </script>
                     </div>
 
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">ㅇㅇ</h5>
-                            <p class="review-stars">😴</p>
-                            <p class="review-date">2023-01-10</p>
-                            <p class="card-text">요즘 숙박업에는 넷플릭스 제공이 기본 아닌가요?</p>
-                        </div>
+                    <div class="col mb-3">
+                        <label for="order-time" style = "padding-bottom:5px">이용 기간 (필수)</label>
+                        <input
+                            type="number"
+                            class="form-control"
+                            id="order-time"
+                            min="1"
+                            max="12"
+                            onkeyup="pointsDeducted()"
+                            onmouseup="pointsDeducted()"
+                            required
+                        />
+                        <div class="invalid-feedback">이용 기간은 필수 항목입니다.</div>
                     </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="order-request" style = "padding-bottom:5px">전화번호 (필수)</label>
+                    <input type="number" class="form-control hide-spinners" id="order-phone" />
+                </div>
+                <div class="mb-3">
+                    <label for="order-request" style = "padding-bottom:5px">주소 (필수)</label>
+                    <input class="form-control" id="order-address" />
+                </div>
+                <div class="mb-3">
+                    <label for="order-request" style = "padding-bottom:5px">요구 사항 (선택)</label>
+                    <textarea class="form-control" id="order-request" rows="3"></textarea>
+                </div>
+
+                <div id="order-points">
+                    <p id="points-current">보유한 포인트:<%= user.point %></p>
+                    <p id="points-deducted">차감 포인트:</p>
+                    <p id="points-remaining">잔여 포인트:</p>
+                </div>
+
+                <button type="button" class="btn btn-primary px-4" onclick="postOrder()">
+                    신청
+                </button>
+            </form>
+        </div>
+    </div>
+    </div>  
+    <!-- Alert modal -->
+    <div class="modal" tabindex="-1" role="dialog" id="alert-modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="alert-title"></h5>
+                    <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                        onclick="$('#alert-modal').modal('hide')"
+                    >
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="alert-body"></div>
+                <div class="modal-footer">
+                    <button
+                        type="button"
+                        class="btn btn-primary btn-confirm"
+                        data-dismiss="modal"
+                        onclick="$('#alert-modal').modal('hide')"
+                    >
+                        확인
+                    </button>
                 </div>
             </div>
         </div>
-
-        <!-- 서비스 신청 폼 -->
-        <form class="col order-register needs-validation" novalidate>
-            <h1>서비스 신청하기</h1>
-            <div class="row">
-                <div class="col mb-3">
-                    <label>예약 일시 (필수)</label>
-                    <div
-                        class="input-group"
-                        id="datetimepicker1"
-                        data-td-target-input="nearest"
-                        data-td-target-toggle="nearest"
-                    >
-                        <input
-                            id="datetimepicker1Input"
-                            type="text"
-                            class="form-control"
-                            data-td-target="#datetimepicker1"
-                            required
-                        />
-                        <span
-                            class="input-group-text"
-                            data-td-target="#datetimepicker1"
-                            data-td-toggle="datetimepicker"
-                        >
-                            <span class="fa-solid fa-calendar"></span>
-                        </span>
-                    </div>
-                    <script>
-                        new tempusDominus.TempusDominus(
-                            document.getElementById("datetimepicker1"),
-                            {
-                                display: {
-                                    components: {
-                                        seconds: false,
-                                        minutes: false,
-                                    },
-                                    icons: {
-                                        type: "icons",
-                                        time: "fa fa-solid fa-clock",
-                                        date: "fa fa-solid fa-calendar",
-                                        up: "fa fa-solid fa-arrow-up",
-                                        down: "fa fa-solid fa-arrow-down",
-                                        previous: "fa fa-solid fa-chevron-left",
-                                        next: "fa fa-solid fa-chevron-right",
-                                        today: "fa fa-solid fa-calendar-check",
-                                        clear: "fa fa-solid fa-trash",
-                                        close: "fas fa-solid fa-xmark",
-                                    },
-                                },
-                                localization: {
-                                    hourCycle: "h12",
-                                    locale: "ko-KR",
-                                },
-                                restrictions: {
-                                    // 현재 날짜 이후만 선택 가능
-                                    minDate: new Date(Date.now()),
-                                },
-                            }
-                        );
-                    </script>
-                </div>
-
-                <div class="col mb-3">
-                    <label for="order-time">이용 기간 (필수)</label>
-                    <input
-                        type="number"
-                        class="form-control"
-                        id="order-time"
-                        min="1"
-                        max="12"
-                        onkeyup="pointsDeducted()"
-                        onmouseup="pointsDeducted()"
-                        required
-                    />
-                    <div class="invalid-feedback">이용 기간은 필수 항목입니다.</div>
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <label for="order-request">요구 사항 (선택)</label>
-                <textarea class="form-control" id="order-request" rows="3"></textarea>
-            </div>
-
-            <div id="order-points">
-                <p id="points-current">보유한 포인트:<%= user.point %></p>
-                <p id="points-deducted">차감 포인트:</p>
-                <p id="points-remaining">잔여 포인트:</p>
-            </div>
-
-            <button type="button px-5 submit" class="btn btn-primary">신청</button>
-        </form>
     </div>
-</div>
 
-<script>
-    // // ejs 문법으로 넘어온 isLogined
-    const isLogined = "<%= Object.keys(user).length > 0 %>";
-    if (isLogined === "false") {
-        alert("로그인 후 이용가능합니다.");
-        location.href = "/login";
-    }
+    <!-- JS Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.min.js"></script>
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.css"
+    />
 
-    // 이용 기간을 클릭 또는 입력시 차감 포인트 업데이트하기
-    function pointsDeducted() {
-        let orderTime = document.getElementById("order-time").value;
-        orderTime = Number(orderTime);
-
-        let userPoints = "<%= user.point %>";
-        userPoints = Number(userPoints);
-        console.log(userPoints);
-
-        let remainingPoints = userPoints - orderTime * 10000;
-
-        document.getElementById("points-deducted").innerHTML =
-            "차감 포인트: " + orderTime * 10000 + "p";
-        document.getElementById("points-remaining").innerHTML =
-            "잔여 포인트: " + remainingPoints + "p";
-    }
-
-    function postOrder() {
-        let rawDate = $("#datetimepicker1Input").val();
-        const year = Number(rawDate.split(" ")[0]);
-        const month = Number(rawDate.split(" ")[1]);
-        const date = Number(rawDate.split(" ")[2]);
-        let hour = Number(rawDate.split(" ")[4].split("시")[0]);
-
-        if (rawDate.split(" ")[3] === "오후") {
-            hour = hour + 12;
+    <script>
+        // // ejs 문법으로 넘어온 isLogined
+        const isLogined = "<%= Object.keys(user).length > 0 %>";
+        if (isLogined === "false") {
+            alert("로그인 후 이용가능합니다.");
+            location.href = "/login";
         }
 
-        const usageDateTimeStart = new Date(year, month - 1, date, hour);
-        const usageTime = Number($("#order-time").val());
-        const request = $("#order-request").val();
+        const driverId = new URL(location.href).searchParams.get("driverId");
 
-        let userId;
-        let driverId;
+        $(document).ready(function () {
+            // 사장 정보 불러오기
+            $.ajax({
+                type: "GET",
+                url: `/api/users/drivers/${driverId}`,
+                async: false,
+                success: function (response) {
+                    let name = response.name;
+                    let image = response.image;
 
-        // $.ajax({
-        //     type: 'POST',
-        //     url: `/api/orders/${driverId}`,
-        //     async: false,
-        //     success: function(response) {
-        //         // 성공 메시지
-        //     }
-        // })
-    }
-</script>
-<!-- <script src="js/order-datepicker.kr.js"></script> -->
+                    document.getElementById("driver-name").innerHTML = name;
+                    document.getElementById("driver-image").src = image;
+                },
+            });
+
+            // 사장 리뷰 불러오기
+
+            $.ajax({
+                type: "GET",
+                url: `/api/reviews/${driverId}`,
+                success: function (response) {
+                    // 사장의 리뷰 페이지네이션
+                    if (response.length !== 0) {
+                        let container = $("#review-pagination");
+                        let stars;
+                        let content;
+                        let createdAt;
+                        let customerName;
+                        let temp_html;
+                        let starsEmoji = "";
+
+                        container.pagination({
+                            dataSource: response,
+                            pageSize: 4,
+                            callback: function (data, pagination) {
+                                let dataHtml = ``;
+                                $.each(data, function (index, item) {
+                                    stars = item["Review.stars"];
+                                    content = item["Review.content"];
+                                    createdAt = item["Review.createdAt"];
+                                    createdAt = new Date(createdAt);
+                                    createdAt = createdAt.toLocaleString("ko-KR", {
+                                        timezone: "UTC",
+                                    });
+                                    customerName = item["Customer.name"];
+
+                                    for (let i = 0; i < Number(stars); i++) {
+                                        starsEmoji += "😴";
+                                    }
+
+                                    console.log(
+                                        stars,
+                                        content,
+                                        createdAt,
+                                        customerName,
+                                        starsEmoji
+                                    );
+
+                                    dataHtml += `<div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">${customerName}</h5>
+                                                    <p class="review-stars">${starsEmoji}</p>
+                                                    <p class="review-date">${createdAt}</p>
+                                                    <p class="card-text">${content}</p>
+                                                </div>
+                                            </div>`;
+                                    $("#review-cards").html(dataHtml);
+
+                                    starsEmoji = "";
+                                });
+                            },
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alertModal(`에러 ${xhr.status}`, xhr.responseJSON.message, () => {
+                        window.location.reload();
+                    });
+                },
+            });
+        });
+
+        // 이용 기간을 클릭 또는 입력시 차감 포인트 업데이트하기
+        function pointsDeducted() {
+            let orderTime = document.getElementById("order-time").value;
+            orderTime = Number(orderTime);
+
+            let userPoints = "<%= user.point %>";
+            userPoints = Number(userPoints);
+
+            let remainingPoints = userPoints - orderTime * 10000;
+
+            document.getElementById("points-deducted").innerHTML =
+                "차감 포인트: " + orderTime * 10000 + "p";
+            document.getElementById("points-remaining").innerHTML =
+                "잔여 포인트: " + remainingPoints + "p";
+        }
+
+        function postOrder() {
+            let rawDate = $("#datetimepicker1Input").val();
+            const year = Number(rawDate.split(" ")[0]);
+            const month = Number(rawDate.split(" ")[1]);
+            const date = Number(rawDate.split(" ")[2]);
+            let hour = Number(rawDate.split(" ")[4].split("시")[0]);
+
+            if (rawDate.split(" ")[3] === "오후") {
+                hour = hour + 12;
+            }
+
+            const usageDateTimeStart = new Date(year, month - 1, date, hour);
+            const usageTime = Number($("#order-time").val());
+            const request = $("#order-request").val();
+            const address = $("#order-address").val();
+            let phone = $("#order-phone").val();
+
+            let customerId = "<%= user.userId %>";
+            customerId = Number(customerId);
+
+            $.ajax({
+                type: "POST",
+                url: `/api/orders/${driverId}`,
+                data: {
+                    phone: phone,
+                    address: address,
+                    usageDateTimeStart: usageDateTimeStart,
+                    usageTime: usageTime,
+                },
+                success: function (response) {
+                    console.log("Success in Ajax:", response);
+                    alert("성공적으로 신청 완료됐습니다!");
+                    location.href = "/customer";
+                },
+                error: function (xhr, status, error) {
+                    alertModal(`에러 ${xhr.status}`, xhr.responseJSON.message);
+                },
+            });
+        }
+
+        // Alert modal
+        function alertModal(title, body, confirmCallback) {
+            $("#alert-title").text(title);
+            $("#alert-body").text(body);
+            $("#alert-modal").modal("show");
+
+            if (confirmCallback) {
+                $("#alert-modal .btn-confirm").click(confirmCallback);
+            }
+        }
+    </script>
+</div>
+</div>

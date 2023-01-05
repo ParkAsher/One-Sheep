@@ -33,7 +33,7 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-    max-height: 400px
+    max-height: 400px;
 }
 
 /* 리뷰 부분 */
@@ -48,7 +48,7 @@
 }
 
 .card h5 {
-    color:rgb(91, 130, 202);
+    color: rgb(91, 130, 202);
     font-size: 20px;
     margin-bottom: 3px;
 }
@@ -70,13 +70,12 @@
     font-size: 18px;
 }
 
-
 /* 신청 폼 부분 */
 .order-register {
     /* width: 660px;
     height: 800px;
     float: left; */
-    background-color:bisque;
+    background-color: bisque;
 }
 
 .order-register h1 {
@@ -85,9 +84,9 @@
 }
 
 .order-register button {
-    float:right;
-    position:relative;
-    font-size:25px;
+    float: right;
+    position: relative;
+    font-size: 25px;
 }
 
 #order-points {
