@@ -77,6 +77,10 @@
                 reviewList.push(response.UserUseResult[i]);
             }
         },
+        error: function (response) {
+            console.log(response.responseJSON.message);
+            window.location.href = '/';
+        },
     });
 
     // 리뷰 페이지네이션

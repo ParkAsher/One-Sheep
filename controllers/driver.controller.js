@@ -1,7 +1,7 @@
 const DriverService = require('../services/driver.service.js');
 
 // Joi
-const { driverRegisterValidateSchema } = require('../lib/JoiSchema.js');
+const { driverRegisterValidateSchema, driverIdValidateSchema } = require('../lib/JoiSchema.js');
 
 class DriverController {
     // Service
@@ -82,13 +82,20 @@ class DriverController {
 
     // 특정 사장님 캠핑카 정보 조회
     getDriverById = async (req, res) => {
-        const { driverId } = req.params;
-
         try {
+            const driverId = await driverIdValidateSchema.validateAsync(req.params.driverId);
             const driver = await this.driverService.getDriverById(driverId);
 
             return res.status(200).send(driver);
         } catch (error) {
+            // Joi
+            if (error.name === 'ValidationError') {
+                error.status = 412;
+                error.success = false;
+                if (error.details[0].type === 'number.base') {
+                    error.message = '사장 번호 형식이 일치하지 않습니다.';
+                }
+            }
             return res.status(error.status).json({ success: error.success, message: error.message });
         }
     };
