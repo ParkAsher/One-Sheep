@@ -1,0 +1,76 @@
+/* html, body {
+  height: 100%;
+} */
+
+.main-background {
+  width: 100%;
+  height: 1200px;
+
+  background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url('./하늘.jpg');
+  filter: contrast(130%);
+  background-position: center;
+  background-size: cover;
+
+  position: relative;
+  
+}
+
+.config-background {
+  width: 70%;
+  height: 200px;
+  /* background-color: black; */
+
+  position: absolute;
+
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.config-background .btn-end {
+  display: flex;
+  justify-content: flex-end;
+  /* flex-direction: column; */
+  align-items: center;
+  
+}
+
+.sub-background {
+  width: 100%;
+  height: 800px;
+  background-color: white;
+
+  position: absolute;
+
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+
+  border-radius: 30px;
+  border: 6px solid skyblue;
+
+  /* display: flex;
+  flex-direction: column;
+  align-items: center;  */
+  /* justify-content: center; */
+}
+
+.list-group .list-group-item {
+  border: 2px solid #6495ED;
+  border-radius: 20px;
+  line-height: 120%;
+}
+
+.btn:hover {
+  background-color: brown;
+  color: black;
+  border: none;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
