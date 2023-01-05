@@ -4,12 +4,12 @@
         <p class="intro">언제 어디서나 달달한 휴식을 제공합니다</p>
     </div>
     <div class="login-box">
-        <form class="container" action="/api/users/login" method="POST">
+        <div id="container">
             <div class="mb-3">
-                <input type="text" class="form-control" placeholder="아이디를 입력하세요." aria-describedby="emailHelp" name="id" />
+                <input type="text" id="id" class="form-control" placeholder="아이디를 입력하세요." aria-describedby="emailHelp" name="id" />
             </div>
             <div class="mb-3">
-                <input type="password" class="form-control" placeholder="비밀번호를 입력하세요." name="password" />
+                <input type="password" id="password" class="form-control" placeholder="비밀번호를 입력하세요." name="password" />
             </div>
 
             <div class="d-flex">
@@ -23,7 +23,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="login btn btn-primary mt-3" style="width: 100%">로그인</button>
+            <button type="button" class="login btn btn-primary mt-3" style="width: 100%" onclick="login()">로그인</button>
             <hr />
             <button type="button" class="register btn btn-success btn-signup" style="display: inline-block">새 계정 만들기</button>
         </form>
@@ -32,4 +32,31 @@
 
 <script>
     $('.btn-signup').on('click', () => (location.href = '/register'));
+
+    // 로그인 함수
+    function login() {
+        const id = $('#id').val();
+        const password = $('#password').val();
+        const type = $('input[name=type]:checked').val();
+        if (!type) {
+            alert('역할을 선택해주세요.');
+            return;
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/api/users/login',
+            data: {
+                id: id,
+                password: password,
+                type: type,
+            },
+            success: function (response) {
+                window.location.href='/'
+            },
+            error: function (response) {
+                alert(response.responseJSON.message);
+                window.location.href='/'
+            },
+        });
+    }
 </script>
