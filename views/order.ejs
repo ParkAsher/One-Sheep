@@ -4,31 +4,13 @@
             <!-- 사장님 정보 -->
             <div class="driver-info">
                 <h1 id="driver-name">사장 이름</h1>
-                <image id="driver-image" src="http://t1.daumcdn.net/news/201206/21/ned/20120621145427381.jpg"></image>
+                <image id="driver-image"></image>
             </div>
 
             <!-- 사장님 캠핑카 리뷰 -->
             <div class="driver-reviews">
                 <h1>리뷰💭</h1>
-                <div class="mx-3" id="review-cards">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">작성자 이름</h5>
-                            <p class="review-stars">😴😴😴😴😴</p>
-                            <p class="review-date">2023-01-11</p>
-                            <p class="card-text">꿀잠 잤어요!</p>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">ㅇㅇ</h5>
-                            <p class="review-stars">😴</p>
-                            <p class="review-date">2023-01-10</p>
-                            <p class="card-text">요즘 숙박업에는 넷플릭스 제공이 기본 아닌가요?</p>
-                        </div>
-                    </div>
-                </div>
+                <div class="mx-3" id="review-cards"></div>
                 <div id="data-container"></div>
                 <div id="review-pagination"></div>
             </div>
@@ -40,15 +22,18 @@
             <div class="row">
                 <div class="col mb-3">
                     <label>예약 일시 (필수)</label>
-                    <div class="input-group" id="datetimepicker1" data-td-target-input="nearest" data-td-target-toggle="nearest">
-                        <input id="datetimepicker1Input" type="text" class="form-control" data-td-target="#datetimepicker1" required />
-                        <span class="input-group-text" data-td-target="#datetimepicker1" data-td-toggle="datetimepicker">
+                    <div class="input-group" id="datetimepicker1" data-td-target-input="nearest"
+                        data-td-target-toggle="nearest">
+                        <input id="datetimepicker1Input" type="text" class="form-control"
+                            data-td-target="#datetimepicker1" required />
+                        <span class="input-group-text" data-td-target="#datetimepicker1"
+                            data-td-toggle="datetimepicker">
                             <span class="fa-solid fa-calendar"></span>
                         </span>
                     </div>
                     <script>
                         let minDate = new Date(Date.now())
-                        minDate.setHours(minDate.getHours()+1)
+                        minDate.setHours(minDate.getHours() + 1)
                         console.log(minDate)
 
                         new tempusDominus.TempusDominus(document.getElementById('datetimepicker1'), {
@@ -84,7 +69,8 @@
 
                 <div class="col mb-3">
                     <label for="order-time">이용 기간 (필수)</label>
-                    <input type="number" class="form-control" id="order-time" min="1" max="12" onkeyup="pointsDeducted()" onmouseup="pointsDeducted()" required />
+                    <input type="number" class="form-control" id="order-time" min="1" max="12"
+                        onkeyup="pointsDeducted()" onmouseup="pointsDeducted()" required />
                     <div class="invalid-feedback">이용 기간은 필수 항목입니다.</div>
                 </div>
             </div>
@@ -103,7 +89,8 @@
             </div>
 
             <div id="order-points">
-                <p id="points-current">보유한 포인트:<%= user.point %></p>
+                <p id="points-current">보유한 포인트:<%= user.point %>
+                </p>
                 <p id="points-deducted">차감 포인트:</p>
                 <p id="points-remaining">잔여 포인트:</p>
             </div>
@@ -112,11 +99,32 @@
         </form>
     </div>
 </div>
-<!-- <div class="alert alert-danger alert-dismissible fade show" role="alert">
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div> -->
+
+<!-- Alert modal -->
+<div class="modal" tabindex="-1" role="dialog" id="alert-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="alert-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#alert-modal').modal('hide')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="alert-body"></div>
+            <div class="modal-footer">
+                <button type="button"
+                    class="btn btn-primary btn-confirm"
+                    data-dismiss="modal" 
+                    onclick="$('#alert-modal').modal('hide')">
+                    확인
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
+<!-- JS Script -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.css" />
 
@@ -128,47 +136,59 @@
         location.href = '/login';
     }
 
-    $(document).ready(function () {
-    // ------------- 메인페이지 완료되면 완료하기
-    // 사장 정보 불러오기
-    $.ajax({
-        type: 'GET',
-        url: `/api/users/drivers/5`, //
-        async: false,
-        success: function(response) {
-            let name = response.name
-            let image = response.image
+    const driverId = new URL(location.href).searchParams.get('driverId')
 
-            document.getElementById('driver-name').innerHTML = name
-            document.getElementById('driver-image').src = image
+    // Alert modal
+    function alertModal (title, body, confirmCallback) {
+        $('#alert-title').text(title)
+        $('#alert-body').text(body)
+        $('#alert-modal').modal('show')
+
+        if (confirmCallback) {
+          $('#alert-modal .btn-confirm').click(confirmCallback);
         }
-    })
+    }
 
-    // 사장 리뷰 불러오기
-    $.ajax({
-        type: 'GET',
-        url: `/api/reviews/5`,
-        success: function(response) {
-            let stars
-            let content
-            let createdAt
-            let customerName
-            let temp_html
-            let starsEmoji = ''
+    $(document).ready(function () {
+        // 사장 정보 불러오기
+        $.ajax({
+            type: 'GET',
+            url: `/api/users/drivers/${driverId}`,
+            async: false,
+            success: function (response) {
+                let name = response.name
+                let image = response.image
 
-            for(let i=0; i<response.length; i++) {
-                stars = response[i]['Review.stars']
-                content = response[i]['Review.content']
-                createdAt = response[i]['Review.createdAt']
-                createdAt = new Date(createdAt)
-                createdAt = createdAt.toLocaleString('ko-KR', {timezone: 'UTC'})
-                customerName = response[i]['Customer.name']
+                document.getElementById('driver-name').innerHTML = name
+                document.getElementById('driver-image').src = image
+            }
+        })
 
-                for (let i=0; i<Number(stars); i++) {
-                    starsEmoji += '😴'
-                }
-                
-                temp_html = `<div class="card">
+        // 사장 리뷰 불러오기
+        $.ajax({
+            type: 'GET',
+            url: `/api/reviews/${driverId}`,
+            success: function (response) {
+                let stars
+                let content
+                let createdAt
+                let customerName
+                let temp_html
+                let starsEmoji = ''
+
+                for (let i = 0; i < response.length; i++) {
+                    stars = response[i]['Review.stars']
+                    content = response[i]['Review.content']
+                    createdAt = response[i]['Review.createdAt']
+                    createdAt = new Date(createdAt)
+                    createdAt = createdAt.toLocaleString('ko-KR', { timezone: 'UTC' })
+                    customerName = response[i]['Customer.name']
+
+                    for (let i = 0; i < Number(stars); i++) {
+                        starsEmoji += '😴'
+                    }
+
+                    temp_html = `<div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">${customerName}</h5>
                                     <p class="review-stars">${starsEmoji}</p>
@@ -177,13 +197,17 @@
                                 </div>
                             </div>`
 
-                $('#review-cards').append(temp_html)
+                    $('#review-cards').append(temp_html)
 
-                starsEmoji = ''
+                    starsEmoji = ''
+                }
+            },
+            error: function (xhr, status, error) {
+                alertModal(`에러 ${xhr.status}`, xhr.responseJSON.message, () => {
+                    window.location.reload()
+                })
             }
-
-        }
-    })
+        })
     });
 
     // 이용 기간을 클릭 또는 입력시 차감 포인트 업데이트하기
@@ -219,28 +243,23 @@
 
         let customerId = '<%= user.userId %>'
         customerId = Number(customerId)
-        let driverId;
 
         $.ajax({
             type: 'POST',
-            url: `/api/orders/5`,
+            url: `/api/orders/${driverId}`,
             data: {
                 phone: phone,
                 address: address,
                 usageDateTimeStart: usageDateTimeStart,
                 usageTime: usageTime
             },
-            success: function(response) {
-                console.log('Success in Ajax:',response)
+            success: function (response) {
+                console.log('Success in Ajax:', response)
                 alert('성공적으로 신청 완료됐습니다!')
-                // location.href = '/'
+                location.href = '/customer'
             },
             error: function (xhr, status, error) {
-                alert(`에러 ${xhr.status}: ${xhr.responseJSON.message}`)
-                
-                console.log('Error in Ajax:', xhr, status, error)
-                console.log('xhr:', xhr.responseJSON.message)
-                
+                alertModal(`에러 ${xhr.status}`, xhr.responseJSON.message)
             }
         })
     }

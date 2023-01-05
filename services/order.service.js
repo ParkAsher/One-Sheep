@@ -31,12 +31,21 @@ class OrderService {
         }
     };
 
-    orderRep = new OrderRepository();
     // 오더 신청
     createOrder = async (customerId, driverId, phone, address, request, usageDateTimeStart, usageTime) => {
         try {
+            const ifOrderInProgress = await this.orderRepository.ifOrderInProgress(driverId)
+
+            if (ifOrderInProgress.length > 0) {
+                const error = new Error()
+                error.name = 'Order in progress'
+                error.message = '현재 진행 중인 오더가 있습니다. 서비스 접수 가능할 때 주문해주시길 바랍니다.'
+                error.status = 400
+                throw error
+            }
+
             const status = '접수 대기'
-            const createOrderData = await this.orderRep.createOrder(customerId, driverId, phone, address, request, status, usageDateTimeStart, usageTime);
+            const createOrderData = await this.orderRepository.createOrder(customerId, driverId, phone, address, request, status, usageDateTimeStart, usageTime);
 
             return {
                 customerId: createOrderData.customerId,

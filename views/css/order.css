@@ -15,12 +15,13 @@
 }
 
 .driver-info-and-reviews .driver-info {
-    height: 400px;
+    min-height: 400px;
     background-color: aquamarine;
 }
 
 .driver-info-and-reviews .driver-reviews {
     min-height: 400px;
+    padding-top: 10px;
     background-color: aqua;
 }
 
