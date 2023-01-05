@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <!-- Google Font-->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -13,69 +13,42 @@
         <!-- font awesome-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <!-- bootstrap -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous"
-    />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-      crossorigin="anonymous"
-    ></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"
-    />
+        <!-- bootstrap -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" />
 
-    <!-- 오더 페이지에 date time picker를 쓰기 위한 CDN -->
-    <!-- Popperjs -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-      crossorigin="anonymous"
-    ></script>
-    <!-- Tempus Dominus JavaScript -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.2.10/dist/js/tempus-dominus.min.js"
-      crossorigin="anonymous"
-    ></script>
-    <!-- Tempus Dominus Styles -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.2.10/dist/css/tempus-dominus.min.css"
-      crossorigin="anonymous"
-    />
-    <!-- Font Awesome -->
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-      rel="stylesheet"
-    />
+        <!-- 오더 페이지에 date time picker를 쓰기 위한 CDN -->
+        <!-- Popperjs -->
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+        <!-- Tempus Dominus JavaScript -->
+        <script src="https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.2.10/dist/js/tempus-dominus.min.js" crossorigin="anonymous"></script>
+        <!-- Tempus Dominus Styles -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.2.10/dist/css/tempus-dominus.min.css" crossorigin="anonymous" />
+        <!-- Font Awesome -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" rel="stylesheet" />
+        <!-- Link Swiper's CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
 
-    <!-- css -->
-    <link rel="stylesheet" href="./css/reset.css" />
-    <link rel="stylesheet" href="./css/common.css" />
-    <link rel="stylesheet" href="./css/header.css" />
-    <link rel="stylesheet" href="./css/register.css" />
-    <link rel="stylesheet" href="./css/driver.css" />
-    <link rel="stylesheet" href="./css/login.css" />
-    <link rel="stylesheet" href="./css/order.css" />
-    <title>양한마리</title>
-  </head>
+        <!-- css -->
+        <link rel="stylesheet" href="./css/reset.css" />
+        <link rel="stylesheet" href="./css/common.css" />
+        <link rel="stylesheet" href="./css/header.css" />
+        <link rel="stylesheet" href="./css/register.css" />
+        <link rel="stylesheet" href="./css/customer.css" />
+        <link rel="stylesheet" href="./css/driver.css" />
+        <link rel="stylesheet" href="./css/login.css" />
+        <link rel="stylesheet" href="./css/order.css" />
+        <title>양한마리</title>
+    </head>
 
-  <body>
-    <!-- header -->
-    <%- include('header.ejs') %>
+    <body>
+        <!-- header -->
+        <%- include('header.ejs') %>
 
         <!-- body -->
-        <% if (components === "register") { %> <%- include('register.ejs') %> <% } %> 
-        <% if (components === "driver") { %> <%- include('driver.ejs') %> <% } %> 
-        <% if (components === "login") { %> <%- include('login.ejs') %> <% } %> 
-        <% if (components === 'customer') { %> <%- include('customer.ejs')%> <% } %> 
-        <% if (components === "mypage") { %> <%- include('mypage.ejs') %> <% } %>
-        <% if (components==="order" ) { %> <%- include('order.ejs') %> <% } %>
-        <% if (components === "review") { %> <%- include('review.ejs') %> <% } %>
+        <% if (components === "register") { %> <%- include('register.ejs') %> <% } %> <% if (components === "driver") { %> <%- include('driver.ejs') %> <% } %> <% if (components === "login") { %> <%- include('login.ejs') %> <% } %> <% if (components === 'customer') { %> <%- include('customer.ejs')%>
+        <% } %> <% if (components === "mypage") { %> <%- include('mypage.ejs') %> <% } %> <% if (components==="order" ) { %> <%- include('order.ejs') %> <% } %> <% if (components === "review") { %> <%- include('review.ejs') %> <% } %>
     </body>
 </html>
