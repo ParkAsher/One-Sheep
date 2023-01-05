@@ -11,26 +11,27 @@
     height: 800px;
     align-items: center;
     float:left; */
-    background-color: green;
+    /* background-color: green; */
 }
 
 .driver-info-and-reviews .driver-info {
     min-height: 400px;
-    background-color: aquamarine;
+    /* background-color: aquamarine; */
 }
 
 .driver-info-and-reviews .driver-reviews {
     min-height: 400px;
     padding-top: 10px;
-    background-color: aqua;
+    /* background-color: aqua; */
+}
+
+h1 {
+    text-align: center;
+    font-size: 40px;
+    padding-bottom: 10px;
 }
 
 /* 사장님 정보 부분 */
-.driver-info h1 {
-    text-align: center;
-    padding-bottom: 5px;
-}
-
 .driver-info img {
     display: block;
     margin-left: auto;
@@ -39,12 +40,6 @@
 }
 
 /* 리뷰 부분 */
-.driver-reviews h1 {
-    text-align: center;
-    font-size: 40px;
-    padding-bottom: 5px;
-}
-
 .card {
     margin-bottom: 3px;
 }
@@ -78,7 +73,7 @@
     /* width: 660px;
     height: 800px;
     float: left; */
-    background-color:bisque;
+    /* background-color:bisque; */
 }
 
 .order-register h1 {

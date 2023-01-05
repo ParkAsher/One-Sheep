@@ -138,17 +138,6 @@
 
     const driverId = new URL(location.href).searchParams.get('driverId')
 
-    // Alert modal
-    function alertModal (title, body, confirmCallback) {
-        $('#alert-title').text(title)
-        $('#alert-body').text(body)
-        $('#alert-modal').modal('show')
-
-        if (confirmCallback) {
-          $('#alert-modal .btn-confirm').click(confirmCallback);
-        }
-    }
-
     $(document).ready(function () {
         // 사장 정보 불러오기
         $.ajax({
@@ -165,41 +154,54 @@
         })
 
         // 사장 리뷰 불러오기
+
         $.ajax({
             type: 'GET',
             url: `/api/reviews/${driverId}`,
             success: function (response) {
-                let stars
-                let content
-                let createdAt
-                let customerName
-                let temp_html
-                let starsEmoji = ''
+                // 사장의 리뷰 페이지네이션
+                if (response.length !== 0) {
+                    let container = $('#review-pagination')
+                    let stars
+                    let content
+                    let createdAt
+                    let customerName
+                    let temp_html
+                    let starsEmoji = ''
 
-                for (let i = 0; i < response.length; i++) {
-                    stars = response[i]['Review.stars']
-                    content = response[i]['Review.content']
-                    createdAt = response[i]['Review.createdAt']
-                    createdAt = new Date(createdAt)
-                    createdAt = createdAt.toLocaleString('ko-KR', { timezone: 'UTC' })
-                    customerName = response[i]['Customer.name']
+                    container.pagination({
+                        dataSource: response,
+                        pageSize: 4,
+                        callback: function(data, pagination) {
+                            let dataHtml = ``
+                            $.each(data, function(index, item) {
+                                stars = item['Review.stars']
+                                content = item['Review.content']
+                                createdAt = item['Review.createdAt']
+                                createdAt = new Date(createdAt)
+                                createdAt = createdAt.toLocaleString('ko-KR', { timezone: 'UTC' })
+                                customerName = item['Customer.name']
 
-                    for (let i = 0; i < Number(stars); i++) {
-                        starsEmoji += '😴'
-                    }
+                                for (let i = 0; i < Number(stars); i++) {
+                                    starsEmoji += '😴'
+                                }
 
-                    temp_html = `<div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">${customerName}</h5>
-                                    <p class="review-stars">${starsEmoji}</p>
-                                    <p class="review-date">${createdAt}</p>
-                                    <p class="card-text">${content}</p>
-                                </div>
-                            </div>`
+                                console.log(stars,content, createdAt, customerName, starsEmoji)
 
-                    $('#review-cards').append(temp_html)
+                                dataHtml += `<div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">${customerName}</h5>
+                                                    <p class="review-stars">${starsEmoji}</p>
+                                                    <p class="review-date">${createdAt}</p>
+                                                    <p class="card-text">${content}</p>
+                                                </div>
+                                            </div>`
+                                $('#review-cards').html(dataHtml)
 
-                    starsEmoji = ''
+                                starsEmoji = ''
+                            })
+                        }
+                    })
                 }
             },
             error: function (xhr, status, error) {
@@ -209,6 +211,7 @@
             }
         })
     });
+    
 
     // 이용 기간을 클릭 또는 입력시 차감 포인트 업데이트하기
     function pointsDeducted() {
@@ -262,5 +265,16 @@
                 alertModal(`에러 ${xhr.status}`, xhr.responseJSON.message)
             }
         })
+    }
+
+    // Alert modal
+    function alertModal (title, body, confirmCallback) {
+        $('#alert-title').text(title)
+        $('#alert-body').text(body)
+        $('#alert-modal').modal('show')
+
+        if (confirmCallback) {
+          $('#alert-modal .btn-confirm').click(confirmCallback);
+        }
     }
 </script>
