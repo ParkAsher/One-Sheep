@@ -38,47 +38,74 @@
             <div class="row">
                 <div class="col mb-3">
                     <label>예약 일시 (필수)</label>
-                    <div class="input-group" id="datetimepicker1" data-td-target-input="nearest" data-td-target-toggle="nearest">
-                        <input id="datetimepicker1Input" type="text" class="form-control" data-td-target="#datetimepicker1" required />
-                        <span class="input-group-text" data-td-target="#datetimepicker1" data-td-toggle="datetimepicker">
+                    <div
+                        class="input-group"
+                        id="datetimepicker1"
+                        data-td-target-input="nearest"
+                        data-td-target-toggle="nearest"
+                    >
+                        <input
+                            id="datetimepicker1Input"
+                            type="text"
+                            class="form-control"
+                            data-td-target="#datetimepicker1"
+                            required
+                        />
+                        <span
+                            class="input-group-text"
+                            data-td-target="#datetimepicker1"
+                            data-td-toggle="datetimepicker"
+                        >
                             <span class="fa-solid fa-calendar"></span>
                         </span>
                     </div>
                     <script>
-                        new tempusDominus.TempusDominus(document.getElementById('datetimepicker1'), {
-                            display: {
-                                components: {
-                                    seconds: false,
-                                    minutes: false,
+                        new tempusDominus.TempusDominus(
+                            document.getElementById("datetimepicker1"),
+                            {
+                                display: {
+                                    components: {
+                                        seconds: false,
+                                        minutes: false,
+                                    },
+                                    icons: {
+                                        type: "icons",
+                                        time: "fa fa-solid fa-clock",
+                                        date: "fa fa-solid fa-calendar",
+                                        up: "fa fa-solid fa-arrow-up",
+                                        down: "fa fa-solid fa-arrow-down",
+                                        previous: "fa fa-solid fa-chevron-left",
+                                        next: "fa fa-solid fa-chevron-right",
+                                        today: "fa fa-solid fa-calendar-check",
+                                        clear: "fa fa-solid fa-trash",
+                                        close: "fas fa-solid fa-xmark",
+                                    },
                                 },
-                                icons: {
-                                    type: 'icons',
-                                    time: 'fa fa-solid fa-clock',
-                                    date: 'fa fa-solid fa-calendar',
-                                    up: 'fa fa-solid fa-arrow-up',
-                                    down: 'fa fa-solid fa-arrow-down',
-                                    previous: 'fa fa-solid fa-chevron-left',
-                                    next: 'fa fa-solid fa-chevron-right',
-                                    today: 'fa fa-solid fa-calendar-check',
-                                    clear: 'fa fa-solid fa-trash',
-                                    close: 'fas fa-solid fa-xmark',
+                                localization: {
+                                    hourCycle: "h12",
+                                    locale: "ko-KR",
                                 },
-                            },
-                            localization: {
-                                hourCycle: 'h12',
-                                locale: 'ko-KR',
-                            },
-                            restrictions: {
-                                // 현재 날짜 이후만 선택 가능
-                                minDate: new Date(Date.now()),
-                            },
-                        });
+                                restrictions: {
+                                    // 현재 날짜 이후만 선택 가능
+                                    minDate: new Date(Date.now()),
+                                },
+                            }
+                        );
                     </script>
                 </div>
 
                 <div class="col mb-3">
                     <label for="order-time">이용 기간 (필수)</label>
-                    <input type="number" class="form-control" id="order-time" min="1" max="12" onkeyup="pointsDeducted()" onmouseup="pointsDeducted()" required />
+                    <input
+                        type="number"
+                        class="form-control"
+                        id="order-time"
+                        min="1"
+                        max="12"
+                        onkeyup="pointsDeducted()"
+                        onmouseup="pointsDeducted()"
+                        required
+                    />
                     <div class="invalid-feedback">이용 기간은 필수 항목입니다.</div>
                 </div>
             </div>
@@ -101,41 +128,43 @@
 
 <script>
     // // ejs 문법으로 넘어온 isLogined
-    const isLogined = '<%= Object.keys(user).length > 0 %>';
-    if (isLogined === 'false') {
-        alert('로그인 후 이용가능합니다.');
-        location.href = '/login';
+    const isLogined = "<%= Object.keys(user).length > 0 %>";
+    if (isLogined === "false") {
+        alert("로그인 후 이용가능합니다.");
+        location.href = "/login";
     }
 
     // 이용 기간을 클릭 또는 입력시 차감 포인트 업데이트하기
     function pointsDeducted() {
-        let orderTime = document.getElementById('order-time').value;
+        let orderTime = document.getElementById("order-time").value;
         orderTime = Number(orderTime);
 
-        let userPoints = '<%= user.point %>';
+        let userPoints = "<%= user.point %>";
         userPoints = Number(userPoints);
         console.log(userPoints);
 
         let remainingPoints = userPoints - orderTime * 10000;
 
-        document.getElementById('points-deducted').innerHTML = '차감 포인트: ' + orderTime * 10000 + 'p';
-        document.getElementById('points-remaining').innerHTML = '잔여 포인트: ' + remainingPoints + 'p';
+        document.getElementById("points-deducted").innerHTML =
+            "차감 포인트: " + orderTime * 10000 + "p";
+        document.getElementById("points-remaining").innerHTML =
+            "잔여 포인트: " + remainingPoints + "p";
     }
 
     function postOrder() {
-        let rawDate = $('#datetimepicker1Input').val();
-        const year = Number(rawDate.split(' ')[0]);
-        const month = Number(rawDate.split(' ')[1]);
-        const date = Number(rawDate.split(' ')[2]);
-        let hour = Number(rawDate.split(' ')[4].split('시')[0]);
+        let rawDate = $("#datetimepicker1Input").val();
+        const year = Number(rawDate.split(" ")[0]);
+        const month = Number(rawDate.split(" ")[1]);
+        const date = Number(rawDate.split(" ")[2]);
+        let hour = Number(rawDate.split(" ")[4].split("시")[0]);
 
-        if (rawDate.split(' ')[3] === '오후') {
+        if (rawDate.split(" ")[3] === "오후") {
             hour = hour + 12;
         }
 
         const usageDateTimeStart = new Date(year, month - 1, date, hour);
-        const usageTime = Number($('#order-time').val());
-        const request = $('#order-request').val();
+        const usageTime = Number($("#order-time").val());
+        const request = $("#order-request").val();
 
         let userId;
         let driverId;
