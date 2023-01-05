@@ -1,76 +1,54 @@
-/* html, body {
-  height: 100%;
-} */
+.mypage-background {
+    width: 100%;
+    min-height: 100vh;
 
-.main-background {
-  width: 100%;
-  height: 1200px;
-
-  background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url('./하늘.jpg');
-  filter: contrast(130%);
-  background-position: center;
-  background-size: cover;
-
-  position: relative;
-  
+    background-image: url('../image/onesheep.png');
+    background-position: center;
+    background-size: cover;
 }
 
-.config-background {
-  width: 70%;
-  height: 200px;
-  /* background-color: black; */
-
-  position: absolute;
-
-  top: 20%;
-  left: 50%;
-  transform: translate(-50%,-50%);
+.mypage-wrap {
+    width: 1320px;
+    min-height: 100%;
+    margin: 0 auto;
+    padding: 12rem 0 2rem 0;
 }
 
-.config-background .btn-end {
-  display: flex;
-  justify-content: flex-end;
-  /* flex-direction: column; */
-  align-items: center;
-  
+.mypage-customer-point-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
 }
 
-.sub-background {
-  width: 100%;
-  height: 800px;
-  background-color: white;
-
-  position: absolute;
-
-  top: 65%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-
-  border-radius: 30px;
-  border: 6px solid skyblue;
-
-  /* display: flex;
-  flex-direction: column;
-  align-items: center;  */
-  /* justify-content: center; */
+.mypage-customer-point-wrap p {
+    font-size: 3rem;
 }
 
-.list-group .list-group-item {
-  border: 2px solid #6495ED;
-  border-radius: 20px;
-  line-height: 120%;
+#data-container {
+    width: 100%;
+    padding: 2rem 0;
 }
 
-.btn:hover {
-  background-color: brown;
-  color: black;
-  border: none;
+.history-content-wrap {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    padding: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    overflow: hidden;
+    word-wrap: break-word;
+    margin-bottom: 2rem;
+    -webkit-backdrop-filter: brightness(1.1) blur(40px);
+    backdrop-filter: brightness(1.1) blur(40px);
+    mix-blend-mode: overlay;
+    color: #000000;
 }
 
-.pagination {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.order-id-wrap {
+    display: flex;
 }
-
-
