@@ -1,0 +1,158 @@
+.register-background-wrap {
+    width: 100%;
+    min-height: 100vh;
+    background-image: url('http://www.ridemag.co.kr/news/photo/202008/15144_93134_3521.jpg');
+    background-position: center;
+    background-size: cover;
+}
+.register-wrap {
+    width: 1320px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 12rem 0 2rem 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-wrap .register-form {
+    width: 800px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 1px solid #d3d3d3;
+    padding: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+    background-color: #ffffff;
+}
+
+.register-wrap .register-form .register-title-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-bottom: 2rem;
+}
+
+.register-wrap .register-form .register-title-wrap p {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.register-wrap .register-form .register-id-wrap,
+.register-wrap .register-form .register-name-wrap,
+.register-wrap .register-form .register-password-wrap,
+.register-wrap .register-form .register-password-check-wrap,
+.register-wrap .register-form .register-role-wrap,
+.register-wrap .register-form .register-image-wrap {
+    width: 100%;
+    margin-bottom: 1.25rem;
+}
+
+.register-wrap .register-form .register-id-wrap p,
+.register-wrap .register-form .register-name-wrap p,
+.register-wrap .register-form .register-password-wrap p,
+.register-wrap .register-form .register-password-check-wrap p,
+.register-wrap .register-form .register-role-wrap p,
+.register-wrap .register-form .register-image-wrap p {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.register-wrap .register-form .register-id-wrap span,
+.register-wrap .register-form .register-name-wrap span,
+.register-wrap .register-form .register-password-wrap span {
+    font-size: 0.825rem;
+    color: red;
+}
+
+.register-wrap .register-form .register-id-wrap input,
+.register-wrap .register-form .register-name-wrap input,
+.register-wrap .register-form .register-password-wrap input,
+.register-wrap .register-form .register-password-check-wrap input,
+.register-wrap .register-form .register-image-wrap input {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 5px;
+    border: 1px solid #d3d3d3;
+    box-sizing: border-box;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
+.register-wrap .register-form .register-id-wrap input:focus,
+.register-wrap .register-form .register-name-wrap input:focus,
+.register-wrap .register-form .register-password-wrap input:focus,
+.register-wrap .register-form .register-password-check-wrap input:focus {
+    outline: 2px solid skyblue;
+}
+
+.register-wrap .register-form .register-role-wrap .register-role-input-wrap {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.register-wrap .register-form .register-role-wrap .register-role-input-wrap span {
+    vertical-align: middle;
+}
+
+input[type='radio'] {
+    vertical-align: middle;
+    appearance: none;
+    border: 1px solid #d3d3d3;
+    border-radius: 50%;
+    width: 1.25em;
+    height: 1.25em;
+}
+
+input[type='radio']:checked {
+    border: 0.4rem solid skyblue;
+}
+
+.register-wrap .register-form .register-btn-wrap {
+    width: 100%;
+}
+
+.register-wrap .register-form .register-btn-wrap button {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 5px;
+    background-color: skyblue;
+    border: none;
+    box-sizing: border-box;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.register-wrap .register-form .register-to-login-wrap {
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-wrap .register-form .register-to-login-wrap a {
+    font-weight: bold;
+    color: #000000;
+}
+
+.register-wrap .register-form .register-to-login-wrap a:hover {
+    color: #000000;
+}
+
+.register-wrap .register-form .error-message-wrap {
+    width: 100%;
+    margin-bottom: 1.25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-wrap .register-form .error-message-wrap p {
+    color: red;
+}

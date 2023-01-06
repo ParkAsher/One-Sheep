@@ -1,0 +1,35 @@
+body {
+    font-family: 'BMJUA';
+    min-height: 100vh;
+}
+
+body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
+
+a {
+    text-decoration: none !important;
+}
+
+.alert {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin-bottom: 0;
+    z-index: 11;
+    display: block !important;
+}
+
+@font-face {
+    font-family: 'FlowerSalt';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/FlowerSalt.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BMJUA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}

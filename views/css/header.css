@@ -1,0 +1,58 @@
+.header {
+    width: 100%;
+    height: 100px;
+    background: transparent;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    backdrop-filter: blur(3px);
+}
+
+.header .header-wrap {
+    width: 1320px;
+    height: 100%;
+    background: transparent;
+    margin: 0 auto;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header .header-wrap .logo {
+    height: 100%;
+    font-size: 3.5rem;
+    font-family: 'FlowerSalt';
+    font-weight: bold;
+    color: #ffffff !important;
+
+    display: flex;
+    align-items: center;
+}
+
+.header .header-wrap .header-btn-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.header .header-wrap button {
+    border: 1px solid #ffffff;
+    padding: 0.75rem 1.25rem;
+    box-sizing: border-box;
+    border-radius: 10px;
+    color: #ffffff;
+    background: transparent;
+}
+
+.header .header-wrap button:hover {
+    background: #ffffff;
+    color: skyblue;
+}
+
+.header .header-wrap .logo a {
+    color: #ffffff;
+    text-shadow: 2px 2px 2px #000;
+}
