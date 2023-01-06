@@ -1,7 +1,7 @@
 .background-wrap {
     width: 100%;
     min-height: 100vh;
-    background-image: url('../image/4.jpg');
+    background-image: url("../image/onesheep.png");
     background-position: center;
     background-size: cover;
 }
@@ -26,6 +26,7 @@
     font-size: 2.5rem;
     font-weight: bold;
     color: #ffffff;
+    text-shadow: -2px 0px #000000, 0px 2px #000000, 2px 0px #000000, 0px -2px #000000;
 }
 
 .driver-wrap .order-in-progress-btn-wrap {
@@ -37,15 +38,24 @@
 }
 
 .driver-wrap .order-in-progress-btn-wrap button {
-    border: 1px solid #ffffff;
+    /* border: 1px solid #ffffff; */
+    border: none;
     padding: 0.75rem 1.25rem;
     box-sizing: border-box;
     border-radius: 10px;
-    color: #ffffff;
+    color: #000000;
     background: transparent;
+    margin-right: 0.5rem;
 }
 
-/* .driver-wrap .order-in-progress-btn-wrap button.btn-order-pending {
+.driver-wrap .order-in-progress-btn-wrap button:hover {
+    transform: scale(1.1);
+    outline: 1px solid #ffffff;
+    background: transparent !important;
+    color: #ffffff;
+}
+
+.driver-wrap .order-in-progress-btn-wrap button.btn-order-pending {
     background-color: #c0c0c0;
 }
 .driver-wrap .order-in-progress-btn-wrap button.btn-order-complete {
@@ -58,16 +68,16 @@
     background-color: #fdfd96;
 }
 .driver-wrap .order-in-progress-btn-wrap button.btn-use-complete {
-    background-color: #ffddff;
+    background-color: #ff8c8c;
 }
 .driver-wrap .order-in-progress-btn-wrap button.btn-cancel {
-    background-color: red;
-    color: #ffffff;
+    background-color: #f46b6b;
+    /* color: #ffffff; */
 }
 .driver-wrap .order-in-progress-btn-wrap button.btn-order {
     background-color: lightblue;
-    color: #ffffff;
-} */
+    /* color: #ffffff; */
+}
 
 .driver-wrap #order-in-progress-content-container,
 .driver-wrap #data-container {
@@ -80,14 +90,18 @@
     padding: 1rem;
     width: 100%;
     box-sizing: border-box;
-    background-color: transparent;
+    background-color: #ffffff;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     overflow: hidden;
     word-wrap: break-word;
     margin-bottom: 2rem;
-    backdrop-filter: blur(15px);
-    color: #ffffff;
+    /* backdrop-filter: blur(15px); */
+    color: #000000;
+
+    -webkit-backdrop-filter: brightness(1.1) blur(40px);
+    backdrop-filter: brightness(1.1) blur(40px);
+    mix-blend-mode: overlay;
 
     display: flex;
 }
@@ -124,7 +138,7 @@
 .message {
     text-align: center;
     margin-bottom: 2rem;
-    color: red;
+    color: yellow;
 }
 
 .paginationjs {

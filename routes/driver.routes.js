@@ -16,9 +16,9 @@ router.post('/drivers/image', setUpload('one-sheep/driverImage'), driverControll
 router.post('/drivers/signup', driverController.signUp);
 
 // 기사 (사장) 전체조회하기 / 메인페이지
-router.get("/drivers", driverController.getDriver);
+router.get('/drivers', driverController.getDriver);
 
 // 특정 사장 정보를 driverId로 조회하기
-router.get("/drivers/:driverId", driverController.getDriverById)
+router.get('/drivers/:driverId', driverController.getDriverById);
 
 module.exports = router;

@@ -1,9 +1,29 @@
+.order-wrapping-background {
+    width: 100%;
+    min-height: 100vh;
+    background-image: url("../image/onesheep.png");
+    background-position: center;
+    background-size: cover;
+}
+
 .order-wrap {
-    flex-basis: 1320px;
-    height: 100%;
-    margin: 5rem auto;
-    padding-bottom: 20px;
-    padding-top: 20px;
+    width: 1320px;
+    min-height: 100%;
+    margin: 0 auto;
+    padding: 12rem 0 2rem 0;
+}
+
+.order-content-wrap {
+    padding: 1rem;
+}
+
+.row {
+    background-color: transparent;
+    border-radius: 20px;
+    /* backdrop-filter: blur(15px); */
+    -webkit-backdrop-filter: brightness(1.1) blur(40px);
+    backdrop-filter: brightness(1.1) blur(40px);
+    /* mix-blend-mode: overlay; */
 }
 
 .order-wrap .driver-info-and-reviews {
@@ -11,47 +31,45 @@
     height: 800px;
     align-items: center;
     float:left; */
-    background-color: green;
+    /* background-color: green; */
 }
 
 .driver-info-and-reviews .driver-info {
-    height: 400px;
-    background-color: aquamarine;
+    padding-top: 30px;
+    min-height: 400px;
+    /* background-color: aquamarine; */
 }
 
 .driver-info-and-reviews .driver-reviews {
     min-height: 400px;
-    background-color: aqua;
+    padding-top: 10px;
+    padding-bottom: 30px;
+    /* background-color: aqua; */
+}
+
+h1 {
+    text-align: center;
+    font-size: 40px;
+    padding-bottom: 10px;
 }
 
 /* 사장님 정보 부분 */
-.driver-info h1 {
-    text-align: center;
-    padding-bottom: 5px;
-}
-
 .driver-info img {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    max-height: 400px
+    max-height: 400px;
 }
 
 /* 리뷰 부분 */
-.driver-reviews h1 {
-    text-align: center;
-    font-size: 40px;
-    padding-bottom: 5px;
-}
-
 .card {
-    margin-bottom: 3px;
+    margin-bottom: 10px;
 }
 
 .card h5 {
-    color:rgb(91, 130, 202);
+    color: rgb(91, 130, 202);
     font-size: 20px;
-    margin-bottom: 3px;
+    margin-bottom: 15px;
 }
 
 .card .review-date {
@@ -71,24 +89,24 @@
     font-size: 18px;
 }
 
-
 /* 신청 폼 부분 */
-.order-register {
-    /* width: 660px;
+/* .order-register {
+    width: 660px;
     height: 800px;
     float: left; */
-    background-color:bisque;
-}
+/* background-color:bisque; 
+}*/
 
 .order-register h1 {
     text-align: center;
-    padding-bottom: 5px;
+    padding-top: 30px;
+    padding-bottom: 15px;
 }
 
 .order-register button {
-    float:right;
-    position:relative;
-    font-size:25px;
+    float: right;
+    position: relative;
+    font-size: 25px;
 }
 
 #order-points {
@@ -100,12 +118,12 @@
     color: rgb(184, 0, 0);
 }
 
-input[type='number'].hide-spinners {
-    -moz-appearance:textfield;
+input[type="number"].hide-spinners {
+    -moz-appearance: textfield;
 }
 
-input[type='number'].hide-spinners::-webkit-outer-spin-button,
-input[type='number'].hide-spinners::-webkit-inner-spin-button {
+input[type="number"].hide-spinners::-webkit-outer-spin-button,
+input[type="number"].hide-spinners::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
 

@@ -32,13 +32,24 @@
     align-items: center;
 }
 
-.header .header-wrap .logout-btn-wrap button {
+.header .header-wrap .header-btn-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.header .header-wrap button {
     border: 1px solid #ffffff;
     padding: 0.75rem 1.25rem;
     box-sizing: border-box;
     border-radius: 10px;
     color: #ffffff;
     background: transparent;
+}
+
+.header .header-wrap button:hover {
+    background: #ffffff;
+    color: skyblue;
 }
 
 .header .header-wrap .logo a {

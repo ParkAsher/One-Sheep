@@ -55,10 +55,9 @@ class DriverRepository {
                 where: {
                     // [Op.and]: [{ a: 5 }, { b: 6 }],
                     // [Op.notLike]: [{status: "완료"}],
-                    status: { [Op.ne]: '완료' },
+                    status: { [Op.notIn]: ['완료', '취소'] },
                 },
             });
-
             // 위에서 뽑은 사장들의 ID만 따로뽑아서 배열을 만듬.
             const unavailableDriverIds = unavailableDrivers.map((obj) => obj.driverId); // [1, 2, 2, 3]
             // 중복제거

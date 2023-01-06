@@ -1,4 +1,4 @@
-const { Order } = require('../models');
+const { Op } = require('sequelize');
 
 class OrderRepository {
     constructor(OrderModel, CustomerModel) {
@@ -63,6 +63,27 @@ class OrderRepository {
             });
 
             return createOrderData;
+        } catch (error) {
+            // DB에서 발생한 Error
+            error.name = 'Database Error';
+            error.message = '요청을 처리하지 못하였습니다.';
+            error.status = 400;
+            throw error;
+        }
+    };
+
+    // 오더 신청할 때 해당 driverId에 진행 중인 오더가 있는지 확인
+    ifOrderInProgress = async (driverId) => {
+        try {
+            // driverId에 해당되는 오더 중에 완료 안 된 오더가 있으면 오더 신청 불가능하게 막음
+            const findOrder = await this.orderModel.findAll({
+                where: {
+                    driverId,
+                    status: { [Op.notIn]: ['완료', '취소'] },
+                },
+            });
+
+            return findOrder;
         } catch (error) {
             // DB에서 발생한 Error
             error.name = 'Database Error';

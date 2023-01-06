@@ -11,6 +11,15 @@ a {
     text-decoration: none !important;
 }
 
+.alert {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin-bottom: 0;
+    z-index: 11;
+    display: block !important;
+}
+
 @font-face {
     font-family: 'FlowerSalt';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/FlowerSalt.woff2') format('woff2');

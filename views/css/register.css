@@ -1,7 +1,15 @@
+.register-background-wrap {
+    width: 100%;
+    min-height: 100vh;
+    background-image: url('http://www.ridemag.co.kr/news/photo/202008/15144_93134_3521.jpg');
+    background-position: center;
+    background-size: cover;
+}
 .register-wrap {
     width: 1320px;
     height: 100%;
-    margin: 5rem auto;
+    margin: 0 auto;
+    padding: 12rem 0 2rem 0;
 
     display: flex;
     justify-content: center;
@@ -15,6 +23,7 @@
     border: 1px solid #d3d3d3;
     padding: 1rem;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+    background-color: #ffffff;
 }
 
 .register-wrap .register-form .register-title-wrap {
@@ -52,6 +61,13 @@
     margin-bottom: 0.5rem;
 }
 
+.register-wrap .register-form .register-id-wrap span,
+.register-wrap .register-form .register-name-wrap span,
+.register-wrap .register-form .register-password-wrap span {
+    font-size: 0.825rem;
+    color: red;
+}
+
 .register-wrap .register-form .register-id-wrap input,
 .register-wrap .register-form .register-name-wrap input,
 .register-wrap .register-form .register-password-wrap input,
@@ -84,7 +100,7 @@
     vertical-align: middle;
 }
 
-input[type="radio"] {
+input[type='radio'] {
     vertical-align: middle;
     appearance: none;
     border: 1px solid #d3d3d3;
@@ -93,7 +109,7 @@ input[type="radio"] {
     height: 1.25em;
 }
 
-input[type="radio"]:checked {
+input[type='radio']:checked {
     border: 0.4rem solid skyblue;
 }
 

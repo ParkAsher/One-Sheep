@@ -1,10 +1,3 @@
-div {
-    /* display: flex;
-  flex-direction: column;
-  justify-content: center; */
-    /* align-items: center; */
-}
-
 .main-background {
     width: 100%;
     height: 100vh;
@@ -26,6 +19,18 @@ div {
     text-align: left;
 }
 
+.sub-background h1 {
+    font-size: 7rem;
+    color: #bedae5;
+    font-weight: bold;
+    margin-bottom: 2rem;
+}
+
+.sub-background p.intro {
+    font-size: 1.75rem;
+    color: #ffffff;
+}
+
 .login-box {
     position: absolute;
 
@@ -33,10 +38,11 @@ div {
     left: 70%;
     transform: translate(-50%, -50%);
 
-    width: 350px;
-    height: 300px;
+    width: 600px;
+    height: 350px;
     background-color: white;
-    border-radius: 25px;
+    border-radius: 10px;
+    padding: 1.25rem;
 
     text-align: center;
 
@@ -45,13 +51,20 @@ div {
     justify-content: center;
 }
 
-h1 {
-    color: #bedae5;
-    font-size: 50px;
-    font-weight: bold;
+.login-box button.login {
+    background-color: skyblue;
+    padding: 1rem;
+    border: none;
+    box-sizing: border-box;
+}
+.login-box button.register {
+    width: 100%;
+    padding: 1rem;
+    background-color: #96dc74;
+    border: none;
+    box-sizing: border-box;
 }
 
-h2 {
-    color: white;
-    font-weight: bold;
+.login-box .form-check {
+    line-height: 1.75rem;
 }
