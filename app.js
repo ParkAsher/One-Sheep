@@ -1,8 +1,11 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
+const { createServer } = require('http');
 
 const app = express();
-const port = 1004;
+
+// socket
+const http = createServer(app);
 
 const router = require('./routes');
 const ejsRouter = require('./routes/ejs.routes');
@@ -19,8 +22,4 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/views')); // 정적파일 적용 css,js,image
 
-app.listen(port, () => {
-    console.log(port, '포트로 서버가 열렸어요!');
-});
-
-module.exports = app;
+module.exports = http;
