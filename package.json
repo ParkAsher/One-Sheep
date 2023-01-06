@@ -8,7 +8,9 @@
         "test:silent": "jest --silent --forceExit",
         "test:coverage": "jest --coverage --forceExit",
         "test:unit": "jest __tests__/unit --forceExit",
+        "test:unit:customer.service": "jest __tests__/unit/customer.service.unit.spec.js --forceExit",
         "test:integration": "jest __tests__/integration --forceExit",
+        "test:integration:customer": "jest __tests__/integration/customer.integration.spec.js --forceExit",
         "start": "nodemon server.js"
     },
     "keywords": [],

@@ -23,6 +23,7 @@ describe('Layered Architecture Pattern, Customer Integration Test', () => {
 
         const response = await supertest(app)
             .post('/api/customers/signup')
+            .query({})
             .send(signUpParams)
 
         expect(response.status).toEqual(200)

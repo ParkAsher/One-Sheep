@@ -1,4 +1,4 @@
-const OrderServiceDepInj = require('../../services/order.service.js')
+const OrderService = require('../../services/order.service.js')
 
 
 let mockOrderRepository = {
@@ -7,7 +7,8 @@ let mockOrderRepository = {
     findAll: jest.fn()
 }
 
-let orderService = new OrderServiceDepInj(mockOrderRepository)
+let orderService = new OrderService()
+orderService.orderRepository = mockOrderRepository
 
 describe('3계층 아키텍처 Order service 유닛 테스트', () => {
     beforeEach(() => {
@@ -38,9 +39,9 @@ describe('3계층 아키텍처 Order service 유닛 테스트', () => {
             return ifOrderInProgressReturnValue
         })
 
-        mockOrderRepository.findAll = jest.fn(() => {
-            return ifOrderInProgressReturnValue
-        })
+        // mockOrderRepository.findAll = jest.fn(() => {
+        //     return ifOrderInProgressReturnValue
+        // })
 
         const createOrderParams = {
             customerId: 1,
